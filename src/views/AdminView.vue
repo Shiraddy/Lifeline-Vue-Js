@@ -1841,9 +1841,10 @@ export default {
       todoItem: "",
       done: false,
       tutorContract: {
+        parent: "",
+        parentContact: "",
         student: "",
         class: "",
-        type: "",
         challenges: "",
         objectives: "",
         serverTimestamp: serverTimestamp(),
@@ -1852,12 +1853,31 @@ export default {
         remuneration: 0,
         tutorRef: "",
         tutorContact: "",
-        parent: "",
-        parentContact: "",
-        charges: "",
+        weeklySession: "",
+        periodLength: "",
+        charges: 0,
         tuitionDays: [],
         activeMonths: [],
         comments: [],
+      },
+
+      tutorUpdate: {
+        qualification: "",
+        rating: "",
+        category: "",
+        date: serverTimestamp(),
+        comment: "",
+      },
+
+      uploadContract: {
+        weeklySession: 0,
+        mode: "",
+        level: "",
+        class: "",
+        subjects: "",
+        duration: 0,
+        location: "",
+        allowance: 0,
       },
     };
   },
@@ -1872,6 +1892,14 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+
+    tutorContractSubmit() {
+      const tutor = this.selectedTutor();
+    },
+
+    tutorUpdateSubmit() {
+      const tutor = this.selectedTutor();
     },
 
     addTodo() {
