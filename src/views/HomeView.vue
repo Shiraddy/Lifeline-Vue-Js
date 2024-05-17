@@ -145,4 +145,6 @@ export default {
 .reqBtn {
   margin: 0 2rem 0;
 }
+
+
 </style>

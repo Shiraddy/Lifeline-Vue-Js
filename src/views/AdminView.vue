@@ -71,7 +71,7 @@
 
       <!-- MAIN AREA -->
       <div class="col-lg-10">
-        <nav class="navbar navbar-expand-lg d-none d-lg-block shadow-one">
+        <nav class="navbar navbar-expand-lg d-none d-lg-block">
           <div class="">
             <button
               class="navbar-toggler"
@@ -79,8 +79,6 @@
               data-bs-toggle="collapse"
               data-bs-target="#navbarTogglerDemo01"
               aria-controls="navbarTogglerDemo01"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
             >
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -158,7 +156,7 @@
                       <h5>Date: {{ currentMessage().data.date }}</h5>
                       <!-- <small>{{ currentMessage().length() }}</small> -->
 
-                      <a @click="deleteMessage" class="delete">
+                      <a @click="deleteMessage()" class="delete">
                         <i class="bi-trash2"></i>
                       </a>
                     </div>
@@ -230,7 +228,9 @@
               <!-- Buttons -->
               <div class="col-lg-9 me-auto">
                 <div class="btn-toolbar my-3" role="toolbar">
-                  <a class="navbar-brand px-2 fs-4 bg-success"> Parents</a>
+                  <a class="navbar-brand px-2 fs-4 bg-success shadow-two">
+                    Parents</a
+                  >
                   <div class="me-2" role="group">
                     <ul class="nav nav-tabs">
                       <li class="nav-item">
@@ -255,14 +255,19 @@
                           data-bs-toggle="modal"
                           data-bs-target="#regClient"
                         >
-                          <i class="fa fa-user-plus"></i> Add client
+                          <i class="fa fa-user-plus"></i> Add
                         </button>
                       </li>
-                      <li class="nav-item">
-                        <button class="nav-link" href="#">
-                          <i class="bi-arrow-repeat"></i> Refresh
-                        </button>
-                      </li>
+                      <!-- <li class="nav-item">
+                        <label for="">Sort</label>
+                        <select name="" id="" @change="sortContracts">
+                          <option value="250">Duo</option>
+                          <option value="350">Tri</option>
+                          <option value="450">Quad</option>
+                          <option value="550">Pent</option>
+                          <option value="">Other</option>
+                        </select>
+                      </li> -->
                     </ul>
                   </div>
                 </div>
@@ -930,7 +935,9 @@
               <div class="row my-3">
                 <div class="col-lg-9">
                   <ul class="nav nav-tabs">
-                    <a class="navbar-brand bg-success fs-4 px-3"> Tutors</a>
+                    <a class="navbar-brand bg-success fs-4 px-3 shadow-two">
+                      Tutors</a
+                    >
                     <li class="nav-item">
                       <button class="nav-link" @click="tutorTableBtn">
                         <span
@@ -1528,7 +1535,9 @@
               <div class="btn-toolbar my-3" role="toolbar">
                 <div class="me-2" role="group">
                   <ul class="nav nav-tabs">
-                    <a class="navbar-brand px-3 bg-success fs-4"> Uploads</a>
+                    <a class="navbar-brand px-3 bg-success fs-4 shadow-two">
+                      Uploads</a
+                    >
                     <li class="nav-item">
                       <button class="nav-link" @click="offerShow">Offer</button>
                     </li>
@@ -1863,6 +1872,7 @@ export default {
       parentSearch: "",
       selectedParent: null,
       selectedTutor: null,
+      contractMoney: 0,
       parents: [],
       tutors: [],
       notices: [],
@@ -2107,6 +2117,10 @@ export default {
     detailedTutorInfo(key) {
       this.selectedTutor = key;
     },
+
+    // sortContracts() {
+    //   const fees = this.client.data.fee;
+    // },
   },
 
   created() {
@@ -2204,17 +2218,6 @@ export default {
       }
     },
 
-    async deleteMessage() {
-      const messageId = this.currentMessage().id;
-      try {
-        await deleteDoc(doc(db, "Messages", messageId));
-        console.log("Message deleted");
-        this.messageId.pop();
-      } catch (error) {
-        console.error("Error deleting message:", error);
-      }
-    },
-
     async deleteMessageField() {
       const cityRef = doc(db, "cities", "BJ");
       await updateDoc(cityRef, {
@@ -2234,6 +2237,18 @@ export default {
         }
         return total;
       }, 0);
+    },
+  },
+
+  watch: {
+    async deleteMessage() {
+      const messageId = this.currentMessage().id;
+      try {
+        await deleteDoc(doc(db, "Messages", messageId));
+        console.log("Message deleted");
+      } catch (error) {
+        console.error("Error deleting message:", error);
+      }
     },
   },
 };
@@ -2273,12 +2288,12 @@ export default {
 }
 
 .nav-link {
-  color: white;
+  color: black;
 }
 
 .nav-link:hover {
-  color: black;
-  background-color: white;
+  border-bottom: 4px solid green;
+  padding-bottom: 3px;
 }
 
 .nav-link:active {
@@ -2288,5 +2303,17 @@ export default {
 
 .border {
   border: 2px solid dark;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  height: 70px;
+}
+
+tr:hover {
+  background-color: green;
 }
 </style>
