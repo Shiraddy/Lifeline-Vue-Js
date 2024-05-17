@@ -95,6 +95,9 @@
                 <RouterLink class="nav-link menu-link text-white" to="/about"
                   >About</RouterLink
                 >
+                <RouterLink class="nav-link menu-link text-white" to="/lifeline"
+                  >Admin</RouterLink
+                >
               </div>
             </li>
             <li class="nav-item menu px-2 text-center">

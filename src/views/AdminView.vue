@@ -225,18 +225,14 @@
           </section>
 
           <!-- PARENT PANEL -->
-          <section
-            id="adminClient"
-            class="shadow-two py-2 px-lg-3"
-            v-if="parentTable"
-          >
+          <section class="shadow-two py-2" v-if="parentTable">
             <div class="row">
               <!-- Buttons -->
               <div class="col-lg-9 me-auto">
                 <div class="btn-toolbar my-3" role="toolbar">
+                  <a class="navbar-brand px-2 fs-4 bg-success"> Parents</a>
                   <div class="me-2" role="group">
-                    <ul class="nav nav-tabs bg-success">
-                      <a class="navbar-brand me-4 fs-4"> Parents</a>
+                    <ul class="nav nav-tabs">
                       <li class="nav-item">
                         <button class="nav-link" @click="clientsTabBtn">
                           <span class="badge text-bg-danger me-2">{{
@@ -286,13 +282,7 @@
             </div>
 
             <!-- CLIENT REGISTRATION MODAL -->
-            <div
-              class="modal fade"
-              id="regClient"
-              tabindex="-1"
-              aria-labelledby="regClient"
-              aria-hidden="true"
-            >
+            <div class="modal fade" id="regClient" tabindex="-1">
               <div
                 class="modal-content modal-dialog modal-dialog-centered modal-dialog-scrollable"
               >
@@ -372,8 +362,7 @@
                     <td class="d-none"><%= client.id %></td>
                     <td class="text-white">
                       <small class="bg-danger px-2 py-1">
-                        Ghc
-                        {{ parent.data.fees }}.00
+                        Ghc {{ parent.data.fees }}
                       </small>
                     </td>
 
@@ -457,9 +446,7 @@
                   <div class="modal-body">
                     <div class="d-flex justify-content-between">
                       <div>
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">
-                          PARENT
-                        </h1>
+                        <h1 class="modal-title fs-5">PARENT</h1>
                       </div>
                       <ul class="nav nav-tabs bg-success">
                         <li class="nav-item">
@@ -470,6 +457,11 @@
                         <li class="nav-item">
                           <a class="nav-link" @click="parentUpdateTabBtn"
                             >Update</a
+                          >
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" @click="tutorAssignTabBtn"
+                            >Tutor</a
                           >
                         </li>
                       </ul>
@@ -635,42 +627,17 @@
                             }}
                           </p>
                         </div>
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Tutor:</strong>
-                            {{
-                              selectedParent ? selectedParent.data.tutor : ""
-                            }}
-                          </p>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Contact:</strong>
-                            {{
-                              selectedParent
-                                ? selectedParent.data.tutor_contact
-                                : ""
-                            }}
-                          </p>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Remuneration:</strong>
-                            {{
-                              selectedParent
-                                ? selectedParent.data.remuneration
-                                : ""
-                            }}
-                          </p>
-                        </div>
                       </div>
                     </div>
 
-                    <div class="container-fluid" v-if="parentUpdateTab">
+                    <!-- Contract Update -->
+                    <div
+                      class="container-fluid text-start"
+                      v-if="parentUpdateTab"
+                    >
                       <form>
                         <div class="row text-start">
+                          <div class="bg-primary my-3">Update Contract</div>
                           <div class="col-lg-6">
                             <label for="status">Status</label>
                             <select class="apply-input">
@@ -692,31 +659,94 @@
                           </div>
 
                           <div class="col-lg-6">
-                            <label for="Remuneration">Remuneration</label>
-                            <input class="apply-input" type="text" />
-                          </div>
-
-                          <div class="col-lg-6">
-                            <label for="Tutor">Tutor</label>
-                            <input class="apply-input" type="text" />
-                          </div>
-
-                          <div class="col-lg-6">
-                            <label for="Contact">Contact</label>
+                            <label for="levels">Discount</label>
                             <input class="apply-input" type="number" />
                           </div>
-
-                          <div class="col-lg-6">
-                            <label for="levels">Levels</label>
-                            <input class="apply-input" type="text" />
-                          </div>
-
-                          <div class="col-lg-6">
-                            <label for="date">Date</label>
-                            <input class="apply-input" type="date" />
-                          </div>
+                        </div>
+                        <div>{{ parentUpdateFeedback }}</div>
+                        <div class="text-end">
+                          <button class="btn btn-success my-3">Update</button>
                         </div>
                       </form>
+                    </div>
+
+                    <!-- Tutor Assign -->
+                    <div
+                      class="container-fluid text-start"
+                      v-if="tutorAssignTab"
+                    >
+                      <div class="row">
+                        <div class="my-3 text-start row">
+                          <div class="bg-primary my-3">Tutor Information</div>
+                          <div class="col-lg-6">
+                            <p>
+                              <strong>Tutor:</strong>
+                              {{
+                                selectedParent ? selectedParent.data.tutor : ""
+                              }}
+                            </p>
+                          </div>
+                          <div class="col-lg-6">
+                            <p>
+                              <strong>Contact:</strong>
+                              {{
+                                selectedParent
+                                  ? selectedParent.data.tutor_contact
+                                  : ""
+                              }}
+                            </p>
+                          </div>
+                          <div class="col-lg-6">
+                            <p>
+                              <strong>Contact:</strong>
+                              {{
+                                selectedParent
+                                  ? selectedParent.data.tutor_email
+                                  : ""
+                              }}
+                            </p>
+                          </div>
+                          <div class="col-lg-6">
+                            <p>
+                              <strong>Allowance:</strong>
+                              {{
+                                selectedParent
+                                  ? selectedParent.data.remuneration
+                                  : ""
+                              }}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="bg-primary my-3">Update Information</div>
+                        <form>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <label for="Tutor">Tutor</label>
+                              <input class="apply-input" type="text" />
+                            </div>
+
+                            <div class="col-lg-6">
+                              <label for="Remuneration">Remuneration</label>
+                              <input class="apply-input" type="number" />
+                            </div>
+
+                            <div class="col-lg-6">
+                              <label for="Contact">Contact</label>
+                              <input class="apply-input" type="number" />
+                            </div>
+
+                            <div class="col-lg-6">
+                              <label for="momoContact">MoMo Contact</label>
+                              <input class="apply-input" type="number" />
+                            </div>
+
+                            <div class="text-end my-3">
+                              <button class="btn btn-success">Update</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
                     </div>
                   </div>
 
@@ -756,6 +786,7 @@
             </div>
           </section>
 
+          <!-- FINANCE TABLE -->
           <section v-if="financeTable">
             <!-- FINANCE TABLE -->
             <div class="table-responsive my-5">
@@ -893,13 +924,13 @@
           </section>
 
           <!-- TUTORS PANEL -->
-          <section v-if="tutorTable" class="my-3 py-2 px-lg-3 shadow-two">
+          <section v-if="tutorTable" class="my-3 py-2 shadow-two">
             <!-- NavBar -->
             <nav class="container-fluid">
               <div class="row my-3">
                 <div class="col-lg-9">
-                  <ul class="nav nav-tabs bg-success">
-                    <a class="navbar-brand fs-4 me-4"> Tutors</a>
+                  <ul class="nav nav-tabs">
+                    <a class="navbar-brand bg-success fs-4 px-3"> Tutors</a>
                     <li class="nav-item">
                       <button class="nav-link" @click="tutorTableBtn">
                         <span
@@ -1496,8 +1527,8 @@
             <div class="me-auto">
               <div class="btn-toolbar my-3" role="toolbar">
                 <div class="me-2" role="group">
-                  <ul class="nav nav-tabs bg-success">
-                    <a class="navbar-brand me-4 fs-4"> Uploads</a>
+                  <ul class="nav nav-tabs">
+                    <a class="navbar-brand px-3 bg-success fs-4"> Uploads</a>
                     <li class="nav-item">
                       <button class="nav-link" @click="offerShow">Offer</button>
                     </li>
@@ -1816,6 +1847,7 @@ export default {
       uploadsSection: false,
       parentDetailTab: true,
       parentUpdateTab: false,
+      tutorAssignTab: false,
       tutorTable: false,
       tutorInfoTab: true,
       tutorUpdateTab: false,
@@ -1955,11 +1987,19 @@ export default {
     parentDetailTabBtn() {
       this.parentDetailTab = true;
       this.parentUpdateTab = false;
+      this.tutorAssignTab = false;
     },
 
     parentUpdateTabBtn() {
       this.parentDetailTab = false;
+      this.tutorAssignTab = false;
       this.parentUpdateTab = true;
+    },
+
+    tutorAssignTabBtn() {
+      this.parentDetailTab = false;
+      this.parentUpdateTab = false;
+      this.tutorAssignTab = true;
     },
 
     tutorDetailTabBtn() {
@@ -2246,10 +2286,7 @@ export default {
   color: black;
 }
 
-.h1 {
-  height: 100vh;
-}
-.h2 {
-  height: 90vh;
+.border {
+  border: 2px solid dark;
 }
 </style>

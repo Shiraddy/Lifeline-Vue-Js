@@ -1467,7 +1467,7 @@ body {
   }
 
   .hero-header {
-    font-size: 2rem;
+    font-size: 1.7rem;
     text-align: center;
   }
 
@@ -1503,7 +1503,7 @@ body {
   }
 
   .container-sm {
-    max-width: 88%;
+    max-width: 95%;
     margin: auto auto;
   }
 
