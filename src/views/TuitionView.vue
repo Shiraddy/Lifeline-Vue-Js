@@ -56,7 +56,7 @@
             <!-- Add your services content here -->
             <div class="row">
               <div class="col-md-4">
-                <div class="card">
+                <div class="card myCard">
                   <div class="card-body">
                     <!-- <i class="fa-solid fa-book-open option-icon"></i> -->
                     <img
@@ -74,7 +74,7 @@
               </div>
 
               <div class="col-md-4">
-                <div class="card">
+                <div class="card myCard">
                   <div class="card-body">
                     <!-- <i class="fa-solid fa-lightbulb option-icon"></i> -->
                     <img
@@ -92,7 +92,7 @@
               </div>
 
               <div class="col-md-4">
-                <div class="card">
+                <div class="card myCard">
                   <div class="card-body">
                     <!-- <i class="fa-solid fa-star option-icon"></i> -->
                     <img

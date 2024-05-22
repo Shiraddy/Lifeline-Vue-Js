@@ -33,6 +33,10 @@
             <div class="mt-lg-2">
               <!-- <a class="navbar-brand" href="#">LIFELINE</a> -->
               <img class="admin-pic" src="/images/Pic.png" alt="" />
+
+              <Divider layout="horizontal" class="flex md:hidden" align="center"
+                ><b>SECTIONS</b></Divider
+              >
               <ul class="nav navbar-nav admin-ul">
                 <a class="admin-list" href="#adminDash"
                   ><i class="bi-columns-gap me-2 text-white"></i> DASHBOARD
@@ -88,80 +92,92 @@
               >
 
               <div class="me-2">
-                <a class="link">
-                  <i class="bi-chat-left-text"></i>
-                </a>
-                <a class="link">
-                  <i class="bi-bell"></i>
-                </a>
-                <small class="">
-                  {{ date() }}
+                <h5 class="text-success">
+                  {{ dateDisplay() }}
                   <i class="fa-solid fa-calendar-check ps-1"></i>
-                </small>
+                </h5>
               </div>
 
-              <form class="d-flex" role="search">
-                <input
-                  class="form-control me-2 shadow-two"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-                <button class="btn btn-outline-danger" type="submit">
-                  <i class="bi-search"></i>
-                </button>
-              </form>
+              <IconField iconPosition="left">
+                <InputIcon>
+                  <i class="pi pi-search" />
+                </InputIcon>
+                <InputText placeholder="Search" />
+              </IconField>
             </div>
           </div>
         </nav>
 
         <section id="adminDash" class="admin-body mb-5">
-          <section v-if="dashboard">
+          <section v-if="dashboard" class="container-fluid">
             <!-- STATISTICS -->
-            <div class="row my-lg-4 my-5 pt-3">
+            <div class="row my-lg-4 my-4 pt-3">
               <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="revenue shadow-two bg-white hover">
-                  <h4>Applicants</h4>
-                  <h5>{{ applicantsList().length }}</h5>
+                <div
+                  class="revenue shadow-two bg-white hover d-flex text-start"
+                >
+                  <i class="pi pi-id-card px-2"></i>
+                  <div class="bold">
+                    <h6>Applicants</h6>
+                    <h3>{{ applicantsList().length }}</h3>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="tutor shadow-two bg-white hover">
-                  <h4>Tutors</h4>
-                  <h5>{{ tutorsList().length }}</h5>
+                <div class="tutor shadow-two bg-white hover text-start d-flex">
+                  <i class="pi pi-verified px-2"></i>
+                  <div class="bold">
+                    <h6>Tutors</h6>
+                    <h3>{{ tutorsList().length }}</h3>
+                  </div>
                 </div>
               </div>
 
               <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="client shadow-two bg-white hover">
-                  <h4>Contracts</h4>
-                  <h5>{{ clientsList().length }}</h5>
+                <div class="client shadow-two bg-white hover d-flex text-start">
+                  <i class="pi pi-users px-2"></i>
+                  <div class="bold">
+                    <h6>Contracts</h6>
+                    <h3>{{ clientsList().length }}</h3>
+                  </div>
                 </div>
               </div>
 
               <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="profit shadow-two bg-white hover">
-                  <h4>Prospects</h4>
-                  <h5>{{ prospectsList().length }}</h5>
+                <div class="profit shadow-two bg-white hover text-start d-flex">
+                  <i class="pi pi-shop px-2"></i>
+                  <div class="bold">
+                    <h6>Prospects</h6>
+                    <h3>{{ prospectsList().length }}</h3>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="my-5">
+
+            <div class="container-fluid my-5">
               <div class="row">
                 <div class="col-lg-8">
-                  <div class="message shadow-two">
-                    <h4 class="pt-3">Messages</h4>
-                    <div class="head d-flex justify-content-between mx-5">
-                      <h4>Subject: {{ currentMessage().data.subject }}</h4>
-                      <h5>Date: {{ currentMessage().data.date }}</h5>
-                      <!-- <small>{{ currentMessage().length() }}</small> -->
+                  <div class="motivation shadow-two">
+                    <h5 class="pb-3">Messages</h5>
+                    <div
+                      class="head d-flex justify-content-between mx-5 text-secondary"
+                    >
+                      <h5>Heading: {{ currentMessage().data.subject }}</h5>
 
-                      <a @click="deleteMessage()" class="delete">
-                        <i class="bi-trash2"></i>
-                      </a>
+                      <div class="text-danger">
+                        <a>
+                          <i class="pi pi-receipt"></i>
+                        </a>
+                        <a>
+                          <i class="pi pi-pen-to-square mx-3"></i>
+                        </a>
+                        <a @click="deleteMessage()">
+                          <i class="pi pi-minus-circle"></i>
+                        </a>
+                      </div>
                     </div>
 
-                    <p class="px-5 text-start">
+                    <p class="px-5 text-start currentMessage">
                       {{ currentMessage().data.message.substring(0, 200) }}
                     </p>
 
@@ -189,12 +205,14 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="col-lg-4">
-                  <div class="todoApp shadow-one bg-white">
-                    <h4>To Do List</h4>
+                  <div class="to-do shadow-one bg-white card bl-2">
+                    <h5>To Do List</h5>
+                    <p><small>Goals of the Day</small></p>
                     <div
                       v-for="(todo, index) in todoList"
-                      class="text-start mx-3"
+                      class="text-start mx-2"
                       :key="index"
                     >
                       <input type="checkbox" v-model="todo.done" />
@@ -205,16 +223,12 @@
                         {{ todo.text }}
                       </label>
                     </div>
-                    <div class="mx-3 my-3 text-center">
-                      <input
-                        type="text"
-                        v-model="todoItem"
-                        @keyup.enter="addTodo"
-                        class="todoinput"
-                      />
-                      <button class="btn btn-danger me-1" @click="addTodo">
-                        +
-                      </button>
+
+                    <div class="my-3 text-center">
+                      <IconField>
+                        <InputText v-model="todoItem" @keyup.enter="addTodo" />
+                        <InputIcon class="pi pi-plus-circle" />
+                      </IconField>
                     </div>
                   </div>
                 </div>
@@ -222,574 +236,507 @@
             </div>
           </section>
 
-          <!-- PARENT PANEL -->
-          <section class="shadow-two py-2" v-if="parentTable">
-            <div class="row">
-              <!-- Buttons -->
-              <div class="col-lg-9 me-auto">
-                <div class="btn-toolbar my-3" role="toolbar">
-                  <a class="navbar-brand px-2 fs-4 bg-success shadow-two">
-                    Parents</a
-                  >
-                  <div class="me-2" role="group">
-                    <ul class="nav nav-tabs">
-                      <li class="nav-item">
-                        <button class="nav-link" @click="clientsTabBtn">
-                          <span class="badge text-bg-danger me-2">{{
-                            clientsList().length
-                          }}</span
-                          >Clients
-                        </button>
-                      </li>
-                      <li class="nav-item">
-                        <button class="nav-link" @click="prospectsTabBtn">
-                          <span class="badge text-bg-danger me-2">{{
-                            prospectsList().length
-                          }}</span
-                          >Prospects
-                        </button>
-                      </li>
-                      <li class="nav-item">
-                        <button
-                          class="nav-link"
-                          data-bs-toggle="modal"
-                          data-bs-target="#regClient"
-                        >
-                          <i class="fa fa-user-plus"></i> Add
-                        </button>
-                      </li>
-                      <!-- <li class="nav-item">
-                        <label for="">Sort</label>
-                        <select name="" id="" @change="sortContracts">
-                          <option value="250">Duo</option>
-                          <option value="350">Tri</option>
-                          <option value="450">Quad</option>
-                          <option value="550">Pent</option>
-                          <option value="">Other</option>
-                        </select>
-                      </li> -->
-                    </ul>
+          <!-- GRAPHS -->
+          <!-- <section>
+            <div class="card"></div>
+          </section> -->
+
+          <ScrollTop />
+
+          <!-- PARENTS TABLE PRIMEVUE -->
+          <div class="card" v-if="parentTable">
+            <DataTable
+              v-model:filters="filters"
+              v-model:selection="selectedParent"
+              selectionMode="single"
+              :value="parents"
+              ref="dt"
+              sortMode="multiple"
+              showGridlines
+              removableSort
+              paginator
+              :rows="10"
+              dataKey="id"
+              :rowsPerPageOptions="[5, 10, 20, 50]"
+              :globalFilterFields="[
+                'data.parent',
+                'data.student',
+                'data.category',
+                'data.status',
+              ]"
+              filterDisplay="menu"
+              :loading="loading"
+              paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
+              currentPageReportTemplate="{first} to {last} of {totalRecords}"
+            >
+              <template #paginatorstart>
+                <Button type="button" icon="pi pi-refresh" text />
+              </template>
+              <template #paginatorend>
+                <Button
+                  type="button"
+                  @click="exportCSV($event)"
+                  icon="pi pi-download"
+                  text
+                />
+              </template>
+
+              <template #header>
+                <div class="row">
+                  <div class="col text-start">
+                    <h2 class="">Parents</h2>
+                  </div>
+                  <div class="col">
+                    <IconField iconPosition="right">
+                      <InputIcon>
+                        <i class="pi pi-search" />
+                      </InputIcon>
+                      <InputText
+                        v-model="filters['global'].value"
+                        placeholder="Keyword Search"
+                      />
+                    </IconField>
                   </div>
                 </div>
-              </div>
-
-              <div class="col-lg-3">
-                <form class="form-control-sm" role="search">
-                  <input
-                    class="shadow-one form-control mt-lg-2 mt-3"
-                    type="search"
-                    v-model="parentSearch"
-                    placeholder="Search"
-                    @keydown="findParent"
+              </template>
+              <template #empty> No Parent found. </template>
+              <template #loading> Loading clients data. Please wait. </template>
+              <Column field="data.parent" header="Client" sortable>
+                <template #body="{ data }">
+                  {{ data.data.parent }}
+                </template>
+                <template #filter="{ filterModel }">
+                  <InputText
+                    v-model="filterModel.value"
+                    type="text"
+                    class="p-column-filter"
+                    placeholder="Search by name"
                   />
-                </form>
-              </div>
-            </div>
-
-            <!-- CLIENT REGISTRATION MODAL -->
-            <div class="modal fade" id="regClient" tabindex="-1">
-              <div
-                class="modal-content modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                </template>
+              </Column>
+              <Column field="data.student" header="Ward" sortable>
+                <template #body="{ data }">
+                  {{ data.data.student }}
+                </template>
+                <template #filter="{ filterModel }">
+                  <InputText
+                    v-model="filterModel.value"
+                    type="text"
+                    class="p-column-filter"
+                    placeholder="Search by name"
+                  />
+                </template>
+              </Column>
+              <Column
+                field="data.fees"
+                header="Fees"
+                sortable
+                bodyClass="text-center"
               >
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">
-                    CLIENT REGISTRATION
-                  </h1>
-                </div>
+                <template #body="{ data }">
+                  {{ data.data.fees }}
+                </template>
+                <template #filter="{ filterModel }">
+                  <InputText
+                    v-model="filterModel.value"
+                    type="number"
+                    class="p-column-filter"
+                    placeholder="Search by amount"
+                  />
+                </template>
+              </Column>
+              <Column
+                field="data.weeklySession"
+                header="Session"
+                sortable
+                bodyClass="text-center"
+              ></Column>
 
-                <div class="modal-body">
-                  <!-- Include Modal here -->
-                  <Form></Form>
-                </div>
+              <Column field="data.contact" header="Contact"></Column>
 
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger px-2"
-                    data-bs-dismiss="modal"
+              <Column
+                field="data.status"
+                header="Status"
+                sortable
+                bodyClass="text-center"
+              >
+                <template #body="{ data }">
+                  <Tag
+                    :value="data.data.status"
+                    :severity="getSeverity(data.status)"
+                  />
+                </template>
+                <template #filter="{ filterModel }">
+                  <Dropdown
+                    v-model="filterModel.value"
+                    :options="statuses"
+                    placeholder="Select One"
+                    class="p-column-filter"
+                    showClear
                   >
-                    Close <i class="fa-regular fa-circle-xmark"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
+                    <template #option="slotProps">
+                      <Tag
+                        :value="slotProps.option"
+                        :severity="getSeverity(slotProps.option)"
+                      />
+                    </template>
+                  </Dropdown> </template
+              ></Column>
 
-            <!-- CLIENT AND PROSPECTS DATA TABLE -->
-            <div class="table-responsive">
-              <table class="table table-bordered table-hover h-100">
-                <!-- <h4>Tutors</h4> -->
-                <thead class="fw-bolder shadow-one fixed">
-                  <tr>
-                    <th>S/NO</th>
-                    <th>Client</th>
-                    <th>Contact</th>
-                    <th>Ward</th>
-                    <th>Relation</th>
-                    <th>Sessions</th>
-                    <th class="d-none">Client Id</th>
-                    <th>Fees</th>
-                    <th>Time</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-
-                <tbody
-                  v-if="clientsTab"
-                  class="shadow-one"
-                  v-for="(parent, index) in clientsList()"
-                  :key="parent.data.student"
-                >
-                  <tr data-application-id="<%= client.id %>">
-                    <td>{{ index + 1 }}</td>
-                    <td class="text-start">
-                      <small> {{ parent.data.parent }}</small>
-                    </td>
-                    <td>
-                      <a href="tel:{{ parent.data.contact }}"
-                        ><small>{{ parent.data.contact }}</small>
-                      </a>
-                    </td>
-
-                    <td class="text-start">
-                      <a
-                        href="#"
-                        class="student-link"
-                        data-clientId="<%= client.id %>"
-                      >
-                        <small>{{ parent.data.student }}</small>
-                      </a>
-                    </td>
-
-                    <td>
-                      <small>{{ parent.data.relationship }}</small>
-                    </td>
-                    <td>{{ parent.data.weeklySession }}</td>
-                    <td class="d-none"><%= client.id %></td>
-                    <td class="text-white">
-                      <small class="bg-danger px-2 py-1">
-                        Ghc {{ parent.data.fees }}
-                      </small>
-                    </td>
-
-                    <!-- ACTION BUTTONS -->
-                    <td>{{ parent.data.periodLength }}</td>
-                    <td>
-                      <a
-                        data-bs-toggle="modal"
-                        data-bs-target="#contractInfo"
-                        @click="detailedInfo(parent)"
-                        ><i class="bi-three-dots-vertical"></i
-                      ></a>
-                    </td>
-                  </tr>
-                </tbody>
-
-                <tbody
-                  v-if="prospectsTab"
-                  class="shadow-one text-start"
-                  v-for="(prospect, index) in prospectsList()"
-                  :key="prospect.data.student"
-                >
-                  <tr data-application-id="<%= prospect.id %>">
-                    <td>{{ index + 1 }}</td>
-                    <td>
-                      <small>{{ prospect.data.parent }}</small>
-                    </td>
-                    <td>
-                      <a href="tel:{{prospect.data.contact}}">
-                        <small> {{ prospect.data.contact }}</small>
-                      </a>
-                    </td>
-
-                    <td>
-                      <a
-                        href="#"
-                        class="student-link"
-                        data-prospectId="<%= prospect.id %>"
-                      >
-                        <small>{{ prospect.data.student }}</small>
-                      </a>
-                    </td>
-
-                    <td>
-                      <small>{{ prospect.data.relationship }}</small>
-                    </td>
-                    <td>{{ prospect.data.weeklySession }}</td>
-                    <td class="d-none"><%= prospect.id %></td>
-                    <td class="text-white">
-                      <small class="bg-success">
-                        {{ prospect.data.fees }}
-                      </small>
-                    </td>
-
-                    <!-- ACTION BUTTONS -->
-                    <td>{{ prospect.data.periodLength }}</td>
-                    <td>
-                      <a
-                        data-bs-toggle="modal"
-                        data-bs-target="#contractInfo"
-                        @click="detailedInfo(prospect)"
-                        ><i class="bi-three-dots-vertical"></i
-                      ></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <!-- Parent Update Modal -->
-              <div
-                class="modal fade"
-                id="contractInfo"
-                tabindex="-1"
-                aria-labelledby="contractInfo"
-                aria-hidden="true"
+              <Column
+                header="Action"
+                headerStyle="width: 5rem; text-align: center"
+                bodyStyle="text-align: center; overflow: visible"
               >
-                <div
-                  class="modal-content modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                >
-                  <!-- Modal Body (updated) -->
-                  <div class="modal-body">
-                    <div class="d-flex justify-content-between">
-                      <div>
-                        <h1 class="modal-title fs-5">PARENT</h1>
-                      </div>
-                      <ul class="nav nav-tabs bg-success">
-                        <li class="nav-item">
-                          <a class="nav-link" @click="parentDetailTabBtn"
-                            >Details</a
-                          >
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" @click="parentUpdateTabBtn"
-                            >Update</a
-                          >
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" @click="tutorAssignTabBtn"
-                            >Tutor</a
-                          >
-                        </li>
-                      </ul>
+                <template #body="{ data }">
+                  <Button
+                    type="button"
+                    icon="pi pi-expand"
+                    @click="editParent(data)"
+                    style="font-size: 0.7rem"
+                    rounded
+                  />
+                </template>
+              </Column>
+            </DataTable>
+          </div>
+
+          <!-- PARENT DIALOG -->
+          <Dialog
+            v-model:visible="parentDialog"
+            maximizable
+            :style="{ width: '470px' }"
+            header="Parent Details"
+            :modal="true"
+            class="p-fluid"
+            :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+          >
+            <TabView>
+              <TabPanel>
+                <template #header>
+                  <Button label="Detail" class="link" />
+                </template>
+                <div class="container-fluid">
+                  <div class="row text-start">
+                    <div class="bg-primary my-2">Personal Information</div>
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Parent:</strong>
+                        {{ selectedParent ? selectedParent.data.parent : "" }}
+                      </p>
                     </div>
 
-                    <!-- Details -->
-                    <div v-if="parentDetailTab">
-                      <div class="row text-start">
-                        <div class="bg-primary my-2">Personal Information</div>
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Contact:</strong>
+                        {{
+                          selectedParent ? selectedParent.data.altContact : ""
+                        }}
+                      </p>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Student:</strong>
+                        {{ selectedParent ? selectedParent.data.student : "" }}
+                      </p>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>DoB:</strong>
+                        {{ selectedParent ? selectedParent.data.DoB : "" }}
+                      </p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Sex:</strong>
+                        {{ selectedParent ? selectedParent.data.sex : "" }}
+                      </p>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Started:</strong>
+                        {{
+                          selectedParent
+                            ? selectedParent.data.starting_date
+                            : ""
+                        }}
+                      </p>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Status:</strong>
+                        {{ selectedParent ? selectedParent.data.status : "" }}
+                      </p>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Address: </strong>
+                        {{ selectedParent ? selectedParent.data.address : "" }}
+                      </p>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Level:</strong>
+                        {{
+                          selectedParent ? selectedParent.data.schoolName : ""
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Level:</strong>
+                        {{ selectedParent ? selectedParent.data.level : "" }}
+                      </p>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Class:</strong>
+                        {{ selectedParent ? selectedParent.data.class : "" }}
+                      </p>
+                    </div>
+
+                    <div class="bg-primary my-2">Tutorial Preferences</div>
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Fees:</strong>
+                        {{ selectedParent ? selectedParent.data.fees : "" }}
+                      </p>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Mode:</strong>
+                        {{
+                          selectedParent
+                            ? selectedParent.data.modeOfTeaching
+                            : ""
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>weekly Session:</strong>
+                        {{
+                          selectedParent
+                            ? selectedParent.data.weeklySession
+                            : ""
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Category:</strong>
+                        {{ selectedParent ? selectedParent.data.category : "" }}
+                      </p>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Challenges:</strong>
+                        {{
+                          selectedParent ? selectedParent.data.challenge : ""
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p>
+                        <strong>Tuition Subjects:</strong>
+                        {{
+                          selectedParent
+                            ? selectedParent.data.preferredSubjects
+                            : ""
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </TabPanel>
+              <TabPanel>
+                <template #header>
+                  <Button label="Update" class="link" />
+                </template>
+                <!-- Contract Update -->
+                <div class="container-fluid text-start">
+                  <form @submit.prevent="updateParentData">
+                    <div class="row text-start">
+                      <div class="bg-primary my-3">Update Contract</div>
+                      <div class="col-lg-6">
+                        <label for="status">Status</label>
+                        <select
+                          class="apply-input"
+                          v-model.trim="contractUpdate.status"
+                        >
+                          <option value="active">Active</option>
+                          <option value="suspended">Suspended</option>
+                          <option value="completed">Completed</option>
+                          <option value="terminated">Terminated</option>
+                        </select>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <label for="sessions">Sessions</label>
+                        <input
+                          class="apply-input"
+                          type="text"
+                          v-model.number="contractUpdate.session"
+                        />
+                      </div>
+
+                      <div class="col-lg-6">
+                        <label for="Fees">Fees</label>
+                        <input
+                          class="apply-input"
+                          type="text"
+                          v-model.number="contractUpdate.fees"
+                        />
+                      </div>
+
+                      <div class="col-lg-6">
+                        <label for="levels">Discount</label>
+                        <input
+                          class="apply-input"
+                          type="number"
+                          v-model.number="contractUpdate.discount"
+                        />
+                      </div>
+                    </div>
+                    <div>{{ parentUpdateFeedback }}</div>
+                    <div class="text-end">
+                      <button class="btn btn-success my-3" type="submit">
+                        Update
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </TabPanel>
+              <TabPanel>
+                <template #header>
+                  <Button label="Tutor" class="link" />
+                </template>
+                <div class="container-fluid">
+                  <!-- Tutor Assign -->
+                  <div class="container-fluid text-start">
+                    <div class="row">
+                      <div class="my-3 text-start row">
+                        <div class="bg-primary my-3">Tutor Information</div>
                         <div class="col-lg-6">
                           <p>
-                            <strong>Parent:</strong>
+                            <strong>Tutor:</strong>
                             {{
-                              selectedParent ? selectedParent.data.parent : ""
+                              selectedParent ? selectedParent.data.tutor : ""
                             }}
                           </p>
                         </div>
-
                         <div class="col-lg-6">
                           <p>
                             <strong>Contact:</strong>
                             {{
                               selectedParent
-                                ? selectedParent.data.altContact
-                                : ""
-                            }}
-                          </p>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Student:</strong>
-                            {{
-                              selectedParent ? selectedParent.data.student : ""
-                            }}
-                          </p>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>DoB:</strong>
-                            {{ selectedParent ? selectedParent.data.DoB : "" }}
-                          </p>
-                        </div>
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Sex:</strong>
-                            {{ selectedParent ? selectedParent.data.sex : "" }}
-                          </p>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Started:</strong>
-                            {{
-                              selectedParent
-                                ? selectedParent.data.starting_date
-                                : ""
-                            }}
-                          </p>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Status:</strong>
-                            {{
-                              selectedParent ? selectedParent.data.status : ""
-                            }}
-                          </p>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Address: </strong>
-                            {{
-                              selectedParent ? selectedParent.data.address : ""
-                            }}
-                          </p>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Level:</strong>
-                            {{
-                              selectedParent
-                                ? selectedParent.data.schoolName
+                                ? selectedParent.data.tutor_contact
                                 : ""
                             }}
                           </p>
                         </div>
                         <div class="col-lg-6">
                           <p>
-                            <strong>Level:</strong>
-                            {{
-                              selectedParent ? selectedParent.data.level : ""
-                            }}
-                          </p>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Class:</strong>
-                            {{
-                              selectedParent ? selectedParent.data.class : ""
-                            }}
-                          </p>
-                        </div>
-
-                        <div class="bg-primary my-2">Tutorial Preferences</div>
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Fees:</strong>
-                            {{ selectedParent ? selectedParent.data.fees : "" }}
-                          </p>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Mode:</strong>
+                            <strong>Contact:</strong>
                             {{
                               selectedParent
-                                ? selectedParent.data.modeOfTeaching
+                                ? selectedParent.data.tutor_email
                                 : ""
                             }}
                           </p>
                         </div>
                         <div class="col-lg-6">
                           <p>
-                            <strong>weekly Session:</strong>
+                            <strong>Allowance:</strong>
                             {{
                               selectedParent
-                                ? selectedParent.data.weeklySession
-                                : ""
-                            }}
-                          </p>
-                        </div>
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Category:</strong>
-                            {{
-                              selectedParent ? selectedParent.data.category : ""
-                            }}
-                          </p>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Challenges:</strong>
-                            {{
-                              selectedParent
-                                ? selectedParent.data.challenge
-                                : ""
-                            }}
-                          </p>
-                        </div>
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Tuition Subjects:</strong>
-                            {{
-                              selectedParent
-                                ? selectedParent.data.preferredSubjects
+                                ? selectedParent.data.remuneration
                                 : ""
                             }}
                           </p>
                         </div>
                       </div>
-                    </div>
 
-                    <!-- Contract Update -->
-                    <div
-                      class="container-fluid text-start"
-                      v-if="parentUpdateTab"
-                    >
+                      <div class="bg-primary my-3">Update Information</div>
                       <form>
-                        <div class="row text-start">
-                          <div class="bg-primary my-3">Update Contract</div>
+                        <div class="row">
                           <div class="col-lg-6">
-                            <label for="status">Status</label>
-                            <select class="apply-input">
-                              <option value="active">Active</option>
-                              <option value="suspended">Suspended</option>
-                              <option value="completed">Completed</option>
-                              <option value="terminated">Terminated</option>
-                            </select>
-                          </div>
-
-                          <div class="col-lg-6">
-                            <label for="sessions">Sessions</label>
+                            <label for="Tutor">Tutor</label>
                             <input class="apply-input" type="text" />
                           </div>
 
                           <div class="col-lg-6">
-                            <label for="Fees">Fees</label>
-                            <input class="apply-input" type="text" />
-                          </div>
-
-                          <div class="col-lg-6">
-                            <label for="levels">Discount</label>
+                            <label for="Remuneration">Remuneration</label>
                             <input class="apply-input" type="number" />
                           </div>
-                        </div>
-                        <div>{{ parentUpdateFeedback }}</div>
-                        <div class="text-end">
-                          <button class="btn btn-success my-3">Update</button>
+
+                          <div class="col-lg-6">
+                            <label for="Contact">Contact</label>
+                            <input class="apply-input" type="number" />
+                          </div>
+
+                          <div class="col-lg-6">
+                            <label for="momoContact">MoMo Contact</label>
+                            <input class="apply-input" type="number" />
+                          </div>
+
+                          <div class="text-end my-3">
+                            <button class="btn btn-success">Update</button>
+                          </div>
                         </div>
                       </form>
                     </div>
-
-                    <!-- Tutor Assign -->
-                    <div
-                      class="container-fluid text-start"
-                      v-if="tutorAssignTab"
-                    >
-                      <div class="row">
-                        <div class="my-3 text-start row">
-                          <div class="bg-primary my-3">Tutor Information</div>
-                          <div class="col-lg-6">
-                            <p>
-                              <strong>Tutor:</strong>
-                              {{
-                                selectedParent ? selectedParent.data.tutor : ""
-                              }}
-                            </p>
-                          </div>
-                          <div class="col-lg-6">
-                            <p>
-                              <strong>Contact:</strong>
-                              {{
-                                selectedParent
-                                  ? selectedParent.data.tutor_contact
-                                  : ""
-                              }}
-                            </p>
-                          </div>
-                          <div class="col-lg-6">
-                            <p>
-                              <strong>Contact:</strong>
-                              {{
-                                selectedParent
-                                  ? selectedParent.data.tutor_email
-                                  : ""
-                              }}
-                            </p>
-                          </div>
-                          <div class="col-lg-6">
-                            <p>
-                              <strong>Allowance:</strong>
-                              {{
-                                selectedParent
-                                  ? selectedParent.data.remuneration
-                                  : ""
-                              }}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div class="bg-primary my-3">Update Information</div>
-                        <form>
-                          <div class="row">
-                            <div class="col-lg-6">
-                              <label for="Tutor">Tutor</label>
-                              <input class="apply-input" type="text" />
-                            </div>
-
-                            <div class="col-lg-6">
-                              <label for="Remuneration">Remuneration</label>
-                              <input class="apply-input" type="number" />
-                            </div>
-
-                            <div class="col-lg-6">
-                              <label for="Contact">Contact</label>
-                              <input class="apply-input" type="number" />
-                            </div>
-
-                            <div class="col-lg-6">
-                              <label for="momoContact">MoMo Contact</label>
-                              <input class="apply-input" type="number" />
-                            </div>
-
-                            <div class="text-end my-3">
-                              <button class="btn btn-success">Update</button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-outline-danger px-2"
-                      data-bs-dismiss="modal"
-                    >
-                      Close <i class="fa-regular fa-circle-xmark"></i>
-                    </button>
                   </div>
                 </div>
-              </div>
-            </div>
+              </TabPanel>
+            </TabView>
 
-            <!-- Toast to show update -->
-            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-              <div
-                id="toastContainer"
-                class="toast hide"
-                role="alert"
-                aria-live="assertive"
-                aria-atomic="true"
-              >
-                <div class="toast-header">
-                  <strong class="me-auto">Update Status</strong>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="toast"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="toast-body" id="toastMessage"></div>
+            <template #footer>
+              <Button
+                label="Cancel"
+                icon="pi pi-times"
+                text
+                @click="hideParentDialog"
+              />
+              <!-- <Button
+                label="Save"
+                icon="pi pi-check"
+                text
+                @click="saveParentDialog"
+              /> -->
+            </template>
+          </Dialog>
+
+          <!-- Toast to show update -->
+          <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+            <div
+              id="toastContainer"
+              class="toast hide"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
+              <div class="toast-header">
+                <strong class="me-auto">Update Status</strong>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="toast"
+                  aria-label="Close"
+                ></button>
               </div>
+              <div class="toast-body" id="toastMessage"></div>
             </div>
-          </section>
+          </div>
 
           <!-- FINANCE TABLE -->
           <section v-if="financeTable">
@@ -929,635 +876,407 @@
           </section>
 
           <!-- TUTORS PANEL -->
-          <section v-if="tutorTable" class="my-3 py-2 shadow-two">
-            <!-- NavBar -->
-            <nav class="container-fluid">
-              <div class="row my-3">
-                <div class="col-lg-9">
-                  <ul class="nav nav-tabs">
-                    <a class="navbar-brand bg-success fs-4 px-3 shadow-two">
-                      Tutors</a
-                    >
-                    <li class="nav-item">
-                      <button class="nav-link" @click="tutorTableBtn">
-                        <span
-                          class="badge bg-danger me-2 shadow-two rounded-pill"
-                          >{{ tutorsList().length }}</span
-                        >Tutors
-                      </button>
-                    </li>
-                    <li class="nav-item">
-                      <button class="nav-link" @click="applicantTableBtn">
-                        <span
-                          class="badge bg-danger me-2 shadow-two rounded-pill"
-                          >{{ applicantsList().length }}</span
-                        >Applicants
-                      </button>
-                    </li>
-                    <li class="nav-item">
-                      <button class="nav-link" @click="refreshTutors()">
-                        Refresh <i class="bi-arrow-repeat"></i>
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-lg-3">
-                  <form role="search">
-                    <input
-                      class="shadow-one form-control-sm"
-                      type="search"
-                      placeholder="Search"
-                    />
-                  </form>
-                </div>
-              </div>
-            </nav>
+          <div class="card my-5" v-if="tutorTable">
+            <DataTable
+              v-model:filters="tutorFilter"
+              v-model:selection="selectedTutor"
+              selectionMode="single"
+              :value="tutors"
+              ref="tt"
+              sortMode="multiple"
+              showGridlines
+              removableSort
+              paginator
+              :rows="10"
+              dataKey="email"
+              :rowsPerPageOptions="[5, 10, 20, 50]"
+              :globalFilterFields="['firstName', 'lastName', 'contact']"
+              filterDisplay="menu"
+              :loading="loading"
+              paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
+              currentPageReportTemplate="{first} to {last} of {totalRecords}"
+            >
+              <template #paginatorstart>
+                <Button type="button" icon="pi pi-refresh" text />
+              </template>
+              <template #paginatorend>
+                <Button
+                  type="button"
+                  @click="exportCSV($event)"
+                  icon="pi pi-download"
+                  text
+                />
+              </template>
 
-            <!-- TUTORS TABLE -->
-            <div class="table-responsive">
-              <table class="table table-bordered table-hover">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th class="d-none">Pic</th>
-                    <th>Contact</th>
-                    <th>Education</th>
-                    <th>Status</th>
-                    <!-- <th>Location</th> -->
-                    <th>Email</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody
-                  v-if="tutorsTable"
-                  class="shadow-one table-responsive"
-                  v-for="(tutor, index) in tutorsList()"
-                >
-                  <tr class="text-start">
-                    <td>
-                      <small>{{ index + 1 }}</small>
-                    </td>
-                    <td>
-                      <small>{{ tutor.lastName }} {{ tutor.firstName }}</small>
-                    </td>
-                    <td class="d-none">
-                      <small>{{ tutor.profilePictureURL }}</small>
-                    </td>
-                    <td>
-                      <a href="{{tutor.contact}}"
-                        ><small>{{ tutor.contact }}</small>
-                      </a>
-                    </td>
-                    <td>
-                      <small>{{ tutor.studentStatus }}</small>
-                    </td>
-                    <td>
-                      <small>{{ tutor.status }}</small>
-                    </td>
-                    <!-- <td><%#= tutor.data.location %></td> -->
-                    <td>
-                      <small>{{ tutor.email }}</small>
-                    </td>
-                    <td>
-                      <!-- ACTION BUTTONS -->
-                      <div class="d-flex justify-content-center">
-                        <button
-                          type="button"
-                          class="btn tutorIcon me-2 update-data"
-                          data-bs-toggle="modal"
-                          data-bs-target="#update"
-                          @click="detailedTutorInfo(tutor)"
-                        >
-                          <a><i class="bi-three-dots"></i></a>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-
-                <tbody
-                  v-if="applicantsTable"
-                  class="shadow-one table-responsive"
-                  v-for="(applicant, index) in applicantsList()"
-                >
-                  <tr class="text-start">
-                    <td>
-                      <small>{{ index + 1 }}</small>
-                    </td>
-                    <td>
-                      <small
-                        >{{ applicant.lastName }}
-                        {{ applicant.firstName }}</small
-                      >
-                    </td>
-                    <td>
-                      <a href="{{applicant.contact}}">
-                        <small>{{ applicant.contact }}</small>
-                      </a>
-                    </td>
-                    <td>
-                      <small>{{ applicant.studentStatus }}</small>
-                    </td>
-                    <td>
-                      <small>{{ applicant.status }}</small>
-                    </td>
-                    <!-- <td><%#= application.data.location %></td> -->
-                    <td>
-                      <small>
-                        <small>{{ applicant.email }}</small>
-                      </small>
-                    </td>
-                    <td>
-                      <!-- ACTION BUTTONS -->
-                      <div class="d-flex justify-content-center">
-                        <button
-                          type="button"
-                          class="btn tutorIcon me-2 update-data"
-                          data-bs-toggle="modal"
-                          data-bs-target="#update"
-                          @click="detailedTutorInfo(applicant)"
-                        >
-                          <a><i class="fa fa-info-circle me-2"></i></a>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <!-- UPDATE INFO -->
-            <form class="modal" tabindex="-1" id="update">
-              <fieldset
-                class="modal-content modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                data-section="1"
-              >
-                <div class="d-flex justify-content-between mt-3">
-                  <div>
-                    <h1 class="modal-title fs-5 mt-2 me-3 me-lg-5">TUTOR</h1>
-                  </div>
-                  <ul class="nav nav-tabs bg-success">
-                    <li class="nav-item">
-                      <a class="nav-link" @click="tutorDetailTabBtn">Details</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" @click="tutorUpdateTabBtn">Update</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" @click="tutorContractTabBtn"
-                        >Contract</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-                <div class="row modal-body modal-dialog-scrollable">
-                  <div class="container-fluid" v-if="tutorInfoTab">
-                    <div class="row text-start mx-1">
-                      <div class="bg-primary my-2">Personal Details</div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Name:
-                            {{ selectedTutor ? selectedTutor.lastName : "" }}
-                            {{
-                              selectedTutor ? selectedTutor.firstName : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small>{{
-                            selectedTutor ? selectedTutor.email : ""
-                          }}</small>
-                        </p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >DoB:
-                            {{ selectedTutor ? selectedTutor.DoB : "" }}</small
-                          >
-                        </p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Mobile:
-                            {{
-                              selectedTutor ? selectedTutor.contact : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Category:
-                            {{
-                              selectedTutor ? selectedTutor.category : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Status:
-                            {{
-                              selectedTutor ? selectedTutor.status : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Area:
-                            {{
-                              selectedTutor ? selectedTutor.location : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >GPS:
-                            {{ selectedTutor ? selectedTutor.gps : "" }}</small
-                          >
-                        </p>
-                      </div>
-
-                      <div class="bg-primary my-2">Qualification</div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Type:
-                            {{
-                              selectedTutor ? selectedTutor.studentStatus : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Course:
-                            {{ selectedTutor ? selectedTutor.coursing : "" }}
-                            {{
-                              selectedTutor ? selectedTutor.coursed : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Qualification:
-                            {{
-                              selectedTutor ? selectedTutor.qualification : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Level:
-                            {{
-                              selectedTutor ? selectedTutor.level : "N/A"
-                            }}</small
-                          >
-                        </p>
-                      </div>
-
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Momo:
-                            {{
-                              selectedTutor ? selectedTutor.momo_number : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >School:
-                            {{
-                              selectedTutor
-                                ? selectedTutor.school_attending
-                                : ""
-                            }}
-                            {{
-                              selectedTutor ? selectedTutor.schoolCompleted : ""
-                            }}
-                          </small>
-                        </p>
-                      </div>
-
-                      <div class="bg-primary my-2">Level of Expertise</div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Lower Pri:
-                            {{
-                              selectedTutor ? selectedTutor.lower_primary : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >Upper Pri:
-                            {{
-                              selectedTutor ? selectedTutor.upper_primary : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >JHS:
-                            {{ selectedTutor ? selectedTutor.JHS : "" }}</small
-                          >
-                        </p>
-                      </div>
-
-                      <div class="col-lg-6">
-                        <p>
-                          <small
-                            >SHS:
-                            {{ selectedTutor ? selectedTutor.SHS : "" }}</small
-                          >
-                        </p>
-                      </div>
-
-                      <div class="bg-primary">Other Details</div>
-                      <div class="col-lg-12">
-                        <p>
-                          <small>
-                            Accessible Areas:
-                            {{
-                              selectedTutor
-                                ? selectedTutor.accessibleLocations
-                                : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
-                      <div class="col-lg-12">
-                        <p>
-                          <small
-                            >Motivation:
-                            {{
-                              selectedTutor ? selectedTutor.motivation : ""
-                            }}</small
-                          >
-                        </p>
-                      </div>
+              <template #header>
+                <div class="row">
+                  <div class="col text-start d-flex">
+                    <h2 class="">Tutors</h2>
+                    <div class="mt-1 mx-2">
+                      <Button
+                        class="mx-2"
+                        label="Tutors"
+                        icon="pi pi-user"
+                        severity="success"
+                        text
+                        raised
+                      />
+                      <Button
+                        label="Applicants"
+                        icon="pi pi-folder-plus"
+                        severity="success"
+                        text
+                        raised
+                      />
                     </div>
                   </div>
-
-                  <div class="container-fluid" v-if="tutorUpdateTab">
-                    <form>
-                      <div class="row text-start">
-                        <div class="col-lg-6">
-                          <small>
-                            <label class="label" for="statusofApplication"
-                              >Status</label
-                            >
-                            <select class="apply-input" name="qualification">
-                              <option value="qualified">Qualified</option>
-                              <option value="disqualified">Disqualified</option>
-                              <option value="pending">Pending</option>
-                              <option value="suspended">Suspended</option>
-                              <option value="terminated">terminated</option>
-                            </select></small
-                          >
-                        </div>
-                        <div class="col-lg-6">
-                          <small
-                            ><label class="label" for="statusofApplication"
-                              >Rating</label
-                            >
-                            <select class="apply-input" name="ratings">
-                              <option value="A">A</option>
-                              <option value="B">B</option>
-                              <option value="C">C</option>
-                              <option value="D">D</option>
-                            </select></small
-                          >
-                        </div>
-
-                        <div class="col-lg-6">
-                          <small>
-                            <label class="label" for="statusofApplication"
-                              >Category</label
-                            >
-                            <select
-                              name="category"
-                              id="applicationCategory"
-                              class="apply-input"
-                            >
-                              <option value="tutor">Tutor</option>
-                              <option value="applicant">Applicant</option>
-                              <option value="pending">pending</option>
-                              <option value="disqualified">disqualified</option>
-                            </select></small
-                          >
-                        </div>
-
-                        <div class="col-lg-6">
-                          <small>
-                            <label for="date">Date</label>
-                            <input class="apply-input" type="date" />
-                          </small>
-                        </div>
-
-                        <div class="col-lg-12">
-                          <small>
-                            <label for="comment">comment</label>
-                            <textarea
-                              name="comment"
-                              cols="50"
-                              rows="4"
-                            ></textarea>
-                          </small>
-                        </div>
-
-                        <!-- BUTTON -->
-                        <div
-                          class="py-3 d-lg-flex justify-content-end pe-lg-3 modal-footer"
-                        >
-                          <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                          >
-                            Close<i class="fa-regular fa-circle-xmark"></i>
-                          </button>
-
-                          <button class="btn btn-success me-lg-3">
-                            Update Data<i
-                              class="fa-regular fa-circle-check"
-                            ></i>
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-
-                  <div class="container-fluid" v-if="tutorContractTab">
-                    <form>
-                      <div class="row text-start">
-                        <div class="col-lg-6">
-                          <small>
-                            <label for="parent">Parent</label>
-                            <input class="apply-input" type="text" />
-                          </small>
-                        </div>
-                        <div class="col-lg-6">
-                          <small>
-                            <label for="Contact">Contact</label>
-                            <input class="apply-input" type="text" />
-                          </small>
-                        </div>
-                        <div class="col-lg-6">
-                          <small>
-                            <label for="Student">Student</label>
-                            <input class="apply-input" type="text" />
-                          </small>
-                        </div>
-                        <div class="col-lg-6">
-                          <small>
-                            <label for="Class">Class</label>
-                            <input class="apply-input" type="text" />
-                          </small>
-                        </div>
-                        <div class="col-lg-6">
-                          <small>
-                            <label for="Remuneration">Remuneration</label>
-                            <input class="apply-input" type="number" />
-                          </small>
-                        </div>
-                        <div class="col-lg-6">
-                          <small>
-                            <label for="Date">Date</label>
-                            <input class="apply-input" type="date" />
-                          </small>
-                        </div>
-                        <div class="col-lg-6">
-                          <small>
-                            <label for="Sessions Per Week"
-                              >Sessions Per Week</label
-                            >
-                            <input class="apply-input" type="number" />
-                          </small>
-                        </div>
-                        <div class="col-lg-6">
-                          <small>
-                            <label for="Meeting Days">Meeting Days</label>
-                            <input class="apply-input" type="text" />
-                          </small>
-                        </div>
-                        <div class="col-lg-6">
-                          <small>
-                            <label for="Period Length">Period Length</label>
-                            <input class="apply-input" type="number" />
-                          </small>
-                        </div>
-                        <div class="col-lg-6">
-                          <small>
-                            <label for="Status">Contract Status</label>
-                            <select name="" id="" class="apply-input">
-                              <option value="to begin">To Begin</option>
-                              <option value="active">Active</option>
-                              <option value="paused">Paused</option>
-                              <option value="Terminated">Terminated</option>
-                            </select>
-                          </small>
-                        </div>
-                        <div class="col-lg-12">
-                          <small>
-                            <label for="Objective(s):">Objective(s):</label>
-                            <textarea class="apply-input" row="10"></textarea>
-                          </small>
-                        </div>
-                        <div class="text-end">
-                          <button class="btn btn-danger me-2" type="reset">
-                            Reset
-                          </button>
-                          <button class="btn btn-success" type="submit">
-                            Update
-                          </button>
-                        </div>
-                      </div>
-                    </form>
+                  <div class="col">
+                    <IconField iconPosition="right">
+                      <InputIcon>
+                        <i class="pi pi-search" />
+                      </InputIcon>
+                      <InputText
+                        v-model="tutorFilter['global'].value"
+                        placeholder="Keyword Search"
+                      />
+                    </IconField>
                   </div>
                 </div>
-              </fieldset>
-            </form>
+              </template>
+              <template #empty> No Tutor found. </template>
+              <template #loading> Loading tutors data. Please wait. </template>
 
-            <!-- Bootstrap Toast -->
-            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-              <div
-                id="toastContainer"
-                class="toast hide"
-                role="alert"
-                aria-live="assertive"
-                aria-atomic="true"
+              <Column field="lastName" header="Last Name" sortable>
+                <template #body="{ data }">
+                  {{ data.lastName }}
+                </template>
+                <template #filter="{ filterModel }">
+                  <InputText
+                    v-model="filterModel.value"
+                    type="text"
+                    class="p-column-filter"
+                    placeholder="Search by name"
+                  />
+                </template>
+              </Column>
+              <Column field="firstName" header="First Name" sortable>
+                <template #body="{ data }">
+                  {{ data.firstName }}
+                </template>
+                <template #filter="{ filterModel }">
+                  <InputText
+                    v-model="filterModel.value"
+                    type="text"
+                    class="p-column-filter"
+                    placeholder="Search by name"
+                  />
+                </template>
+              </Column>
+
+              <Column
+                field="studentStatus"
+                header="Education"
+                sortable
+              ></Column>
+
+              <Column
+                field="category"
+                header="Category"
+                sortable
+                bodyClass="text-center"
               >
-                <div class="toast-header">
-                  <strong class="me-auto">Update Status</strong>
-                  <button
+                <template #body="{ data }">
+                  <Tag
+                    :value="data.category"
+                    :severity="getSeverity(data.status)"
+                  />
+                </template>
+                <template #filter="{ filterModel }">
+                  <Dropdown
+                    v-model="filterModel.value"
+                    :options="status"
+                    placeholder="Select One"
+                    class="p-column-filter"
+                    showClear
+                  >
+                    <template #option="slotProps">
+                      <Tag
+                        :value="slotProps.option"
+                        :severity="getSeverity(slotProps.option)"
+                      />
+                    </template>
+                  </Dropdown>
+                </template>
+              </Column>
+
+              <Column
+                field="contact"
+                header="Contact"
+                bodyClass="text-center"
+              ></Column>
+
+              <Column
+                field="status"
+                header="Status"
+                sortable
+                bodyClass="text-center"
+              >
+                <template #body="{ data }">
+                  <Tag
+                    :value="data.status"
+                    :severity="getSeverity(data.status)"
+                  />
+                </template>
+                <template #filter="{ filterModel }">
+                  <Dropdown
+                    v-model="filterModel.value"
+                    :options="status"
+                    placeholder="Select One"
+                    class="p-column-filter"
+                  >
+                    <template #option="slotProps">
+                      <Tag
+                        :value="slotProps.option"
+                        :severity="getSeverity(slotProps.option)"
+                      />
+                    </template>
+                  </Dropdown> </template
+              ></Column>
+
+              <Column
+                header="Action"
+                headerStyle="width: 5rem; text-align: center"
+                bodyStyle="text-align: center; overflow: visible"
+              >
+                <template #body="{ data }">
+                  <Button
                     type="button"
-                    class="btn-close"
-                    data-bs-dismiss="toast"
-                    aria-label="Close"
-                  ></button>
+                    icon="pi pi-align-center"
+                    @click="editTutor(data)"
+                    style="font-size: 0.7rem"
+                    rounded
+                  />
+                </template>
+              </Column>
+            </DataTable>
+
+            <!-- TUTOR DIALOG -->
+            <Dialog
+              v-model:visible="tutorDialog"
+              maximizable
+              :style="{ width: '450px' }"
+              header="Tutor Details"
+              :modal="true"
+              class="p-fluid"
+              :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+            >
+              <div class="row text-start mx-1">
+                <div class="bg-primary my-2">Personal Details</div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Name:
+                      {{ selectedTutor ? selectedTutor.lastName : "" }}
+                      {{ selectedTutor ? selectedTutor.firstName : "" }}</small
+                    >
+                  </p>
                 </div>
-                <div class="toast-body" id="toastMessage"></div>
+                <div class="col-lg-6">
+                  <p>
+                    <small>{{
+                      selectedTutor ? selectedTutor.email : ""
+                    }}</small>
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >DoB: {{ selectedTutor ? selectedTutor.DoB : "" }}</small
+                    >
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Mobile:
+                      {{ selectedTutor ? selectedTutor.contact : "" }}</small
+                    >
+                  </p>
+                </div>
+
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Category:
+                      {{ selectedTutor ? selectedTutor.category : "" }}</small
+                    >
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Status:
+                      {{ selectedTutor ? selectedTutor.status : "" }}</small
+                    >
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Area:
+                      {{ selectedTutor ? selectedTutor.location : "" }}</small
+                    >
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >GPS: {{ selectedTutor ? selectedTutor.gps : "" }}</small
+                    >
+                  </p>
+                </div>
+
+                <div class="bg-primary my-2">Qualification</div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Type:
+                      {{
+                        selectedTutor ? selectedTutor.studentStatus : ""
+                      }}</small
+                    >
+                  </p>
+                </div>
+
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Course:
+                      {{ selectedTutor ? selectedTutor.coursing : "" }}
+                      {{ selectedTutor ? selectedTutor.coursed : "" }}</small
+                    >
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Qualification:
+                      {{
+                        selectedTutor ? selectedTutor.qualification : ""
+                      }}</small
+                    >
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Level:
+                      {{ selectedTutor ? selectedTutor.level : "N/A" }}</small
+                    >
+                  </p>
+                </div>
+
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Momo:
+                      {{
+                        selectedTutor ? selectedTutor.momo_number : ""
+                      }}</small
+                    >
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >School:
+                      {{ selectedTutor ? selectedTutor.school_attending : "" }}
+                      {{ selectedTutor ? selectedTutor.schoolCompleted : "" }}
+                    </small>
+                  </p>
+                </div>
+
+                <div class="bg-primary my-2">Level of Expertise</div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Lower Pri:
+                      {{
+                        selectedTutor ? selectedTutor.lower_primary : ""
+                      }}</small
+                    >
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >Upper Pri:
+                      {{
+                        selectedTutor ? selectedTutor.upper_primary : ""
+                      }}</small
+                    >
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >JHS: {{ selectedTutor ? selectedTutor.JHS : "" }}</small
+                    >
+                  </p>
+                </div>
+
+                <div class="col-lg-6">
+                  <p>
+                    <small
+                      >SHS: {{ selectedTutor ? selectedTutor.SHS : "" }}</small
+                    >
+                  </p>
+                </div>
+
+                <div class="bg-primary">Other Details</div>
+                <div class="col-lg-12">
+                  <p>
+                    <small>
+                      Accessible Areas:
+                      {{
+                        selectedTutor ? selectedTutor.accessibleLocations : ""
+                      }}</small
+                    >
+                  </p>
+                </div>
+                <div class="col-lg-12">
+                  <p>
+                    <small
+                      >Motivation:
+                      {{ selectedTutor ? selectedTutor.motivation : "" }}</small
+                    >
+                  </p>
+                </div>
               </div>
-            </div>
-          </section>
+
+              <!-- Footer Side -->
+              <template #footer>
+                <Button
+                  label="Cancel"
+                  icon="pi pi-times"
+                  text
+                  @click="hideTutorDialog"
+                />
+                <!-- <Button
+                  label="Save"
+                  icon="pi pi-check"
+                  text
+                  @click="saveTutorDialog"
+                /> -->
+              </template>
+            </Dialog>
+          </div>
 
           <!-- UPLOADS SECTION -->
-          <section v-if="uploadsSection" class="shadow-two py-2">
-            <div class="me-auto">
-              <div class="btn-toolbar my-3" role="toolbar">
-                <div class="me-2" role="group">
-                  <ul class="nav nav-tabs">
-                    <a class="navbar-brand px-3 bg-success fs-4 shadow-two">
-                      Uploads</a
-                    >
-                    <li class="nav-item">
-                      <button class="nav-link" @click="offerShow">Offer</button>
-                    </li>
-                    <li class="nav-item">
-                      <button class="nav-link" @click="noticeShow">
-                        Notice
-                      </button>
-                    </li>
-                    <li class="nav-item">
-                      <button class="nav-link" @click="emailShow">Email</button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="mx-5">
-              <div class="div" id="">
-                <!-- UPLOAD CONTRACT -->
-                <section v-if="offerBtn" class="shadow-two my-3 row">
+          <div class="card my-5" v-if="uploadsSection">
+            <TabView>
+              <TabPanel header="Offer"
+                ><section class="shadow-two my-3 row">
                   <div class="col-lg-6 d-none d-lg-block pb-5"></div>
                   <div class="col-lg-6 shadow-two bg-white row text-start">
                     <h4 class="my-lg-4 my-2">OFFER UPLOADS</h4>
@@ -1660,9 +1379,9 @@
                     </button>
                   </div>
                 </section>
-
-                <!-- NOTICE BOARD -->
-                <section v-if="noticeBtn" class="shadow-two my-3 row">
+              </TabPanel>
+              <TabPanel header="Notice">
+                <section class="shadow-two my-3 row">
                   <div class="col-lg-6 d-none d-lg-block pb-5"></div>
                   <div class="col-lg-6 shadow-two bg-white">
                     <h4 class="my-lg-3">NOTICE BOARD</h4>
@@ -1714,9 +1433,9 @@
                     </form>
                   </div>
                 </section>
-
-                <!-- EMAIL -->
-                <section v-if="emailBtn" class="shadow-two my-lg-4 row">
+              </TabPanel>
+              <TabPanel header="Email">
+                <section class="shadow-two my-lg-4 row">
                   <div class="col-lg-6 d-none d-lg-block pb-5 shadow-two"></div>
                   <div class="col-lg-6 shadow-two bg-white">
                     <h4 class="my-lg-4">EMAIL</h4>
@@ -1796,9 +1515,9 @@
                     </form>
                   </div>
                 </section>
-              </div>
-            </div>
-          </section>
+              </TabPanel>
+            </TabView>
+          </div>
         </section>
       </div>
     </div>
@@ -1808,6 +1527,11 @@
 <script>
 // import { Axios } from "axios";
 import Form from "@/components/Form.vue";
+import Dialog from "primevue/dialog";
+import ScrollTop from "primevue/scrolltop";
+import ConfirmDialog from "primevue/confirmdialog";
+import { FilterMatchMode, FilterOperator } from "primevue/api";
+
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
@@ -1856,22 +1580,16 @@ export default {
       uploadsSection: false,
       parentDetailTab: true,
       parentUpdateTab: false,
-      tutorAssignTab: false,
       tutorTable: false,
-      tutorInfoTab: true,
-      tutorUpdateTab: false,
-      tutorContractTab: false,
-      clientsTab: true,
-      prospectsTab: false,
       applicantsTable: false,
       tutorsTable: true,
       financeTable: false,
-      offerBtn: true,
-      emailBtn: false,
-      noticeBtn: false,
+      date: null,
       parentSearch: "",
       selectedParent: null,
       selectedTutor: null,
+      parentDialog: false,
+      tutorDialog: false,
       contractMoney: 0,
       parents: [],
       tutors: [],
@@ -1882,6 +1600,44 @@ export default {
       todoList: [],
       todoItem: "",
       done: false,
+      parentUpdateFeedback: "",
+      items: [
+        {
+          label: "Refresh",
+          icon: "pi pi-refresh",
+        },
+        {
+          label: "Export",
+          icon: "pi pi-upload",
+        },
+      ],
+      filters: {
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        "data.parent": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        "data.category": {
+          value: null,
+          matchMode: FilterMatchMode.STARTS_WITH,
+        },
+        "data.student": {
+          operator: FilterOperator.AND,
+          constraints: [
+            { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+          ],
+        },
+        "data.status": { value: null, matchMode: FilterMatchMode.EQUALS },
+        "data.tutor": { value: null, matchMode: FilterMatchMode.EQUALS },
+      },
+      tutorFilter: {
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        firstName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        lastName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        contact: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        status: { value: null, matchMode: FilterMatchMode.EQUALS },
+        category: { value: null, matchMode: FilterMatchMode.EQUALS },
+      },
+      statuses: ["active", "paused", "completed", "terminated", "request"],
+      status: ["active", "paused"],
+      category: ["tutor", "applicant", "suspended", "terminated"],
       tutorContract: {
         parent: "",
         parentContact: "",
@@ -1899,6 +1655,7 @@ export default {
         periodLength: "",
         charges: 0,
         tuitionDays: [],
+        payments: [],
         activeMonths: [],
         comments: [],
       },
@@ -1921,6 +1678,13 @@ export default {
         location: "",
         allowance: 0,
       },
+
+      contractUpdate: {
+        status: "",
+        weeklySession: null,
+        fees: null,
+        discount: 0,
+      },
     };
   },
 
@@ -1936,12 +1700,65 @@ export default {
         });
     },
 
+    showSuccess() {
+      this.$toast.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Message Content",
+        life: 3000,
+      });
+    },
+
     tutorContractSubmit() {
       const tutor = this.selectedTutor();
     },
 
-    tutorUpdateSubmit() {
-      const tutor = this.selectedTutor();
+    exportCSV() {
+      this.$refs.dt.exportCSV();
+    },
+
+    exportCSV() {
+      this.$refs.tt.exportCSV();
+    },
+
+    editParent(parent) {
+      this.selectedParent = parent;
+      this.parentDialog = true;
+    },
+
+    editTutor(tutor) {
+      this.selectedTutor = tutor;
+      this.tutorDialog = true;
+    },
+
+    hideParentDialog() {
+      this.parentDialog = false;
+    },
+
+    hideTutorDialog() {
+      this.tutorDialog = false;
+    },
+
+    saveParentDialog() {},
+    saveTutorDialog() {},
+
+    getSeverity(status) {
+      switch (status) {
+        case "terminated":
+          return "danger";
+
+        case "active":
+          return "success";
+
+        case "request":
+          return "info";
+
+        case "paused":
+          return "warning";
+
+        case "renewal":
+          return null;
+      }
     },
 
     addTodo() {
@@ -1953,38 +1770,6 @@ export default {
       this.todoList.splice(index, 1);
     },
 
-    emailShow() {
-      (this.emailBtn = true), (this.noticeBtn = false), (this.offerBtn = false);
-    },
-
-    noticeShow() {
-      (this.emailBtn = false), (this.noticeBtn = true), (this.offerBtn = false);
-    },
-
-    offerShow() {
-      (this.emailBtn = false), (this.noticeBtn = false), (this.offerBtn = true);
-    },
-
-    prospectsTabBtn() {
-      this.clientsTab = false;
-      this.prospectsTab = true;
-    },
-
-    clientsTabBtn() {
-      this.clientsTab = true;
-      this.prospectsTab = false;
-    },
-
-    prospectsList() {
-      const filteredList = this.parents.filter(
-        (parent) => parent.data.category === "request"
-      );
-      const sortedProspects = filteredList.sort((a, b) =>
-        a.data.parent.localeCompare(b.data.parent)
-      );
-      return sortedProspects;
-    },
-
     parentTableView() {
       this.dashboard = !this.dashboard;
       this.parentTable = !this.parentTable;
@@ -1992,93 +1777,14 @@ export default {
 
     tutorTableView() {
       this.tutorTable = !this.tutorTable;
+      this.dashboard = !this.dashboard;
     },
-
-    parentDetailTabBtn() {
-      this.parentDetailTab = true;
-      this.parentUpdateTab = false;
-      this.tutorAssignTab = false;
-    },
-
-    parentUpdateTabBtn() {
-      this.parentDetailTab = false;
-      this.tutorAssignTab = false;
-      this.parentUpdateTab = true;
-    },
-
-    tutorAssignTabBtn() {
-      this.parentDetailTab = false;
-      this.parentUpdateTab = false;
-      this.tutorAssignTab = true;
-    },
-
-    tutorDetailTabBtn() {
-      this.tutorInfoTab = true;
-      this.tutorUpdateTab = false;
-      this.tutorContractTab = false;
-    },
-
-    tutorUpdateTabBtn() {
-      this.tutorUpdateTab = true;
-      this.tutorInfoTab = false;
-      this.tutorContractTab = false;
-    },
-
-    tutorContractTabBtn() {
-      this.tutorContractTab = true;
-      this.tutorInfoTab = false;
-      this.tutorUpdateTab = false;
-    },
-    // parentFind(){
-    //   const parentFind = this.parentSearch
-    //   const searchResult = this.parents.filter((parent) => parent.name === parentFind);
-    // },
 
     uploadsSectionBtn() {
       this.uploadsSection = !this.uploadsSection;
     },
 
-    clientsList() {
-      const clients = this.parents.filter(
-        (parent) => parent.data.category === "client"
-      );
-      const sortedClients = clients.sort((a, b) =>
-        a.data.parent.localeCompare(b.data.parent)
-      );
-      // console.log("Clients List:", clients);
-      return clients;
-    },
-
-    tutorsList() {
-      const tutors = this.tutors.filter((tutor) => tutor.category === "tutor");
-      const sortedTutors = tutors.sort((a, b) =>
-        a.lastName.localeCompare(b.lastName)
-      );
-      return sortedTutors;
-    },
-
-    tutorTableBtn() {
-      this.tutorsTable = true;
-      this.applicantsTable = false;
-    },
-
-    applicantsList() {
-      const applicants = this.tutors.filter(
-        (applicant) => applicant.category === "applicant"
-      );
-      const sortedApplicants = applicants.sort((a, b) =>
-        a.lastName.localeCompare(b.lastName)
-      );
-      // console.log("Applicants List:", applicants);
-      return sortedApplicants;
-    },
-
-    applicantTableBtn() {
-      this.tutorsTable = false;
-      this.applicantsTable = true;
-    },
-
-    date() {
+    dateDisplay() {
       var options = {
         month: "long",
         day: "numeric",
@@ -2111,16 +1817,166 @@ export default {
 
     updatePayment(client) {
       client = this.detailedInfo();
-      console.log(client);
+      // console.log(client);
     },
 
     detailedTutorInfo(key) {
       this.selectedTutor = key;
     },
 
-    // sortContracts() {
-    //   const fees = this.client.data.fee;
-    // },
+    async deleteMessage() {
+      const messageId = this.currentMessage().id;
+      try {
+        await deleteDoc(doc(db, "Messages", messageId));
+        // console.log("Message deleted");
+        // Find the index of the current message
+        const index = this.messages.findIndex(
+          (message) => message.id === messageId
+        );
+
+        // Remove the message from the array
+        if (index > -1) {
+          this.messages.splice(index, 1);
+        }
+
+        this.$toast.add({
+          severity: "success",
+          summary: "Success Message",
+          detail: "Message Deleted",
+          life: 3000,
+        });
+      } catch (error) {
+        this.$toast.add({
+          severity: "error",
+          summary: "Error Message",
+          detail: "Message Content",
+          life: 3000,
+        });
+        console.error("Error deleting message:", error);
+      }
+    },
+
+    async updateParentData() {
+      const parent = this.selectedParent.id;
+      // console.log(parent);
+      try {
+        const parentRef = doc(db, "Request For Tutor", parent);
+        const data = this.contractUpdate;
+        // console.log(data);
+        await updateDoc(parentRef, data);
+        console.log("Data successfully update");
+      } catch (error) {
+        console.error("Error updating", error);
+      }
+    },
+
+    async updateTutorData() {
+      const tutor = this.selectedTutor.email;
+      // console.log(tutor);
+      try {
+        const tutorRef = doc(db, "Tutor Applications", tutor);
+        const data = this.tutorUpdate;
+        // console.log(data);
+        await updateDoc(tutorRef, data);
+        console.log("Tutor Data successfully updated");
+      } catch (error) {
+        console.error("Error updating", error);
+      }
+    },
+
+    clientsList() {
+      const clients = this.parents.filter(
+        (parent) => parent.data.category === "client"
+      );
+      const sortedClients = clients.sort((a, b) =>
+        a.data.parent.localeCompare(b.data.parent)
+      );
+      // console.log("Clients List:", clients);
+      return clients;
+    },
+
+    tutorsList() {
+      const tutors = this.tutors.filter((tutor) => tutor.category === "tutor");
+      const sortedTutors = tutors.sort((a, b) =>
+        a.lastName.localeCompare(b.lastName)
+      );
+      return sortedTutors;
+    },
+
+    applicantsList() {
+      const applicants = this.tutors.filter(
+        (applicant) => applicant.category === "applicant"
+      );
+      const sortedApplicants = applicants.sort((a, b) =>
+        a.lastName.localeCompare(b.lastName)
+      );
+      // console.log("Applicants List:", applicants);
+      return sortedApplicants;
+    },
+
+    prospectsList() {
+      const filteredList = this.parents.filter(
+        (parent) => parent.data.category === "request"
+      );
+      const sortedProspects = filteredList.sort((a, b) =>
+        a.data.parent.localeCompare(b.data.parent)
+      );
+      return sortedProspects;
+    },
+
+    confirm1() {
+      this.$confirm.require({
+        message: "Are you sure you want to proceed?",
+        header: "Confirmation",
+        icon: "pi pi-exclamation-triangle",
+        rejectClass: "p-button-secondary p-button-outlined",
+        rejectLabel: "Cancel",
+        acceptLabel: "Save",
+        accept: () => {
+          this.$toast.add({
+            severity: "info",
+            summary: "Confirmed",
+            detail: "You have accepted",
+            life: 3000,
+          });
+        },
+        reject: () => {
+          this.$toast.add({
+            severity: "error",
+            summary: "Rejected",
+            detail: "You have rejected",
+            life: 3000,
+          });
+        },
+      });
+    },
+    confirm2() {
+      this.$confirm.require({
+        message: "Do you want to delete this record?",
+        header: "Danger Zone",
+        icon: "pi pi-info-circle",
+        rejectLabel: "Cancel",
+        acceptLabel: "Delete",
+        rejectClass: "p-button-secondary p-button-outlined",
+        acceptClass: "p-button-danger",
+        accept: () => {
+          this.$toast.add({
+            severity: "info",
+            summary: "Confirmed",
+            detail: "Record deleted",
+            life: 3000,
+          });
+        },
+        reject: () => {
+          this.$toast.add({
+            severity: "error",
+            summary: "Rejected",
+            detail: "You have rejected",
+            life: 3000,
+          });
+        },
+      });
+    },
   },
 
   created() {
@@ -2129,11 +1985,10 @@ export default {
     this.message;
   },
 
-  beforeCreate() {},
-  beforeMount() {},
-  mounted() {},
+  // beforeCreate() {},
+  // beforeMount() {},
+  // mounted() {},
 
-  // Computed Properties
   computed: {
     async parentsData() {
       try {
@@ -2185,13 +2040,6 @@ export default {
       await updateDoc(tutorRef, contract);
     },
 
-    // async tutorContractDelete(){},
-
-    refreshTutors() {
-      this.tutorApplications();
-      this.tutorsList();
-    },
-
     async message() {
       try {
         const message = collection(db, "Messages");
@@ -2240,17 +2088,7 @@ export default {
     },
   },
 
-  watch: {
-    async deleteMessage() {
-      const messageId = this.currentMessage().id;
-      try {
-        await deleteDoc(doc(db, "Messages", messageId));
-        console.log("Message deleted");
-      } catch (error) {
-        console.error("Error deleting message:", error);
-      }
-    },
-  },
+  watch: {},
 };
 </script>
 
@@ -2315,5 +2153,17 @@ th {
 
 tr:hover {
   background-color: green;
+}
+
+.pi-shop,
+.pi-users,
+.pi-verified,
+.pi-id-card {
+  font-size: 3rem;
+  /* display: inline-flex; */
+}
+
+.bold {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 </style>

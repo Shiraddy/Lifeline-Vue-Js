@@ -6,7 +6,7 @@
       <div class="carousel-inner shadow">
         <h2 class="choose-title pt-lg-3">What Our Clients Say</h2>
         <div class="carousel-item">
-          <div class="card">
+          <div class="card myCard">
             <div class="card-body">
               <h5 class="card-title"></h5>
               <p class="card-text">
@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="carousel-item active">
-          <div class="card">
+          <div class="card myCard">
             <div class="card-body">
               <h5 class="card-title"></h5>
               <p class="card-text">
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="card">
+          <div class="card myCard">
             <div class="card-body">
               <h5 class="card-title"></h5>
               <p class="card-text">
@@ -70,7 +70,6 @@
 <script>
 export default {
   name: "Testimonial Component",
-  data() {},
 };
 </script>
 

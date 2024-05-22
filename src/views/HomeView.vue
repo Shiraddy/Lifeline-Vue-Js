@@ -23,7 +23,7 @@ import Testimonial from "@/components/Testimonial.vue";
       <hr />
       <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-4">
-          <div class="card shadow-two hover">
+          <div class="card shadow-two hover myCard">
             <img class="service-image" src="/images/student1.png" alt="" />
             <RouterLink class="btn btn-danger btn-service" to="/tuition"
               >Private Tuition</RouterLink
@@ -36,7 +36,7 @@ import Testimonial from "@/components/Testimonial.vue";
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-4">
-          <div class="card shadow-two hover">
+          <div class="card shadow-two hover myCard">
             <img
               class="service-image"
               src="/images/counsel1.png"
@@ -54,7 +54,7 @@ import Testimonial from "@/components/Testimonial.vue";
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-4">
-          <div class="card shadow-two hover">
+          <div class="card shadow-two hover myCard">
             <img class="service-image" src="/images/skill1.png" alt="images" />
             <RouterLink class="btn btn-danger btn-service" to="/consultancy"
               >Consultancy</RouterLink
@@ -99,6 +99,8 @@ import Testimonial from "@/components/Testimonial.vue";
       </div>
 
       <hr />
+
+      <ScrollTop />
 
       <!----------TESTIMONIAL SECTION------------>
       <Testimonial></Testimonial>
@@ -145,6 +147,4 @@ export default {
 .reqBtn {
   margin: 0 2rem 0;
 }
-
-
 </style>

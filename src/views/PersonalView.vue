@@ -1,277 +1,284 @@
 <template>
-  <div class="row">
-    <div
-      class="col-lg-2 shadow-two col-sm-12 bg-success d-none d-lg-block"
-      id=""
-    >
-      <!-- SIDE BAR -->
-      <div class="side-bar">
-        <div class="d-flex justify-content-start">
-          <div class="mt-lg-2">
-            <div class="">
-              <img
-                class="profile-pic d-none d-lg-block"
-                src="/images/Pic.png"
-                alt=""
-              />
-
+  <div class="container-fluid">
+    <div class="row">
+      <div
+        class="col-lg-2 shadow-two col-sm-12 bg-success d-none d-lg-block"
+        id=""
+      >
+        <!-- SIDE BAR -->
+        <div class="side-bar">
+          <div class="d-flex justify-content-start">
+            <div class="mt-lg-2">
               <div class="">
-                <h5 class="text-uppercase text-white mb-0 fs-6">
-                  {{ profile.lastName }} {{ profile.firstName }}
-                </h5>
-                <small class="mt-0 text-white d-6 fs-beauty">{{
-                  profile.email
-                }}</small>
+                <img
+                  class="profile-pic d-none d-lg-block"
+                  src="/images/Pic.png"
+                  alt=""
+                />
+
+                <div class="">
+                  <h5 class="text-uppercase text-white mb-0 fs-6">
+                    {{ profile.lastName }} {{ profile.firstName }}
+                  </h5>
+                  <small class="mt-0 text-white d-6 fs-beauty">{{
+                    profile.email
+                  }}</small>
+                </div>
+                <ul class="navbar-nav text-start ms-4 mt-4">
+                  <li class="nav-item">
+                    <a class="link-user" href="#dashboard"
+                      ><i class="bi-columns-gap me-2 text-white"></i
+                      >DASHBOARD</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="link-user" href="#resourceCentre"
+                      ><i class="bi-collection me-2"></i>PROFILE</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="link-user" href="#resourceCentre"
+                      ><i class="bi-collection me-2"></i>RESOURCES</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="link-user" href="#training"
+                      ><i class="fa fa-laptop me-2"></i>TRAINING</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="link-user" href="#offers"
+                      ><i class="bi-files me-2"></i>OFFERS</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="link-user" href="#tutorForms"
+                      ><i class="bi-clipboard-data me-2"></i>SUBMIT FORMS</a
+                    >
+                  </li>
+                </ul>
               </div>
-              <ul class="navbar-nav text-start ms-4 mt-4">
-                <li class="nav-item">
-                  <a class="link-user" href="#dashboard"
-                    ><i class="bi-columns-gap me-2 text-white"></i>DASHBOARD</a
-                  >
-                </li>
-
-                <li class="nav-item">
-                  <a class="link-user" href="#resourceCentre"
-                    ><i class="bi-collection me-2"></i>PROFILE</a
-                  >
-                </li>
-
-                <li class="nav-item">
-                  <a class="link-user" href="#resourceCentre"
-                    ><i class="bi-collection me-2"></i>RESOURCES</a
-                  >
-                </li>
-
-                <li class="nav-item">
-                  <a class="link-user" href="#training"
-                    ><i class="fa fa-laptop me-2"></i>TRAINING</a
-                  >
-                </li>
-
-                <li class="nav-item">
-                  <a class="link-user" href="#offers"
-                    ><i class="bi-files me-2"></i>OFFERS</a
-                  >
-                </li>
-
-                <li class="nav-item">
-                  <a class="link-user" href="#tutorForms"
-                    ><i class="bi-clipboard-data me-2"></i>SUBMIT FORMS</a
-                  >
-                </li>
-              </ul>
-            </div>
-            <div class="">
-              <button
-                class="btn btn-danger shadow-two my-3"
-                @click="signingOut"
-              >
-                <i class="bi-box-arrow-left text-white me-2"></i>Logout
-              </button>
+              <div class="">
+                <button
+                  class="btn btn-danger shadow-two my-3"
+                  @click="signingOut"
+                >
+                  <i class="bi-box-arrow-left text-white me-2"></i>Logout
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- MOBILE NAVBAR -->
-    <div class="d-lg-none sticky-top">
-      <nav class="navbar bg-success">
-        <div class="container-fluid">
-          <a class="navbar-brand text-white" href="#">Lifeline</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#tutorNavbar"
-          >
-            <span class="bi-filter-square fs-2 text-white"></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="tutorNavbar">
-          <ul class="navbar-nav text-start ms-4 mt-4 bg-dark">
-            <li class="nav-item">
-              <a class="link-user" href="#dashboard"
-                ><i class="bi-columns-gap me-2 text-white"></i>DASHBOARD</a
-              >
-            </li>
+      <!-- MOBILE NAVBAR -->
+      <div class="d-lg-none sticky-top">
+        <nav class="navbar bg-success">
+          <div class="container-fluid">
+            <a class="navbar-brand text-white" href="#">Lifeline</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#tutorNavbar"
+            >
+              <span class="bi-filter-square fs-2 text-white"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="tutorNavbar">
+            <ul class="navbar-nav text-start ms-4 mt-4 bg-dark">
+              <li class="nav-item">
+                <a class="link-user" href="#dashboard"
+                  ><i class="bi-columns-gap me-2 text-white"></i>DASHBOARD</a
+                >
+              </li>
 
-            <li class="nav-item">
-              <a class="link-user" href="#resourceCentre"
-                ><i class="bi-collection me-2"></i>PROFILE</a
-              >
-            </li>
+              <li class="nav-item">
+                <a class="link-user" href="#resourceCentre"
+                  ><i class="bi-collection me-2"></i>PROFILE</a
+                >
+              </li>
 
-            <li class="nav-item">
-              <a class="link-user" href="#resourceCentre"
-                ><i class="bi-collection me-2"></i>RESOURCES</a
-              >
-            </li>
+              <li class="nav-item">
+                <a class="link-user" href="#resourceCentre"
+                  ><i class="bi-collection me-2"></i>RESOURCES</a
+                >
+              </li>
 
-            <!-- <li class="nav-item">
+              <!-- <li class="nav-item">
             <a class="link-user" href="#training"
               ><i class="fa fa-laptop me-2"></i>TRAINING</a
             >
           </li> -->
 
-            <li class="nav-item">
-              <a class="link-user" href="#offers"
-                ><i class="bi-files me-2"></i>OFFERS</a
-              >
-            </li>
+              <li class="nav-item">
+                <a class="link-user" href="#offers"
+                  ><i class="bi-files me-2"></i>OFFERS</a
+                >
+              </li>
 
-            <li class="nav-item">
-              <a class="link-user" href="#tutorForms"
-                ><i class="bi-clipboard-data me-2"></i>SUBMIT FORMS</a
-              >
-            </li>
-          </ul>
-          <div class="text-start ms-4 my-3">
-            <button @click="signingOut" class="btn btn-danger">Log Out</button>
-          </div>
-        </div>
-      </nav>
-    </div>
-
-    <!-- MAIN BODY AREA -->
-    <div class="col-lg-10 col-sm-12 col-md-12">
-      <div class="tutor-profile-banner">
-        <nav class="d-none d-lg-block">
-          <div class="container-fluid">
-            <div class="nav">
-              <a class="navbar-brand text-danger fs-3 me-auto" href="#"
-                >LIFELINE</a
-              >
-              <div class="text-white me-4">
-                <i class="fa fa-bell-o me-3"></i>
-                <i class="bi-chat-square-text"></i>
-              </div>
-
-              <p class="text-white">{{ currentTime }}</p>
-
-              <h6 class="text-white mt-1 me-2">
-                {{ profile.lastName }} {{ profile.firstName }}
-              </h6>
-              <i class="bi-sliders mx-1 text-white"></i>
+              <li class="nav-item">
+                <a class="link-user" href="#tutorForms"
+                  ><i class="bi-clipboard-data me-2"></i>SUBMIT FORMS</a
+                >
+              </li>
+            </ul>
+            <div class="text-start ms-4 my-3">
+              <button @click="signingOut" class="btn btn-danger">
+                Log Out
+              </button>
             </div>
           </div>
         </nav>
+      </div>
 
-        <div class="row mt-lg-5">
-          <div class="col-lg-4 col-sm-12">
-            <div class="tutor-profile-hero px-1">
-              <h2 class="fs-3 fw-bolder mb-0">
-                Hello {{ profile.firstName }},
-              </h2>
-              <p class="fs-beauty fs-5 mt-0 pb-0">It's {{ date() }}</p>
+      <!-- MAIN BODY AREA -->
+      <div class="col-lg-10 col-sm-12 co(offer, index)l-md-12">
+        <div class="tutor-profile-banner">
+          <nav class="d-none d-lg-block">
+            <div class="container-fluid">
+              <div class="nav">
+                <a class="navbar-brand text-danger fs-3 me-auto" href="#"
+                  >LIFELINE</a
+                >
+                <div class="text-white me-4">
+                  <i class="fa fa-bell-o me-3"></i>
+                  <i class="bi-chat-square-text"></i>
+                </div>
+
+                <p class="text-white">{{ currentTime }}</p>
+
+                <h6 class="text-white mt-1 me-2">
+                  {{ profile.lastName }} {{ profile.firstName }}
+                </h6>
+                <i class="bi-sliders mx-1 text-white"></i>
+              </div>
+            </div>
+          </nav>
+
+          <div class="row mt-lg-5">
+            <div class="col-lg-4 col-sm-12">
+              <div class="tutor-profile-hero px-1">
+                <h2 class="fs-3 fw-bolder mb-0">
+                  Hello {{ profile.firstName }},
+                </h2>
+                <p class="fs-beauty fs-5 mt-0 pb-0">It's {{ date() }}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="admin-body mt-lg-3">
-        <!-- DASHBOARD -->
-        <section
-          class="row shadow-two rounded bg-white profile my-lg-4"
-          id="dashboard"
-        >
-          <div class="col-lg-12 col-sm-12 py-3 row">
-            <h5 class="text-start fw-bolder py-1">MY DASHBOARD</h5>
+        <div class="admin-body mt-lg-3">
+          <!-- DASHBOARD -->
+          <section
+            class="row shadow-two rounded bg-white profile my-lg-4"
+            id="dashboard"
+          >
+            <div class="col-lg-12 col-sm-12 py-3 row">
+              <h5 class="text-start fw-bolder py-1">MY DASHBOARD</h5>
 
-            <div class="col-lg-4 col-12">
-              <div class="profit shadow-two bg-white text-primary">
-                <h6>BONUS</h6>
-                <h6><i class="bi-graph-up me-2"></i>Ghc 000.00</h6>
+              <div class="col-lg-4 col-12">
+                <div class="profit shadow-two bg-white text-primary">
+                  <h6>BONUS</h6>
+                  <h6><i class="bi-graph-up me-2"></i>Ghc 000.00</h6>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-12">
+                <div class="client shadow-two bg-white text-danger">
+                  <h6>DEDUCTIONS</h6>
+                  <h6><i class="bi-graph-down me-2"></i>Ghc 000.00</h6>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-12">
+                <div
+                  class="revenue shad(offer, index)ow-two bg-white text-success"
+                >
+                  <h6>REMUNERATION</h6>
+                  <h6><i class="bi-receipt-cutoff me-2"></i>Ghc 000.00</h6>
+                </div>
               </div>
             </div>
+            (offer, index)
 
-            <div class="col-lg-4 col-12">
-              <div class="client shadow-two bg-white text-danger">
-                <h6>DEDUCTIONS</h6>
-                <h6><i class="bi-graph-down me-2"></i>Ghc 000.00</h6>
-              </div>
-            </div>
+            <!-- BOARD -->
+            <section class="row">
+              <div class="col-lg-8">
+                <!-- NOTICE BOARD -->
+                <div class="shadow-two bg-white row notice">
+                  <h4 class="fw-bolder">Notice Board</h4>
+                  <div id="noticeBoard">
+                    <div v-if="getCurrentNote">
+                      <h5 class="fw-bolder">{{ getCurrentNote.title }}</h5>
+                      <p class="mx-3">{{ getCurrentNote.message }}</p>
+                      <div class="text-end">
+                        <small>{{ getCurrentNote.Date_Issued }}</small>
+                      </div>
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        class="btn btn-danger mx-3"
+                        @click="showPrevious"
+                      >
+                        <i class="fa fa-arrow-circle-o-left"></i>
+                      </button>
 
-            <div class="col-lg-4 col-12">
-              <div class="revenue shadow-two bg-white text-success">
-                <h6>REMUNERATION</h6>
-                <h6><i class="bi-receipt-cutoff me-2"></i>Ghc 000.00</h6>
-              </div>
-            </div>
-          </div>
-
-          <!-- BOARD -->
-          <section class="row">
-            <div class="col-lg-8">
-              <!-- NOTICE BOARD -->
-              <div class="shadow-two bg-white row notice">
-                <h4 class="fw-bolder">Notice Board</h4>
-                <div id="noticeBoard">
-                  <div v-if="getCurrentNote">
-                    <h5 class="fw-bolder">{{ getCurrentNote.title }}</h5>
-                    <p class="mx-3">{{ getCurrentNote.message }}</p>
-                    <div class="text-end">
-                      <small>{{ getCurrentNote.Date_Issued }}</small>
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        @click="showNext"
+                      >
+                        <i class="fa fa-arrow-circle-o-right"></i>
+                      </button>
                     </div>
                   </div>
-                  <div>
-                    <button
-                      type="button"
-                      class="btn btn-danger mx-3"
-                      @click="showPrevious"
-                    >
-                      <i class="fa fa-arrow-circle-o-left"></i>
-                    </button>
+                </div>
+              </div>
 
-                    <button
-                      type="button"
-                      class="btn btn-danger"
-                      @click="showNext"
-                    >
-                      <i class="fa fa-arrow-circle-o-right"></i>
-                    </button>
+              <!-- PROFILE -->
+              <div class="col-lg-4">
+                <div class="quote shadow-two text-start my-lg-1 my-3">
+                  <h4 class="fw-bolder mt-2">My Profile</h4>
+                  <div class="col mt-4">
+                    <h6 class="fs-beauty text-muted text-uppercase">
+                      <i class="fa fa-user me-2"></i> Tutor:
+                      {{ profile.lastName }} {{ profile.firstName }}
+                    </h6>
+                  </div>
+
+                  <div class="col">
+                    <h6 class="fs-beauty text-muted text-uppercase">
+                      <i class="fa fa-play me-2"></i> Category:
+                      {{ profile.category }}
+                    </h6>
+                  </div>
+
+                  <div class="col">
+                    <h6 class="fs-beauty text-muted text-uppercase">
+                      <i class="fa fa-codepen me-2"></i> Status:
+                      {{ profile.status }}
+                    </h6>
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
 
-            <!-- PROFILE -->
-            <div class="col-lg-4">
-              <div class="quote shadow-two text-start my-lg-1 my-3">
-                <h4 class="fw-bolder mt-2">My Profile</h4>
-                <div class="col mt-4">
-                  <h6 class="fs-beauty text-muted text-uppercase">
-                    <i class="fa fa-user me-2"></i> Tutor:
-                    {{ profile.lastName }} {{ profile.firstName }}
-                  </h6>
-                </div>
+            <!-- RESOURCE CENTRE -->
+            <section id="resourceCentre" class="col-lg-12 mt-5 mt-lg-2">
+              <!-- <h4>Resource Centre</h4> -->
+              <div class="section shadow-two">
+                <!-- LIFELINE -->
+                <a class="navbar-brand" href="#">Resource Centre</a>
 
-                <div class="col">
-                  <h6 class="fs-beauty text-muted text-uppercase">
-                    <i class="fa fa-play me-2"></i> Category:
-                    {{ profile.category }}
-                  </h6>
-                </div>
-
-                <div class="col">
-                  <h6 class="fs-beauty text-muted text-uppercase">
-                    <i class="fa fa-codepen me-2"></i> Status:
-                    {{ profile.status }}
-                  </h6>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- RESOURCE CENTRE -->
-          <section id="resourceCentre" class="col-lg-12 mt-5 mt-lg-2">
-            <!-- <h4>Resource Centre</h4> -->
-            <div class="section shadow-two">
-              <!-- LIFELINE -->
-              <a class="navbar-brand" href="#">Resource Centre</a>
-
-              <div class="row">
-                <!-- <div class="col-lg-12 row my-5">
+                <div class="row">
+                  <!-- <div class="col-lg-12 row my-5">
               <div class="col">
                 <div class="res hover" id="lBtn">
                   <img class="image-link" src="/images/logo.png" alt="" />
@@ -294,178 +301,88 @@
 
             </div> -->
 
-                <!-- <div class="col"><i class="fa-regular fa-file-pdf"></i></div>
+                  <!-- <div class="col"><i class="fa-regular fa-file-pdf"></i></div>
             <div class="col"><i class="fa-regular fa-file-pdf"></i></div>
             <div class="col"><i class="fa-solid fa-file-pdf"></i></div> -->
-                <div class="col-12">
-                  <div class="lifeline text-start" id="lesResource">
-                    <div class="row my-3 py-2">
-                      <div class="col-lg-6">
-                        <h5>Lifeline Tutor Repository</h5>
-                        <!-- <small>Download Lifeline's Resources</small> -->
-                      </div>
-                      <div class="col-lg-6 col-sm-12">
-                        <form class="d-flex" role="search">
-                          <input
-                            class="form-control me-2 shadow-one"
-                            type="search"
-                            placeholder="Search"
-                            aria-label="Search"
-                            id="lesResSearch"
-                          />
-                        </form>
-                      </div>
-                      <div class="col-lg-12 col-sm-12 my-2">
-                        <button type="button" class="btn btn-outline-primary">
-                          Lifeline Repository
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary">
-                          Reading Clinic
-                        </button>
-                        <button type="button" class="btn btn-outline-success">
-                          G.E.S Repository
-                        </button>
-                      </div>
-                    </div>
-
-                    <table
-                      class="table table-sm table-bordered border-primary table-hover resource"
-                    >
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Name</th>
-                          <th scope="col">Description</th>
-                          <th scope="col">Download</th>
-                        </tr>
-                      </thead>
-
-                      <tbody class="table-group-divider" id="lesResCentre">
-                        <tr>
-                          <td>1</td>
-                          <td>Log Sheet</td>
-                          <td>This is used to record tutor attendance.</td>
-                          <td>
-                            <a
-                              class="btn btn-danger"
-                              href="https://firebasestorage.googleapis.com/v0/b/lifeline-edu-site.appspot.com/o/Tutor%20Resources%2FLog%20sheet.pdf?alt=media&token=a1a2927c-c086-4f20-8930-808a782794bb"
-                              id="download"
-                              ><i class="fa fa-download"></i
-                            ></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Code of Conduct</td>
-                          <td>This documents spells out our rules.</td>
-                          <td>
-                            <a
-                              class="btn btn-danger"
-                              href="https://firebasestorage.googleapis.com/v0/b/lifeline-edu-site.appspot.com/o/Tutor%20Resources%2FLifeline's%20Tutor%20Code%20of%20Conduct.pdf?alt=media&token=17cbb614-401f-495f-9311-8b4aa8076a6e"
-                              id="download"
-                              ><i class="fa fa-download"></i
-                            ></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Tutor's Handbook</td>
-                          <td>
-                            This document will help you become a better tutor.
-                          </td>
-                          <td>
-                            <a class="btn btn-danger" href="#" id="download"
-                              ><i class="fa fa-download"></i
-                            ></a>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>3</td>
-                          <td>Phonics</td>
-                          <td>
-                            Learn the sounds of letters, blending and more.
-                          </td>
-                          <td>
-                            <a
-                              class="btn btn-danger"
-                              href="https://www.readingbear.org/"
-                              target="framename"
-                              ><i class="fa fa-download"></i
-                            ></a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <!-- READING CLINIC -->
-                  <section class="shadow-two my-lg-4 my-3">
-                    <h5 class="text-start pt-4">Reading Clinic</h5>
-                    <iframe
-                      src="https://www.uniteforliteracy.com/"
-                      class="shadow-two resource-frame"
-                      frameborder="0"
-                    ></iframe>
-                  </section>
-
-                  <!-- GES DATA TABLE -->
-                  <template>
-                    <div class="text-start mt-5">
-                      <div class="row my-3">
+                  <div class="col-12">
+                    <div class="lifeline text-start" id="lesResource">
+                      <div class="row my-3 py-2">
                         <div class="col-lg-6">
-                          <h5>Standards Based Curriculum</h5>
+                          <h5>Lifeline Tutor Repository</h5>
+                          <!-- <small>Download Lifeline's Resources</small> -->
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 col-sm-12">
                           <form class="d-flex" role="search">
                             <input
                               class="form-control me-2 shadow-one"
                               type="search"
                               placeholder="Search"
                               aria-label="Search"
-                              id="gesResSearch"
+                              id="lesResSearch"
                             />
                           </form>
                         </div>
+                        <div class="col-lg-12 col-sm-12 my-2">
+                          <button type="button" class="btn btn-outline-primary">
+                            Lifeline Repository
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                          >
+                            Reading Clinic
+                          </button>
+                          <button type="button" class="btn btn-outline-success">
+                            G.E.S Repository
+                          </button>
+                        </div>
                       </div>
 
-                      <!-- <p>Ghana Education Service (GES) Standards Based Curriculum.</p> -->
                       <table
                         class="table table-sm table-bordered border-primary table-hover resource"
                       >
-                        <thead class="">
+                        <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">CLASS</th>
-                            <th scope="col">SUBJECT</th>
-                            <th scope="col">DOWNLOAD</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Download</th>
                           </tr>
                         </thead>
-                        <tbody class="table-group-divider" id="gesResCentre">
+
+                        <tbody class="table-group-divider" id="lesResCentre">
                           <tr>
                             <td>1</td>
-                            <td>BASIC ONE</td>
-                            <td>ENGLISH LANGUAGE</td>
+                            <td>Log Sheet</td>
+                            <td>This is used to record tutor attendance.</td>
                             <td>
-                              <a class="btn btn-danger" href="#" id="download"
+                              <a
+                                class="btn btn-danger"
+                                href="https://firebasestorage.googleapis.com/v0/b/lifeline-edu-site.appspot.com/o/Tutor%20Resources%2FLog%20sheet.pdf?alt=media&token=a1a2927c-c086-4f20-8930-808a782794bb"
+                                id="download"
                                 ><i class="fa fa-download"></i
                               ></a>
                             </td>
                           </tr>
                           <tr>
                             <td>2</td>
-                            <td>BASIC ONE</td>
-                            <td>MATHEMATICS</td>
+                            <td>Code of Conduct</td>
+                            <td>This documents spells out our rules.</td>
                             <td>
-                              <a class="btn btn-danger" href="#" id="download"
+                              <a
+                                class="btn btn-danger"
+                                href="https://firebasestorage.googleapis.com/v0/b/lifeline-edu-site.appspot.com/o/Tutor%20Resources%2FLifeline's%20Tutor%20Code%20of%20Conduct.pdf?alt=media&token=17cbb614-401f-495f-9311-8b4aa8076a6e"
+                                id="download"
                                 ><i class="fa fa-download"></i
                               ></a>
                             </td>
                           </tr>
                           <tr>
                             <td>3</td>
-                            <td>BASIC ONE</td>
-                            <td>SCIENCE</td>
+                            <td>Tutor's Handbook</td>
+                            <td>
+                              This document will help you become a better tutor.
+                            </td>
                             <td>
                               <a class="btn btn-danger" href="#" id="download"
                                 ><i class="fa fa-download"></i
@@ -474,41 +391,134 @@
                           </tr>
 
                           <tr>
-                            <td>4</td>
-                            <td>BASIC TWO</td>
-                            <td>ENGLISH LANGUAGE</td>
+                            <td>3</td>
+                            <td>Phonics</td>
                             <td>
-                              <button class="btn btn-danger">
-                                <i class="fa fa-download"></i>
-                              </button>
+                              Learn the sounds of letters, blending and more.
                             </td>
-                          </tr>
-                          <tr>
-                            <td>5</td>
-                            <td>BASIC TWO</td>
-                            <td>MATHEMATICS</td>
                             <td>
-                              <button class="btn btn-danger">
-                                <i class="fa fa-download"></i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>6</td>
-                            <td>BASIC TWO</td>
-                            <td>SCIENCE</td>
-                            <td>
-                              <button class="btn btn-danger">
-                                <i class="fa fa-download"></i>
-                              </button>
+                              <a
+                                class="btn btn-danger"
+                                href="https://www.readingbear.org/"
+                                target="framename"
+                                ><i class="fa fa-download"></i
+                              ></a>
                             </td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
-                  </template>
 
-                  <!-- <div class="reading text-start px-5 mt-5">
+                    <!-- READING CLINIC -->
+                    <section class="shadow-two my-lg-4 my-3">
+                      <h5 class="text-start pt-4">Reading Clinic</h5>
+                      <iframe
+                        src="https://www.uniteforliteracy.com/"
+                        class="shadow-two resource-frame"
+                        frameborder="0"
+                      ></iframe>
+                    </section>
+
+                    <!-- GES DATA TABLE -->
+                    <template>
+                      <div class="text-start mt-5">
+                        <div class="row my-3">
+                          <div class="col-lg-6">
+                            <h5>Standards Based Curriculum</h5>
+                          </div>
+                          <div class="col-lg-6">
+                            <form class="d-flex" role="search">
+                              <input
+                                class="form-control me-2 shadow-one"
+                                type="search"
+                                placeholder="Search"
+                                aria-label="Search"
+                                id="gesResSearch"
+                              />
+                            </form>
+                          </div>
+                        </div>
+
+                        <!-- <p>Ghana Education Service (GES) Standards Based Curriculum.</p> -->
+                        <table
+                          class="table table-sm table-bordered border-primary table-hover resource"
+                        >
+                          <thead class="">
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">CLASS</th>
+                              <th scope="col">SUBJECT</th>
+                              <th scope="col">DOWNLOAD</th>
+                            </tr>
+                          </thead>
+                          <tbody class="table-group-divider" id="gesResCentre">
+                            <tr>
+                              <td>1</td>
+                              <td>BASIC ONE</td>
+                              <td>ENGLISH LANGUAGE</td>
+                              <td>
+                                <a class="btn btn-danger" href="#" id="download"
+                                  ><i class="fa fa-download"></i
+                                ></a>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>2</td>
+                              <td>BASIC ONE</td>
+                              <td>MATHEMATICS</td>
+                              <td>
+                                <a class="btn btn-danger" href="#" id="download"
+                                  ><i class="fa fa-download"></i
+                                ></a>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>3</td>
+                              <td>BASIC ONE</td>
+                              <td>SCIENCE</td>
+                              <td>
+                                <a class="btn btn-danger" href="#" id="download"
+                                  ><i class="fa fa-download"></i
+                                ></a>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>4</td>
+                              <td>BASIC TWO</td>
+                              <td>ENGLISH LANGUAGE</td>
+                              <td>
+                                <button class="btn btn-danger">
+                                  <i class="fa fa-download"></i>
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>5</td>
+                              <td>BASIC TWO</td>
+                              <td>MATHEMATICS</td>
+                              <td>
+                                <button class="btn btn-danger">
+                                  <i class="fa fa-download"></i>
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>6</td>
+                              <td>BASIC TWO</td>
+                              <td>SCIENCE</td>
+                              <td>
+                                <button class="btn btn-danger">
+                                  <i class="fa fa-download"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </template>
+
+                    <!-- <div class="reading text-start px-5 mt-5">
                 <h5>Reading Centre</h5>
                 <p>Reading resource to help you teach reading effectively.</p>
                 <table
@@ -537,216 +547,226 @@
                   </tbody>
                 </table>
               </div> -->
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <!-- CONTRACTS -->
-          <section id="offers" class="col-lg-12 shadow-two">
-            <div class="section">
-              <a class="navbar-brand pt-3" href="#">Lifeline Offers</a>
-              <div class="row">
-                <div class="col-lg-4 col-sm-6" v-for="offer in offers">
-                  <div class="card h-80 mb-3 hoverTutor rounded">
-                    <div class="card-header py-1">
-                      <h4>{{ offer.type }}</h4>
-                    </div>
-                    <div class="card-body">
-                      <p class="fs-6">MODE: {{ offer.mode }}</p>
-                      <p>LEVEL: {{ offer.level }}</p>
-                      <p>DURATION: {{ offer.duration }}</p>
-                      <p>LOCATION: {{ offer.location }}</p>
-                      <h5>{{ offer.allowance }}</h5>
-                      <div class="py-2 d-flex justify-content-between">
-                        <small class="text-end text-white shadow-two px-2">
-                          {{ offer.availability }}
-                        </small>
-                        <small class="text-white shadow-two px-2">
-                          {{ offer.mode }}
-                        </small>
+            <!-- CONTRACTS -->
+
+            <section id="offers" class="col-lg-12 shadow-two">
+              <div class="section">
+                <a class="navbar-brand pt-3" href="#">Lifeline Offers</a>
+                <div class="row">
+                  <div class="col-lg-4 col-sm-6" v-for="offer in offers">
+                    <div class="card h-80 mb-3 hoverTutor rounded">
+                      <div class="card-header py-1">
+                        <h4>{{ offer.type }}</h4>
                       </div>
-                      <button class="btn btn-primary">More Info</button>
+                      <div class="card-body">
+                        <p class="fs-6">MODE: {{ offer.mode }}</p>
+                        <p>LEVEL: {{ offer.level }}</p>
+                        <p>DURATION: {{ offer.duration }}</p>
+                        <p>LOCATION: {{ offer.location }}</p>
+                        <h5>{{ offer.allowance }}</h5>
+                        <div class="py-2 d-flex justify-content-between">
+                          <small class="text-end text-white shadow-two px-2">
+                            {{ offer.availability }}
+                          </small>
+                          <small class="text-white shadow-two px-2">
+                            {{ offer.mode }}
+                          </small>
+                        </div>
+                        <button class="btn btn-primary">More Info</button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <!-- FORMS -->
-          <section id="tutorForms" class="col-lg-12 shadow-two my-3">
-            <!-- SWITCH BTN -->
-            <div class="btn-group my-4" role="group">
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                @click="logSheetBtn"
-              >
-                LOG SHEET
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                @click="progressReportBtn"
-              >
-                PROGRESS REPORT
-              </button>
-              <!-- <button type="button" class="btn btn-outline-primary" id="assessmentBtn" >ASSESSMENT REPORT</button> -->
-            </div>
-
-            <!-- PROGRESS REPORT -->
-            <div id="progress" class="px-5" v-if="progressReport">
-              <div class="row shadow-two">
-                <div class="col-lg-6 d-none d-lg-block"></div>
-                <div class="col-lg-6 shadow-two bg-white">
-                  <h4 class="my-lg-4 my-2">PROGRESS REPORT</h4>
-                  <div class="my-lg-3">
-                    <!-- <label for="">CONTRACT TYPE:</label> <br /> -->
-                    <select name="type" id="" class="profile-input">
-                      <option value="">CONTRACT TYPE</option>
-                      <option value="DUO">DUO</option>
-                      <option value="TRI">TRI</option>
-                      <option value="QUAD">QUAD</option>
-                      <option value="PENT">PENT</option>
-                    </select>
-                  </div>
-
-                  <div class="">
-                    <!-- <label class="" for="">Mode of Tuition:</label> <br /> -->
-                    <select name="mode" id="" class="profile-input">
-                      <option value="">MODE OF TUITION</option>
-                      <option value="online">Online</option>
-                      <option value="in-person">In-Person</option>
-                    </select>
-                  </div>
-
-                  <div class="my-3">
-                    <!-- <label for="">Level:</label> <br /> -->
-                    <select name="level" id="" class="profile-input">
-                      <option value="">LEVEL OF STUDENT</option>
-                      <option value="KG">KINDERGARTEN</option>
-                      <option value="PRIMARY">PRIMARY</option>
-                      <option value="JHS">JHS</option>
-                      <option value="SHS">SHS</option>
-                    </select>
-                  </div>
-
-                  <div class="div">
-                    <!-- <label for="">Class:</label> <br /> -->
-                    <input
-                      class="profile-input"
-                      type="tel"
-                      name="class"
-                      placeholder="CLASS"
-                    />
-                  </div>
-
-                  <div class="my-3">
-                    <!-- <label for="">Subjects:</label> <br /> -->
-                    <textarea
-                      name="subjects"
-                      id=""
-                      class="profile-input-textarea"
-                      placeholder="TUITION SUBJECT(S)"
-                    ></textarea>
-                  </div>
-
-                  <div class="div">
-                    <!-- <label for="">Lesson Duration</label> <br /> -->
-                    <select name="duration" id="" class="profile-input">
-                      <option value="">LESSON DURATION</option>
-                      <option value="1 hour">1 hour</option>
-                      <option value="1.5 hours">1.5 hrs</option>
-                      <option value="2 hours">2 hrs</option>
-                      <option value="2.5 hours">2.5 hrs</option>
-                      <option value="3 hours">3 hrs</option>
-                    </select>
-                  </div>
-
-                  <div class="my-3">
-                    <!-- <label for="">Location:</label> <br /> -->
-                    <input
-                      class="profile-input"
-                      type="text"
-                      name="location"
-                      placeholder="LOCATION"
-                    />
-                  </div>
-
-                  <button
-                    class="btn btn-success my-lg-4 my-3 shadow-two"
-                    type="submit"
-                    name="postContract"
-                  >
-                    UPLOAD REPORT
-                  </button>
-                </div>
+            <!-- FORMS -->
+            <section id="tutorForms" class="col-lg-12 shadow-two my-3">
+              <!-- SWITCH BTN -->
+              <div class="btn-group my-4" role="group">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  @click="logSheetBtn"
+                >
+                  LOG SHEET
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  @click="progressReportBtn"
+                >
+                  PROGRESS REPORT
+                </button>
+                <!-- <button type="button" class="btn btn-outline-primary" id="assessmentBtn" >ASSESSMENT REPORT</button> -->
               </div>
-            </div>
 
-            <!-- LOG SHEET -->
-            <div id="logsheet" class="px-5 py-3" v-if="logSheet">
-              <div class="row shadow-two">
-                <div class="col-lg-6 d-none d-lg-block"></div>
-                <div class="col-lg-6 shadow-two bg-white py-3">
-                  <h4 class="my-lg-3">LOG SHEET</h4>
-                  <form action="" method="post">
-                    <div class="div">
-                      <label class="label" for="">Tutor ID:</label>
-                      <input
-                        class="apply-input"
-                        type="text"
-                        name="tutorId"
-                        disabled
-                      />
+              <!-- PROGRESS REPORT -->
+              <div id="progress" class="px-5" v-if="progressReport">
+                <div class="row shadow-two">
+                  <div class="col-lg-6 d-none d-lg-block"></div>
+                  <div class="col-lg-6 shadow-two bg-white">
+                    <h4 class="my-lg-4 my-2">PROGRESS REPORT</h4>
+                    <div class="my-lg-3">
+                      <!-- <label for="">CONTRACT TYPE:</label> <br /> -->
+                      <select name="type" id="" class="profile-input">
+                        <option value="">CONTRACT TYPE</option>
+                        <option value="DUO">DUO</option>
+                        <option value="TRI">TRI</option>
+                        <option value="QUAD">QUAD</option>
+                        <option value="PENT">PENT</option>
+                      </select>
+                    </div>
+
+                    <div class="">
+                      <!-- <label class="" for="">Mode of Tuition:</label> <br /> -->
+                      <select name="mode" id="" class="profile-input">
+                        <option value="">MODE OF TUITION</option>
+                        <option value="online">Online</option>
+                        <option value="in-person">In-Person</option>
+                      </select>
+                    </div>
+
+                    <div class="my-3">
+                      <!-- <label for="">Level:</label> <br /> -->
+                      <select name="level" id="" class="profile-input">
+                        <option value="">LEVEL OF STUDENT</option>
+                        <option value="KG">KINDERGARTEN</option>
+                        <option value="PRIMARY">PRIMARY</option>
+                        <option value="JHS">JHS</option>
+                        <option value="SHS">SHS</option>
+                      </select>
                     </div>
 
                     <div class="div">
-                      <label class="label" for="">Contact:</label>
+                      <!-- <label for="">Class:</label> <br /> -->
                       <input
-                        class="apply-input"
+                        class="profile-input"
                         type="tel"
-                        name="contact"
-                        disabled
+                        name="class"
+                        placeholder="CLASS"
                       />
                     </div>
 
-                    <div class="div">
-                      <label class="label" for="">Log Sheet For (Month):</label>
-                      <input class="apply-input" type="month" name="date" />
+                    <div class="my-3">
+                      <!-- <label for="">Subjects:</label> <br /> -->
+                      <textarea
+                        name="subjects"
+                        id=""
+                        class="profile-input-textarea"
+                        placeholder="TUITION SUBJECT(S)"
+                      ></textarea>
                     </div>
 
                     <div class="div">
-                      <label class="label" for="">Contract Id:</label>
+                      <!-- <label for="">Lesson Duration</label> <br /> -->
+                      <select name="duration" id="" class="profile-input">
+                        <option value="">LESSON DURATION</option>
+                        <option value="1 hour">1 hour</option>
+                        <option value="1.5 hours">1.5 hrs</option>
+                        <option value="2 hours">2 hrs</option>
+                        <option value="2.5 hours">2.5 hrs</option>
+                        <option value="3 hours">3 hrs</option>
+                      </select>
+                    </div>
+
+                    <div class="my-3">
+                      <!-- <label for="">Location:</label> <br /> -->
                       <input
-                        class="apply-input"
+                        class="profile-input"
                         type="text"
-                        name="contractId"
+                        name="location"
+                        placeholder="LOCATION"
                       />
                     </div>
 
-                    <div class="div">
-                      <label class="label" for="">Upload Log Sheet</label>
-                      <input class="apply-input" type="file" name="logSheet" />
-                    </div>
-
-                    <button class="btn btn-success my-lg-4" type="submit">
-                      SUBMIT
+                    <button
+                      class="btn btn-success my-lg-4 my-3 shadow-two"
+                      type="submit"
+                      name="postContract"
+                    >
+                      UPLOAD REPORT
                     </button>
-                  </form>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
 
-          <!-- TRAINING -->
-          <section class="d-none d-lg-block px-5 py-3 shadow-two" id="training">
-            <div class="px-5 py-5">
-              <a class="navbar-brand" href="#">Training</a>
+              <!-- LOG SHEET -->
+              <div id="logsheet" class="px-5 py-3" v-if="logSheet">
+                <div class="row shadow-two">
+                  <div class="col-lg-6 d-none d-lg-block"></div>
+                  <div class="col-lg-6 shadow-two bg-white py-3">
+                    <h4 class="my-lg-3">LOG SHEET</h4>
+                    <form action="" method="post">
+                      <div class="div">
+                        <label class="label" for="">Tutor ID:</label>
+                        <input
+                          class="apply-input"
+                          type="text"
+                          name="tutorId"
+                          disabled
+                        />
+                      </div>
 
-              <div class="">
-                <!-- <iframe
+                      <div class="div">
+                        <label class="label" for="">Contact:</label>
+                        <input
+                          class="apply-input"
+                          type="tel"
+                          name="contact"
+                          disabled
+                        />
+                      </div>
+
+                      <div class="div">
+                        <label class="label" for=""
+                          >Log Sheet For (Month):</label
+                        >
+                        <input class="apply-input" type="month" name="date" />
+                      </div>
+
+                      <div class="div">
+                        <label class="label" for="">Contract Id:</label>
+                        <input
+                          class="apply-input"
+                          type="text"
+                          name="contractId"
+                        />
+                      </div>
+
+                      <div class="div">
+                        <label class="label" for="">Upload Log Sheet</label>
+                        <input
+                          class="apply-input"
+                          type="file"
+                          name="logSheet"
+                        />
+                      </div>
+
+                      <button class="btn btn-success my-lg-4" type="submit">
+                        SUBMIT
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- TRAINING -->
+            <section
+              class="d-none d-lg-block px-5 py-3 shadow-two"
+              id="training"
+            >
+              <div class="px-5 py-5">
+                <a class="navbar-brand" href="#">Training</a>
+
+                <div class="">
+                  <!-- <iframe
                   src="https://docs.google.com/presentation/d/e/2PACX-1vS6LQfaUqPWGECS-5B8CotEciAAFI3PuLIacC9AXLYehYpd0cHSuTuoyZxxX6bZ41Hot8qi0UjHiJYK/embed?start=false&loop=false&delayms=3000"
                   frameborder="0"
                   width="920"
@@ -755,39 +775,40 @@
                   mozallowfullscreen="true"
                   webkitallowfullscreen="true"
                 ></iframe> -->
+                </div>
               </div>
+            </section>
+
+            <!-- MESSAGE -->
+            <section class="px-5 py-3 shadow-two my-4">
+              <TheMessage></TheMessage>
+            </section>
+
+            <!-- <button @click="fetchProspects">Get Prospects</button> -->
+            <div v-for="prospect in prospectData">
+              <p>
+                {{ prospect.parent }} {{ prospect.student }}
+                {{ prospect.contact }}
+              </p>
             </div>
           </section>
 
-          <!-- MESSAGE -->
-          <section class="px-5 py-3 shadow-two my-4">
-            <TheMessage></TheMessage>
-          </section>
+          <Dictionary></Dictionary>
 
-          <!-- <button @click="fetchProspects">Get Prospects</button> -->
-          <div v-for="prospect in prospectData">
-            <p>
-              {{ prospect.parent }} {{ prospect.student }}
-              {{ prospect.contact }}
-            </p>
-          </div>
-        </section>
-
-        <Dictionary></Dictionary>
-
-        <!-- <button @click="fetchNotice">Fetch Notice</button>
+          <!-- <button @click="fetchNotice">Fetch Notice</button>
 
         <button @click="getUserInfo">Get User Info</button> -->
 
-        <!-- <p>{{ profile }}</p> -->
+          <!-- <p>{{ profile }}</p> -->
 
-        <!-- <p>{{ notices }}</p> -->
+          <!-- <p>{{ notices }}</p> -->
 
-        <!-- <div v-for="note in currentNote" :key="note.title">
+          <!-- <div v-for="note in currentNote" :key="note.title">
           {{ note }}
           <h2>Title: {{ note.title }}</h2>
           <p>Message: {{ note.message }}</p>
         </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -880,6 +901,7 @@ export default {
       notices: [],
       currentNote: {},
       lastIndex: 0,
+      layout: "grid",
       offers: [],
       profile: {},
     };
@@ -941,6 +963,22 @@ export default {
         });
       } catch (e) {
         console.error("Error retrieving docs: ", e);
+      }
+    },
+
+    getSeverity(product) {
+      switch (product.inventoryStatus) {
+        case "INSTOCK":
+          return "success";
+
+        case "LOWSTOCK":
+          return "warning";
+
+        case "OUTOFSTOCK":
+          return "danger";
+
+        default:
+          return null;
       }
     },
 

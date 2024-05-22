@@ -6,7 +6,7 @@
         <h3 class="choose-title mt-4">OUR AMAZING TUTORS</h3>
         <p class="text-dark-emphasis">Meet some of our Lifeline tutors</p>
         <div class="col-sm-12 col-md-12 col-lg-4 hover">
-          <div class="card h-70">
+          <div class="card myCard h-70">
             <img
               class="service-image"
               src="/images/Pic.png"
@@ -18,7 +18,7 @@
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-4 hover">
-          <div class="card h-70">
+          <div class="card myCard h-70">
             <img
               class="service-image"
               src="/images/Pic.png"
@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-4 hover">
-          <div class="card h-70">
+          <div class="card myCard h-70">
             <img
               class="service-image"
               src="/images/Pic.png"

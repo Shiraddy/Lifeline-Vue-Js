@@ -211,16 +211,16 @@
               <legend class="legend me-auto">Create Login Details</legend>
 
               <div class="row my-lg-2 my-sm-3">
+                <label for="email" class="label">Email</label>
                 <div class="col-lg-12">
-                  <label class="label" for="email">Email Address</label>
                   <input
+                    required
                     class="apply-input"
                     type="email"
-                    name="email"
-                    v-model.lazy="tutorApplication.email"
+                    v-model="tutorApplication.email"
                     @keyup="emailValidity()"
-                    required
                   />
+
                   <p v-if="emailErrorMessageShow" class="text-danger lh-1">
                     <small>{{ emailErrorMessage }}</small>
                   </p>
@@ -372,28 +372,27 @@
                   <p class="text-danger" v-if="emergencyError">
                     <small>This field is required</small>
                   </p>
-
-                  <!-- <div class="col-lg-12 shadow-two mt-lg-3 py-2">
-                  <div class="row py-3">
-                    <div class="col-lg-5 py-2">
-                      <image id="profilePic" src="/images/Pic.png" />
+                </div>
+                <div class="col-lg-12 shadow-two mt-lg-3 py-2">
+                  <div class="py-3">
+                    <div class="card">
+                      <Toast />
+                      <FileUpload
+                        name="demo[]"
+                        url="/api/upload"
+                        @upload="onAdvancedUpload($event)"
+                        :multiple="false"
+                        fileLimit="1"
+                        accept="image/*"
+                        :auto="false"
+                        :maxFileSize="1000000"
+                      >
+                        <template #empty>
+                          <p>Drag and drop files to here to upload.</p>
+                        </template>
+                      </FileUpload>
                     </div>
-                    <input
-                    type="file"
-                    name="profilePicture"
-                    accept="image/png, image/jpeg"
-                    @change="previewImage"
-                    required=""
-                    capture
-                    />
-                    <img
-                    v-if="imageUrl"
-                    :src="imageUrl"
-                    alt="Preview Image"
-                    width="20px"
-                    />
                   </div>
-                </div> -->
                 </div>
               </div>
 
@@ -1276,6 +1275,7 @@ import Footer from "@/components/Footer.vue";
 import TutorList from "@/components/TutorList.vue";
 import About from "@/components/About.vue";
 import emailjs from "@emailjs/browser";
+import FloatLabel from "primevue/floatlabel";
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
@@ -1344,6 +1344,17 @@ export default {
       DoBError: false,
       contactError: false,
       emergencyError: false,
+      items: [
+        {
+          label: "Personal Info",
+        },
+        {
+          label: "Reservation",
+        },
+        {
+          label: "Review",
+        },
+      ],
       error: {
         certAttainedError: false,
         coursedError: false,
@@ -1702,17 +1713,13 @@ export default {
       (this.location = false), (this.expertise = true);
     },
 
-    previewImage(event) {
-      const file = event.target.files[0];
-      if (!file) {
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.imageUrl = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    onAdvancedUpload() {
+      this.$toast.add({
+        severity: "info",
+        summary: "Success",
+        detail: "File Uploaded",
+        life: 3000,
+      });
     },
   },
 };

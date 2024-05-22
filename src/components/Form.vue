@@ -34,8 +34,7 @@
             <p>Dear Parent,</p>
             <p>
               Thank you for choosing us. We have tutored hundreds of students in
-              Tamale and beyond. It is your turn now. Please review
-              our
+              Tamale and beyond. It is your turn now. Please review our
               <RouterLink class="link" to="/faq"
                 >Frequently Asked Questions</RouterLink
               >
@@ -919,8 +918,17 @@ export default {
         weeklySession: 3,
         periodLength: 1,
         preferredSubjects: [],
+        pastTutors: [],
+        payments: [],
+        comments: [],
+        tutor: "",
+        tutor_contact: "",
+        tutor_email: "",
+        starting_date: "",
+        ending_date: "",
+        status: "request",
         otherTuitionSubjects: "",
-        charges: "",
+        fees: 0,
         calculatedFee: "",
         agreement: false,
       },
@@ -1179,7 +1187,7 @@ export default {
 
       // Add an increment of 50 to the total price
       let increment = totalPrice + 50;
-
+      this.fees = increment;
       // Return the calculated price (total price + increment)
       return increment;
     },

@@ -29,16 +29,6 @@
                 v-model.trim="adminLogin.password"
               />
 
-              <!-- ERROR MESSAGE -->
-
-              <!-- SWITCH TO KEEP LOGGED IN -->
-              <!-- <div class="text-end">
-                  <input class="" type="checkbox" role="switch" />
-                  <small class="" for="flexSwitchCheckDefault"
-                    >Keep Me Logged In</small
-                  >
-                </div> -->
-
               <p class="text-danger my-0 py-0 fw-bolder" v-if="loginError">
                 {{ errorMessage }}
               </p>
@@ -62,11 +52,11 @@
                   <a class="nav-link" href="/apply">Sign-Up</a>
                 </p>
               </div>
-              <!-- OTHER LOG IN OPTIONS -->
+
               <div>
-                <div class="py-lg-2">
+                <div class="py-lg-1">
                   <p>
-                    Or Login Using:
+                    Or login using:
                     <i class="fa fa-google-plus-circle"></i>
                     <i class="fa fa-facebook-official"></i>
                     <i class="fa fa-twitter"></i>

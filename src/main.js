@@ -2,6 +2,16 @@ import "./assets/main.css";
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import PrimeVue from "primevue/config";
+import "primevue/resources/primevue.min.css";
+import "primeicons/primeicons.css";
+import { PrimeIcons } from "primevue/api";
+import ConfirmationService from "primevue/confirmationservice";
+import Toast from "primevue/toast";
+import ToastService from "primevue/toastservice";
+import "primevue/resources/themes/aura-light-green/theme.css";
+import Chart from "primevue/chart";
+
 import { ref } from "vue";
 import { Axios } from "axios";
 import emailjs from "@emailjs/browser";
@@ -31,6 +41,9 @@ const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
+app.use(PrimeVue);
+app.use(ConfirmationService);
+app.use(ToastService);
 
 // Initialize Firebase (if you haven't already done this)
 const firebaseConfig = {
