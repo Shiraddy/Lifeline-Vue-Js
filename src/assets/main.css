@@ -10,6 +10,7 @@
     url(/images/tutor2.jpg);
   object-fit: cover;
   background-size: cover;
+  overflow: hidden;
   background-position: bottom center;
   background-repeat: no-repeat;
 }
@@ -1238,7 +1239,7 @@ body {
 .profit,
 .client {
   height: 7rem;
-  width: 90%;
+  width: 92%;
   display: flex;
   justify-content: center;
   align-items: center;

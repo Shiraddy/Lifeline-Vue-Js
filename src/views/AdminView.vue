@@ -34,11 +34,8 @@
               <!-- <a class="navbar-brand" href="#">LIFELINE</a> -->
               <img class="admin-pic" src="/images/Pic.png" alt="" />
 
-              <Divider layout="horizontal" class="flex md:hidden" align="center"
-                ><b>SECTIONS</b></Divider
-              >
               <ul class="nav navbar-nav admin-ul">
-                <a class="admin-list" href="#adminDash"
+                <a class="admin-list" href="#adminDash" @click="dashboardView"
                   ><i class="bi-columns-gap me-2 text-white"></i> DASHBOARD
                 </a>
 
@@ -60,7 +57,10 @@
                   ><i class="bi-chat-right-text me-2"></i>UPLOADS
                 </a>
 
-                <a href="#adminClient" class="admin-list"
+                <a
+                  href="#adminClient"
+                  class="admin-list"
+                  @click="financeTableView"
                   ><i class="bi-clipboard-data me-2 text-white"></i>
                   FINANCE
                   <span class="admin-icon"></span
@@ -75,43 +75,39 @@
 
       <!-- MAIN AREA -->
       <div class="col-lg-10">
-        <nav class="navbar navbar-expand-lg d-none d-lg-block">
-          <div class="">
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarTogglerDemo01"
-              aria-controls="navbarTogglerDemo01"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-              <a class="navbar-brand me-auto mb-2 mb-lg-0 text-danger" href="#"
-                >LIFELINE</a
-              >
+        <Toolbar class="mx-4 mb-2">
+          <template #start>
+            <a class="navbar-brand text-danger" href="#">LIFELINE</a>
+          </template>
 
-              <div class="me-2">
-                <h5 class="text-success">
-                  {{ dateDisplay() }}
-                  <i class="fa-solid fa-calendar-check ps-1"></i>
-                </h5>
-              </div>
-
-              <IconField iconPosition="left">
-                <InputIcon>
-                  <i class="pi pi-search" />
-                </InputIcon>
-                <InputText placeholder="Search" />
-              </IconField>
+          <template #end>
+            <div class="me-2">
+              <h5 class="text-success">
+                {{ dateDisplay() }}
+                <i class="fa-solid fa-calendar-check ps-1"></i>
+              </h5>
             </div>
-          </div>
-        </nav>
+            <IconField>
+              <InputIcon>
+                <i class="pi pi-search" />
+              </InputIcon>
+              <InputText placeholder="Search" />
+            </IconField>
+          </template>
 
-        <section id="adminDash" class="admin-body mb-5">
+          <template #center></template>
+        </Toolbar>
+
+        <section id="adminDash" class="admin-body mb-3">
+          <template class="card mx-4">
+            <div>
+              <TabMenu :model="DashTabMenu" />
+            </div>
+          </template>
+
           <section v-if="dashboard" class="container-fluid">
             <!-- STATISTICS -->
-            <div class="row my-lg-4 my-4 pt-3">
+            <div class="row my-lg-4 my-2">
               <div class="col-lg-3 col-md-6 col-sm-6">
                 <div
                   class="revenue shadow-two bg-white hover d-flex text-start"
@@ -154,7 +150,7 @@
               </div>
             </div>
 
-            <div class="container-fluid my-5">
+            <div class="container-fluid my-3">
               <div class="row">
                 <div class="col-lg-8">
                   <div class="motivation shadow-two">
@@ -165,15 +161,15 @@
                       <h5>Heading: {{ currentMessage().data.subject }}</h5>
 
                       <div class="text-danger">
-                        <a>
-                          <i class="pi pi-receipt"></i>
+                        <a @click="visible = true">
+                          <i class="pi pi-expand"></i>
                         </a>
                         <a>
                           <i class="pi pi-pen-to-square mx-3"></i>
                         </a>
-                        <a @click="deleteMessage()">
+                        <!-- <a @click="deleteMessage()">
                           <i class="pi pi-minus-circle"></i>
-                        </a>
+                        </a> -->
                       </div>
                     </div>
 
@@ -226,8 +222,11 @@
 
                     <div class="my-3 text-center">
                       <IconField>
-                        <InputText v-model="todoItem" @keyup.enter="addTodo" />
-                        <InputIcon class="pi pi-plus-circle" />
+                        <InputText
+                          class="mx-3"
+                          v-model="todoItem"
+                          @keyup.enter="addTodo"
+                        />
                       </IconField>
                     </div>
                   </div>
@@ -236,20 +235,76 @@
             </div>
           </section>
 
+          <!-- MESSAGE DIALOG -->
+          <template>
+            <div class="card flex justify-content-center">
+              <Dialog
+                v-model:visible="visible"
+                modal
+                :pt="{
+                  root: 'border-none',
+                  mask: {
+                    style: 'backdrop-filter: blur(2px)',
+                  },
+                }"
+                header="Edit Profile"
+                :style="{ width: '30rem' }"
+                maximizable
+                :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+              >
+                <template #header>
+                  <span class="text-danger block mb-5">MESSAGE</span>
+                </template>
+
+                <div class="text-start">
+                  <h5 class="text-secondary">Content:</h5>
+                </div>
+                <p class="text-start lh-lg text-secondary">
+                  {{ currentMessage().data.message }}
+                </p>
+
+                <template #footer>
+                  <Button
+                    label="Cancel"
+                    text
+                    severity="primary"
+                    icon="pi pi-times"
+                    @click="visible = false"
+                    autofocus
+                  />
+                  <Button
+                    label="Delete"
+                    outlined
+                    severity="danger"
+                    icon="pi pi-spinner"
+                    @click="deleteMessage()"
+                    autofocus
+                  />
+                </template>
+              </Dialog>
+            </div>
+          </template>
+
           <!-- GRAPHS -->
           <!-- <section>
-            <div class="card"></div>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-6"></div>
+                <div class="col-lg-6"></div>
+              </div>
+            </div>
           </section> -->
 
           <ScrollTop />
 
           <!-- PARENTS TABLE PRIMEVUE -->
-          <div class="card" v-if="parentTable">
+          <div class="card mx-4" v-if="parentTable">
             <DataTable
               v-model:filters="filters"
               v-model:selection="selectedParent"
               selectionMode="single"
               :value="parents"
+              stateStorage="session"
               ref="dt"
               sortMode="multiple"
               showGridlines
@@ -408,6 +463,12 @@
             :style="{ width: '470px' }"
             header="Parent Details"
             :modal="true"
+            :pt="{
+              root: 'border-none',
+              mask: {
+                style: 'backdrop-filter: blur(2px)',
+              },
+            }"
             class="p-fluid"
             :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
           >
@@ -418,7 +479,9 @@
                 </template>
                 <div class="container-fluid">
                   <div class="row text-start">
-                    <div class="bg-primary my-2">Personal Information</div>
+                    <div class="bg-success my-2 text-white py-2 fw-bolder">
+                      Personal Information
+                    </div>
                     <div class="col-lg-6">
                       <p>
                         <strong>Parent:</strong>
@@ -502,7 +565,9 @@
                       </p>
                     </div>
 
-                    <div class="bg-primary my-2">Tutorial Preferences</div>
+                    <div class="bg-success text-white py-2 fw-bolder my-2">
+                      Tutorial Preferences
+                    </div>
                     <div class="col-lg-6">
                       <p>
                         <strong>Fees:</strong>
@@ -566,7 +631,9 @@
                 <div class="container-fluid text-start">
                   <form @submit.prevent="updateParentData">
                     <div class="row text-start">
-                      <div class="bg-primary my-3">Update Contract</div>
+                      <div class="bg-success text-white py-2 fw-bolder my-3">
+                        Update Contract
+                      </div>
                       <div class="col-lg-6">
                         <label for="status">Status</label>
                         <select
@@ -625,7 +692,9 @@
                   <div class="container-fluid text-start">
                     <div class="row">
                       <div class="my-3 text-start row">
-                        <div class="bg-primary my-3">Tutor Information</div>
+                        <div class="bg-success my-3 text-white py-2 fw-bolder">
+                          Tutor Information
+                        </div>
                         <div class="col-lg-6">
                           <p>
                             <strong>Tutor:</strong>
@@ -666,7 +735,7 @@
                         </div>
                       </div>
 
-                      <div class="bg-primary my-3">Update Information</div>
+                      <div class="bg-success my-3">Update Information</div>
                       <form>
                         <div class="row">
                           <div class="col-lg-6">
@@ -739,147 +808,74 @@
           </div>
 
           <!-- FINANCE TABLE -->
-          <section v-if="financeTable">
+          <section v-if="financeSection">
             <!-- FINANCE TABLE -->
             <div class="table-responsive my-5">
               <div>
                 <a class="navbar-brand me-4 fs-4" href="#">Pay Sheet</a>
               </div>
 
-              <div class="d-flex justify-content-between">
-                <div>
-                  <button class="btn btn-primary me-2">Parent</button>
-                  <button class="btn btn-primary">Tutor</button>
-                </div>
-              </div>
+              <div class="container-fluid mx-4">
+                <div class="row my-lg-4 my-5 pt-3">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="revenue shadow-two bg-white hover">
+                      <h4>Tutor Pay</h4>
+                      <h5>{{ applicantsList().length }}</h5>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="tutor shadow-two bg-white hover">
+                      <h4>Revenue</h4>
+                      <h5>{{ lifelineRevenue }}</h5>
+                    </div>
+                  </div>
 
-              <div class="row my-lg-4 my-5 pt-3">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                  <div class="revenue shadow-two bg-white hover">
-                    <h4>Tutor Pay</h4>
-                    <h5>{{ applicantsList().length }}</h5>
+                  <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="client shadow-two bg-white hover">
+                      <h4>Deductions</h4>
+                      <h5>{{ clientsList().length }}</h5>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="profit shadow-two bg-white hover">
+                      <h4>Considerations</h4>
+                      <h5>{{ prospectsList().length }}</h5>
+                    </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                  <div class="tutor shadow-two bg-white hover">
-                    <h4>Revenue</h4>
-                    <h5>{{ lifelineRevenue }}</h5>
-                  </div>
-                </div>
 
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                  <div class="client shadow-two bg-white hover">
-                    <h4>Deductions</h4>
-                    <h5>{{ clientsList().length }}</h5>
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                  <div class="profit shadow-two bg-white hover">
-                    <h4>Considerations</h4>
-                    <h5>{{ prospectsList().length }}</h5>
-                  </div>
-                </div>
-              </div>
-
-              <form>
-                <label for="">Month:</label> <input type="month" />
-
-                <label for="filter">Sort by:</label>
-                <select name="" id="">
-                  <option value="paid">Paid</option>
-                  <option value="paid">Owing</option>
-                </select>
-              </form>
-
-              <table class="table table-bordered table-hover">
-                <!-- <h4>Tutors</h4> -->
-                <thead class="fw-bolder">
-                  <tr>
-                    <th><small>S/NO</small></th>
-                    <th>Client</th>
-                    <th>Ward</th>
-                    <th>Fee</th>
-                    <th>Discount</th>
-                    <th>Penalty</th>
-                    <th>Payable</th>
-                    <th>Month</th>
-                    <th>Tutor</th>
-                    <th>Status</th>
-                    <th>Contact</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-
-                <tbody
-                  id="clientsData"
-                  class="shadow-one text-start"
-                  v-for="(client, index) in clientsList()"
+                <DataTable
+                  :value="tutors"
+                  tableStyle="min-width: 50rem"
+                  selectionMode="single"
+                  paginator
+                  :rows="10"
+                  dataKey="email"
+                  :rowsPerPageOptions="[5, 10, 20, 50]"
+                  paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
+                  currentPageReportTemplate="{first} to {last} of {totalRecords}"
                 >
-                  <tr data-application-id="<%= client.id %>">
-                    <td>
-                      <small>{{ index + 1 }}</small>
-                    </td>
-                    <td>
-                      <small>{{ client.data.parent }}</small>
-                    </td>
-
-                    <td class="text-start">
-                      <a
-                        href="#"
-                        class="student-link"
-                        data-clientId="<%= client.id %>"
-                        ><small>{{ client.data.student }}</small></a
-                      >
-                    </td>
-
-                    <td class="text-white">
-                      <small class="py-1 px-2">
-                        Ghc {{ client.data.fees }}
-                      </small>
-                    </td>
-
-                    <td>
-                      <a href="tel:<%= client.data.contact %>"
-                        ><small>{{ client.data.contact }}</small>
-                      </a>
-                    </td>
-
-                    <td>
-                      <small></small>
-                    </td>
-                    <td>
-                      <small> </small>
-                    </td>
-                    <td>
-                      <small></small>
-                    </td>
-                    <td>
-                      <small>{{ client.data.remuneration }}</small>
-                    </td>
-
-                    <td>
-                      <small>{{}}</small>
-                    </td>
-
-                    <td>{{ client.data.contact }}</td>
-
-                    <td>
-                      <a @click="updatePayment(client)"
-                        ><i class="bi-three-dots-vertical"></i
-                      ></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                  <Column field="lastName" header="Last Name"></Column>
+                  <Column field="firstName" header="First Name"></Column>
+                  <Column field="student" header="Student"></Column>
+                  <Column field="student" header="Consideration"></Column>
+                  <Column field="student" header="Deduction"></Column>
+                  <Column field="student" header="Payable"></Column>
+                  <Column field="student" header="Month"></Column>
+                  <Column field="contact" header="Contact"></Column>
+                  <Column field="student" header="Status"></Column>
+                </DataTable>
+              </div>
             </div>
           </section>
 
           <!-- TUTORS PANEL -->
-          <div class="card my-5" v-if="tutorTable">
+          <div class="card my-3 mx-4" v-if="tutorTable">
             <DataTable
               v-model:filters="tutorFilter"
               v-model:selection="selectedTutor"
+              stateStorage="session"
               selectionMode="single"
               :value="tutors"
               ref="tt"
@@ -912,29 +908,10 @@
                 <div class="row">
                   <div class="col text-start d-flex">
                     <h2 class="">Tutors</h2>
-                    <div class="mt-1 mx-2">
-                      <Button
-                        class="mx-2"
-                        label="Tutors"
-                        icon="pi pi-user"
-                        severity="success"
-                        text
-                        raised
-                      />
-                      <Button
-                        label="Applicants"
-                        icon="pi pi-folder-plus"
-                        severity="success"
-                        text
-                        raised
-                      />
-                    </div>
+                    <div class="mt-1 mx-2"></div>
                   </div>
                   <div class="col">
-                    <IconField iconPosition="right">
-                      <InputIcon>
-                        <i class="pi pi-search" />
-                      </InputIcon>
+                    <IconField>
                       <InputText
                         v-model="tutorFilter['global'].value"
                         placeholder="Keyword Search"
@@ -994,7 +971,7 @@
                 <template #filter="{ filterModel }">
                   <Dropdown
                     v-model="filterModel.value"
-                    :options="status"
+                    :options="category"
                     placeholder="Select One"
                     class="p-column-filter"
                     showClear
@@ -1067,192 +1044,414 @@
               :style="{ width: '450px' }"
               header="Tutor Details"
               :modal="true"
+              :pt="{
+                root: 'border-none',
+                mask: {
+                  style: 'backdrop-filter: blur(2px)',
+                },
+              }"
               class="p-fluid"
               :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
             >
-              <div class="row text-start mx-1">
-                <div class="bg-primary my-2">Personal Details</div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Name:
-                      {{ selectedTutor ? selectedTutor.lastName : "" }}
-                      {{ selectedTutor ? selectedTutor.firstName : "" }}</small
-                    >
-                  </p>
-                </div>
-                <div class="col-lg-6">
-                  <p>
-                    <small>{{
-                      selectedTutor ? selectedTutor.email : ""
-                    }}</small>
-                  </p>
-                </div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >DoB: {{ selectedTutor ? selectedTutor.DoB : "" }}</small
-                    >
-                  </p>
-                </div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Mobile:
-                      {{ selectedTutor ? selectedTutor.contact : "" }}</small
-                    >
-                  </p>
-                </div>
+              <TabView>
+                <TabPanel header="Detail">
+                  <div class="container-fluid">
+                    <div class="row text-start mx-1">
+                      <div class="bg-success my-2 text-white py-2 fw-bolder">
+                        Personal Details
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Name:
+                            {{ selectedTutor ? selectedTutor.lastName : "" }}
+                            {{
+                              selectedTutor ? selectedTutor.firstName : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small>{{
+                            selectedTutor ? selectedTutor.email : ""
+                          }}</small>
+                        </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >DoB:
+                            {{ selectedTutor ? selectedTutor.DoB : "" }}</small
+                          >
+                        </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Mobile:
+                            {{
+                              selectedTutor ? selectedTutor.contact : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
 
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Category:
-                      {{ selectedTutor ? selectedTutor.category : "" }}</small
-                    >
-                  </p>
-                </div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Status:
-                      {{ selectedTutor ? selectedTutor.status : "" }}</small
-                    >
-                  </p>
-                </div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Area:
-                      {{ selectedTutor ? selectedTutor.location : "" }}</small
-                    >
-                  </p>
-                </div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >GPS: {{ selectedTutor ? selectedTutor.gps : "" }}</small
-                    >
-                  </p>
-                </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Category:
+                            {{
+                              selectedTutor ? selectedTutor.category : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Status:
+                            {{
+                              selectedTutor ? selectedTutor.status : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Area:
+                            {{
+                              selectedTutor ? selectedTutor.location : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >GPS:
+                            {{ selectedTutor ? selectedTutor.gps : "" }}</small
+                          >
+                        </p>
+                      </div>
 
-                <div class="bg-primary my-2">Qualification</div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Type:
-                      {{
-                        selectedTutor ? selectedTutor.studentStatus : ""
-                      }}</small
-                    >
-                  </p>
-                </div>
+                      <div class="bg-success text-white py-2 fw-bolder my-2">
+                        Qualification
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Type:
+                            {{
+                              selectedTutor ? selectedTutor.studentStatus : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
 
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Course:
-                      {{ selectedTutor ? selectedTutor.coursing : "" }}
-                      {{ selectedTutor ? selectedTutor.coursed : "" }}</small
-                    >
-                  </p>
-                </div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Qualification:
-                      {{
-                        selectedTutor ? selectedTutor.qualification : ""
-                      }}</small
-                    >
-                  </p>
-                </div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Level:
-                      {{ selectedTutor ? selectedTutor.level : "N/A" }}</small
-                    >
-                  </p>
-                </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Course:
+                            {{ selectedTutor ? selectedTutor.coursing : "" }}
+                            {{
+                              selectedTutor ? selectedTutor.coursed : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Qualification:
+                            {{
+                              selectedTutor ? selectedTutor.qualification : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Level:
+                            {{
+                              selectedTutor ? selectedTutor.level : "N/A"
+                            }}</small
+                          >
+                        </p>
+                      </div>
 
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Momo:
-                      {{
-                        selectedTutor ? selectedTutor.momo_number : ""
-                      }}</small
-                    >
-                  </p>
-                </div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >School:
-                      {{ selectedTutor ? selectedTutor.school_attending : "" }}
-                      {{ selectedTutor ? selectedTutor.schoolCompleted : "" }}
-                    </small>
-                  </p>
-                </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Momo:
+                            {{
+                              selectedTutor ? selectedTutor.momo_number : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >School:
+                            {{
+                              selectedTutor
+                                ? selectedTutor.school_attending
+                                : ""
+                            }}
+                            {{
+                              selectedTutor ? selectedTutor.schoolCompleted : ""
+                            }}
+                          </small>
+                        </p>
+                      </div>
 
-                <div class="bg-primary my-2">Level of Expertise</div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Lower Pri:
-                      {{
-                        selectedTutor ? selectedTutor.lower_primary : ""
-                      }}</small
-                    >
-                  </p>
-                </div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >Upper Pri:
-                      {{
-                        selectedTutor ? selectedTutor.upper_primary : ""
-                      }}</small
-                    >
-                  </p>
-                </div>
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >JHS: {{ selectedTutor ? selectedTutor.JHS : "" }}</small
-                    >
-                  </p>
-                </div>
+                      <div class="bg-success text-white py-2 fw-bolder my-2">
+                        Level of Expertise
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Lower Pri:
+                            {{
+                              selectedTutor ? selectedTutor.lower_primary : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >Upper Pri:
+                            {{
+                              selectedTutor ? selectedTutor.upper_primary : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >JHS:
+                            {{ selectedTutor ? selectedTutor.JHS : "" }}</small
+                          >
+                        </p>
+                      </div>
 
-                <div class="col-lg-6">
-                  <p>
-                    <small
-                      >SHS: {{ selectedTutor ? selectedTutor.SHS : "" }}</small
-                    >
-                  </p>
-                </div>
+                      <div class="col-lg-6">
+                        <p>
+                          <small
+                            >SHS:
+                            {{ selectedTutor ? selectedTutor.SHS : "" }}</small
+                          >
+                        </p>
+                      </div>
 
-                <div class="bg-primary">Other Details</div>
-                <div class="col-lg-12">
-                  <p>
-                    <small>
-                      Accessible Areas:
-                      {{
-                        selectedTutor ? selectedTutor.accessibleLocations : ""
-                      }}</small
-                    >
-                  </p>
-                </div>
-                <div class="col-lg-12">
-                  <p>
-                    <small
-                      >Motivation:
-                      {{ selectedTutor ? selectedTutor.motivation : "" }}</small
-                    >
-                  </p>
-                </div>
-              </div>
+                      <div class="bg-success text-white py-2 fw-bolder">
+                        Other Details
+                      </div>
+                      <div class="col-lg-12">
+                        <p>
+                          <small>
+                            Accessible Areas:
+                            {{
+                              selectedTutor
+                                ? selectedTutor.accessibleLocations
+                                : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
+                      <div class="col-lg-12">
+                        <p>
+                          <small
+                            >Motivation:
+                            {{
+                              selectedTutor ? selectedTutor.motivation : ""
+                            }}</small
+                          >
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </TabPanel>
+
+                <TabPanel header="Status">
+                  <form class="text-start">
+                    <div class="bg-success text-white py-2 fw-bolder px-2 mb-3">
+                      Tutor Status
+                    </div>
+                    <div class="row text-start">
+                      <div class="col-lg-6">
+                        <small>
+                          <label class="label" for="statusofApplication"
+                            >Status</label
+                          >
+                          <select class="apply-input" name="qualification">
+                            <option value="qualified">Qualified</option>
+                            <option value="disqualified">Disqualified</option>
+                            <option value="pending">Pending</option>
+                            <option value="suspended">Suspended</option>
+                            <option value="terminated">terminated</option>
+                          </select></small
+                        >
+                      </div>
+                      <div class="col-lg-6">
+                        <small
+                          ><label class="label" for="statusofApplication"
+                            >Rating</label
+                          >
+                          <select class="apply-input" name="ratings">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                          </select></small
+                        >
+                      </div>
+
+                      <div class="col-lg-6">
+                        <small>
+                          <label class="label" for="statusofApplication"
+                            >Category</label
+                          >
+                          <select
+                            name="category"
+                            id="applicationCategory"
+                            class="apply-input"
+                          >
+                            <option value="tutor">Tutor</option>
+                            <option value="applicant">Applicant</option>
+                            <option value="pending">pending</option>
+                            <option value="disqualified">disqualified</option>
+                          </select></small
+                        >
+                      </div>
+
+                      <div class="col-lg-6">
+                        <small>
+                          <label for="date">Date</label>
+                          <input class="apply-input" type="date" />
+                        </small>
+                      </div>
+
+                      <div class="col-lg-12">
+                        <small>
+                          <label for="comment">comment</label>
+                          <textarea
+                            name="comment"
+                            cols="50"
+                            rows="4"
+                          ></textarea>
+                        </small>
+                      </div>
+
+                      <!-- BUTTON -->
+                      <div
+                        class="py-3 d-lg-flex justify-content-end pe-lg-3 modal-footer"
+                      >
+                        <button class="btn btn-success me-lg-3">
+                          Update<i class="pi pi-check-circle"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </TabPanel>
+
+                <TabPanel header="Contract">
+                  <form class="text start">
+                    <div class="bg-success text-white py-2 fw-bolder px-2 mb-3">
+                      Contract Award
+                    </div>
+                    <div class="row text-start">
+                      <div class="col-lg-6">
+                        <small>
+                          <label for="parent">Parent</label>
+                          <input class="apply-input" type="text" />
+                        </small>
+                      </div>
+                      <div class="col-lg-6">
+                        <small>
+                          <label for="Contact">Contact</label>
+                          <input class="apply-input" type="text" />
+                        </small>
+                      </div>
+                      <div class="col-lg-6">
+                        <small>
+                          <label for="Student">Student</label>
+                          <input class="apply-input" type="text" />
+                        </small>
+                      </div>
+                      <div class="col-lg-6">
+                        <small>
+                          <label for="Class">Class</label>
+                          <input class="apply-input" type="text" />
+                        </small>
+                      </div>
+                      <div class="col-lg-6">
+                        <small>
+                          <label for="Remuneration">Remuneration</label>
+                          <input class="apply-input" type="number" />
+                        </small>
+                      </div>
+                      <div class="col-lg-6">
+                        <small>
+                          <label for="Date">Date</label>
+                          <input class="apply-input" type="date" />
+                        </small>
+                      </div>
+                      <div class="col-lg-6">
+                        <small>
+                          <label for="Sessions Per Week"
+                            >Sessions Per Week</label
+                          >
+                          <input class="apply-input" type="number" />
+                        </small>
+                      </div>
+                      <div class="col-lg-6">
+                        <small>
+                          <label for="Meeting Days">Meeting Days</label>
+                          <input class="apply-input" type="text" />
+                        </small>
+                      </div>
+                      <div class="col-lg-6">
+                        <small>
+                          <label for="Period Length">Period Length</label>
+                          <input class="apply-input" type="number" />
+                        </small>
+                      </div>
+                      <div class="col-lg-6">
+                        <small>
+                          <label for="Status">Contract Status</label>
+                          <select name="" id="" class="apply-input">
+                            <option value="to begin">To Begin</option>
+                            <option value="active">Active</option>
+                            <option value="paused">Paused</option>
+                            <option value="Terminated">Terminated</option>
+                          </select>
+                        </small>
+                      </div>
+                      <div class="col-lg-12">
+                        <small>
+                          <label for="Objective(s):">Objective(s):</label>
+                          <textarea class="apply-input" row="10"></textarea>
+                        </small>
+                      </div>
+                      <div class="text-end">
+                        <button class="btn btn-danger me-2" type="reset">
+                          Reset
+                        </button>
+                        <button class="btn btn-success" type="submit">
+                          <i class="pi pi-check-circle"></i> Update
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </TabPanel>
+                <TabPanel></TabPanel>
+              </TabView>
 
               <!-- Footer Side -->
               <template #footer>
@@ -1277,7 +1476,7 @@
             <TabView>
               <TabPanel header="Offer"
                 ><section class="shadow-two my-3 row">
-                  <div class="col-lg-6 d-none d-lg-block pb-5"></div>
+                  <div class="col-lg-6 d-none d-lg-block pb-5 bg-success"></div>
                   <div class="col-lg-6 shadow-two bg-white row text-start">
                     <h4 class="my-lg-4 my-2">OFFER UPLOADS</h4>
                     <div class="col-lg-6">
@@ -1382,7 +1581,7 @@
               </TabPanel>
               <TabPanel header="Notice">
                 <section class="shadow-two my-3 row">
-                  <div class="col-lg-6 d-none d-lg-block pb-5"></div>
+                  <div class="col-lg-6 d-none d-lg-block pb-5 bg-success"></div>
                   <div class="col-lg-6 shadow-two bg-white">
                     <h4 class="my-lg-3">NOTICE BOARD</h4>
                     <!-- <h3 class="py-1">NOTICE</h3> -->
@@ -1436,7 +1635,9 @@
               </TabPanel>
               <TabPanel header="Email">
                 <section class="shadow-two my-lg-4 row">
-                  <div class="col-lg-6 d-none d-lg-block pb-5 shadow-two"></div>
+                  <div
+                    class="col-lg-6 d-none d-lg-block pb-5 shadow-two bg-success"
+                  ></div>
                   <div class="col-lg-6 shadow-two bg-white">
                     <h4 class="my-lg-4">EMAIL</h4>
                     <!-- <h3 class="py-1">NOTICE</h3> -->
@@ -1578,13 +1779,12 @@ export default {
       dashboard: true,
       parentTable: false,
       uploadsSection: false,
-      parentDetailTab: true,
-      parentUpdateTab: false,
       tutorTable: false,
       applicantsTable: false,
       tutorsTable: true,
-      financeTable: false,
+      financeSection: false,
       date: null,
+      visible: false,
       parentSearch: "",
       selectedParent: null,
       selectedTutor: null,
@@ -1601,6 +1801,12 @@ export default {
       todoItem: "",
       done: false,
       parentUpdateFeedback: "",
+      DashTabMenu: [
+        { label: "Dashboard", icon: "pi pi-home" },
+        { label: "Graphs", icon: "pi pi-chart-line" },
+        { label: "Transactions", icon: "pi pi-list" },
+        { label: "Calender", icon: "pi pi-inbox" },
+      ],
       items: [
         {
           label: "Refresh",
@@ -1770,18 +1976,28 @@ export default {
       this.todoList.splice(index, 1);
     },
 
+    dashboardView() {
+      this.dashboard = true;
+    },
+
     parentTableView() {
-      this.dashboard = !this.dashboard;
+      this.dashboard = false;
       this.parentTable = !this.parentTable;
     },
 
     tutorTableView() {
       this.tutorTable = !this.tutorTable;
-      this.dashboard = !this.dashboard;
+      this.dashboard = false;
     },
 
     uploadsSectionBtn() {
       this.uploadsSection = !this.uploadsSection;
+      this.dashboard = false;
+    },
+
+    financeTableView() {
+      this.financeSection = !this.financeSection;
+      this.dashboard = false;
     },
 
     dateDisplay() {
