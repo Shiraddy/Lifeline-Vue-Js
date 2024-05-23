@@ -287,8 +287,8 @@
                       />
                     </div>
                     <div class="card text-start my-3">
-                      <label for="email">Content</label>
-                      <Editor v-model="value" editorStyle="height: 250px" />
+                      <label class="py-2 px-2" for="email">Content</label>
+                      <Editor v-model="value" editorStyle="height: 150px" />
                     </div>
                   </TabPanel>
                 </TabView>
@@ -693,6 +693,7 @@
                           </template>
                         </Inplace>
                       </div>
+
                       <div class="col-lg-6">
                         <Inplace>
                           <template #display>
@@ -1422,57 +1423,118 @@
                     </div>
                     <div class="row text-start">
                       <div class="col-lg-6">
-                        <small>
-                          <label class="label" for="statusofApplication"
-                            >Status</label
-                          >
-                          <select class="apply-input" name="qualification">
-                            <option value="qualified">Qualified</option>
-                            <option value="disqualified">Disqualified</option>
-                            <option value="pending">Pending</option>
-                            <option value="suspended">Suspended</option>
-                            <option value="terminated">terminated</option>
-                          </select></small
-                        >
-                      </div>
-                      <div class="col-lg-6">
-                        <small
-                          ><label class="label" for="statusofApplication"
-                            >Rating</label
-                          >
-                          <select class="apply-input" name="ratings">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                          </select></small
-                        >
+                        <Inplace>
+                          <template #display>
+                            <div class="text-start fw-bolder">
+                              <label for="">Status</label>
+                            </div>
+
+                            <div>
+                              {{
+                                selectedTutor ? selectedTutor.status : "Status"
+                              }}
+                            </div>
+                          </template>
+                          <template #content>
+                            <label for="status">Status</label>
+                            <select
+                              class="apply-input"
+                              v-model.trim="contractUpdate.status"
+                            >
+                              <option value="active">Active</option>
+                              <option value="suspended">Suspended</option>
+                              <option value="completed">Completed</option>
+                              <option value="terminated">Terminated</option>
+                            </select>
+                          </template>
+                        </Inplace>
                       </div>
 
                       <div class="col-lg-6">
-                        <small>
-                          <label class="label" for="statusofApplication"
-                            >Category</label
-                          >
-                          <select
-                            name="category"
-                            id="applicationCategory"
-                            class="apply-input"
-                          >
-                            <option value="tutor">Tutor</option>
-                            <option value="applicant">Applicant</option>
-                            <option value="pending">pending</option>
-                            <option value="disqualified">disqualified</option>
-                          </select></small
-                        >
+                        <Inplace>
+                          <template #display>
+                            <div class="text-start fw-bolder">
+                              <label for="">Rating</label>
+                            </div>
+
+                            <div>
+                              {{
+                                selectedTutor ? selectedTutor.rating : "Status"
+                              }}
+                            </div>
+                          </template>
+                          <template #content>
+                            <div class="text-start fw-bolder">
+                              <label for="">Rating</label>
+                            </div>
+                            <select class="apply-input" name="ratings">
+                              <option value="7">A+</option>
+                              <option value="6">A</option>
+                              <option value="5">B+</option>
+                              <option value="4">B</option>
+                              <option value="3">C+</option>
+                              <option value="2">C</option>
+                              <option value="1">D</option>
+                            </select>
+                          </template>
+                        </Inplace>
                       </div>
 
                       <div class="col-lg-6">
-                        <small>
-                          <label for="date">Date</label>
-                          <input class="apply-input" type="date" />
-                        </small>
+                        <Inplace>
+                          <template #display>
+                            <div class="text-start fw-bolder">
+                              <label for="">Category</label>
+                            </div>
+
+                            <div>
+                              {{
+                                selectedTutor ? selectedTutor.category : "Category"
+                              }}
+                            </div>
+                          </template>
+                          <template #content>
+                            <div class="text-start fw-bolder">
+                              <label for="">Category</label>
+                            </div>
+                            <select name="category" class="apply-input">
+                              <option value="tutor">Tutor</option>
+                              <option value="applicant">Applicant</option>
+                              <option value="pending">pending</option>
+                              <option value="disqualified">disqualified</option>
+                            </select>
+                          </template>
+                        </Inplace>
                       </div>
+
+                      <div class="col-lg-6">
+                        <Inplace>
+                          <template #display>
+                            <div class="text-start fw-bolder">
+                              <label for="">Type</label>
+                            </div>
+
+                            <div>
+                              {{
+                                selectedTutor ? selectedTutor.studentStatus : "Type"
+                              }}
+                            </div>
+                          </template>
+                          <template #content>
+                            <div class="text-start fw-bolder">
+                              <label for="">Type</label>
+                            </div>
+                            <select  class="apply-input">
+                              <option value="Graduate">Graduate</option>
+                              <option value="Undergraduate">Applicant</option>
+                              <option value="pending">pending</option>
+                              
+                            </select>
+                          </template>
+                        </Inplace>
+                      </div>
+
+                     
 
                       <div class="col-lg-12">
                         <div class="card my-3">
