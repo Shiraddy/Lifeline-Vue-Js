@@ -93,6 +93,12 @@
               </InputIcon>
               <InputText placeholder="Search" />
             </IconField>
+            <Avatar
+              image="/images/logo.png"
+              class="mr-2"
+              size="large"
+              shape="circle"
+            />
           </template>
 
           <template #center></template>
@@ -162,11 +168,9 @@
 
                       <div class="text-danger">
                         <a @click="visible = true">
-                          <i class="pi pi-expand"></i>
+                          <i class="pi pi-pen-to-square"></i>
                         </a>
-                        <a>
-                          <i class="pi pi-pen-to-square mx-3"></i>
-                        </a>
+
                         <!-- <a @click="deleteMessage()">
                           <i class="pi pi-minus-circle"></i>
                         </a> -->
@@ -256,12 +260,38 @@
                   <span class="text-danger block mb-5">MESSAGE</span>
                 </template>
 
-                <div class="text-start">
-                  <h5 class="text-secondary">Content:</h5>
-                </div>
-                <p class="text-start lh-lg text-secondary">
-                  {{ currentMessage().data.message }}
-                </p>
+                <TabView>
+                  <TabPanel header="Detail">
+                    <div class="text-start">
+                      <h5 class="text-secondary">Content:</h5>
+                    </div>
+                    <p class="text-start lh-lg text-secondary">
+                      {{ currentMessage().data.message }}
+                    </p>
+                  </TabPanel>
+                  <TabPanel header="Email">
+                    <div class="text-start my-2">
+                      <label for="email">Email</label>
+                      <InputText
+                        type="text"
+                        v-model="value"
+                        class="apply-input"
+                      />
+                    </div>
+                    <div class="text-start my-2">
+                      <label for="contact">Contact</label>
+                      <InputText
+                        type="text"
+                        v-model.number="value"
+                        class="apply-input"
+                      />
+                    </div>
+                    <div class="card text-start my-3">
+                      <label for="email">Content</label>
+                      <Editor v-model="value" editorStyle="height: 250px" />
+                    </div>
+                  </TabPanel>
+                </TabView>
 
                 <template #footer>
                   <Button
@@ -635,43 +665,115 @@
                         Update Contract
                       </div>
                       <div class="col-lg-6">
-                        <label for="status">Status</label>
-                        <select
-                          class="apply-input"
-                          v-model.trim="contractUpdate.status"
-                        >
-                          <option value="active">Active</option>
-                          <option value="suspended">Suspended</option>
-                          <option value="completed">Completed</option>
-                          <option value="terminated">Terminated</option>
-                        </select>
-                      </div>
+                        <Inplace>
+                          <template #display>
+                            <div class="text-start fw-bolder">
+                              <label for="">Status</label>
+                            </div>
 
-                      <div class="col-lg-6">
-                        <label for="sessions">Sessions</label>
-                        <input
-                          class="apply-input"
-                          type="text"
-                          v-model.number="contractUpdate.session"
-                        />
+                            <div>
+                              {{
+                                selectedParent
+                                  ? selectedParent.data.status
+                                  : "Status"
+                              }}
+                            </div>
+                          </template>
+                          <template #content>
+                            <label for="status">Status</label>
+                            <select
+                              class="apply-input"
+                              v-model.trim="contractUpdate.status"
+                            >
+                              <option value="active">Active</option>
+                              <option value="suspended">Suspended</option>
+                              <option value="completed">Completed</option>
+                              <option value="terminated">Terminated</option>
+                            </select>
+                          </template>
+                        </Inplace>
                       </div>
-
                       <div class="col-lg-6">
-                        <label for="Fees">Fees</label>
-                        <input
-                          class="apply-input"
-                          type="text"
-                          v-model.number="contractUpdate.fees"
-                        />
+                        <Inplace>
+                          <template #display>
+                            <div class="text-start fw-bolder">
+                              <label for="">Sessions</label>
+                            </div>
+
+                            <div>
+                              {{
+                                selectedParent
+                                  ? selectedParent.data.weeklySession
+                                  : "Sessions"
+                              }}
+                            </div>
+                          </template>
+                          <template #content>
+                            <label for="sessions">Sessions</label>
+                            <select
+                              class="apply-input"
+                              v-model.number="contractUpdate.weeklySession"
+                            >
+                              <option value="2">Once</option>
+                              <option value="3">Twice</option>
+                              <option value="4">Thrice</option>
+                              <option value="5">Four Times</option>
+                              <option value="6">Five Times</option>
+                            </select>
+                          </template>
+                        </Inplace>
                       </div>
-
                       <div class="col-lg-6">
-                        <label for="levels">Discount</label>
-                        <input
-                          class="apply-input"
-                          type="number"
-                          v-model.number="contractUpdate.discount"
-                        />
+                        <Inplace>
+                          <template #display>
+                            <div class="text-start fw-bolder">
+                              <label for="">Fee</label>
+                            </div>
+
+                            <div>
+                              {{
+                                selectedParent
+                                  ? selectedParent.data.fees
+                                  : "Fees"
+                              }}
+                            </div>
+                          </template>
+                          <template #content>
+                            <label for="fees">Fees</label>
+                            <input
+                              type="number"
+                              class="apply-input"
+                              v-model.number="contractUpdate.weeklySession"
+                            />
+                          </template>
+                        </Inplace>
+                      </div>
+                      <div class="col-lg-6">
+                        <Inplace>
+                          <template #display>
+                            <div class="text-start fw-bolder">
+                              <label for="">Discount</label>
+                            </div>
+
+                            <div>
+                              {{
+                                selectedParent
+                                  ? selectedParent.data.discount
+                                  : "Discount"
+                              }}
+                            </div>
+                          </template>
+                          <template #content>
+                            <div class="fw-bolder text-start">
+                              <label for="fees">Discount</label>
+                            </div>
+                            <input
+                              type="number"
+                              class="apply-input"
+                              v-model.number="contractUpdate.discount"
+                            />
+                          </template>
+                        </Inplace>
                       </div>
                     </div>
                     <div>{{ parentUpdateFeedback }}</div>
@@ -691,71 +793,106 @@
                   <!-- Tutor Assign -->
                   <div class="container-fluid text-start">
                     <div class="row">
-                      <div class="my-3 text-start row">
-                        <div class="bg-success my-3 text-white py-2 fw-bolder">
-                          Tutor Information
-                        </div>
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Tutor:</strong>
-                            {{
-                              selectedParent ? selectedParent.data.tutor : ""
-                            }}
-                          </p>
-                        </div>
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Contact:</strong>
-                            {{
-                              selectedParent
-                                ? selectedParent.data.tutor_contact
-                                : ""
-                            }}
-                          </p>
-                        </div>
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Contact:</strong>
-                            {{
-                              selectedParent
-                                ? selectedParent.data.tutor_email
-                                : ""
-                            }}
-                          </p>
-                        </div>
-                        <div class="col-lg-6">
-                          <p>
-                            <strong>Allowance:</strong>
-                            {{
-                              selectedParent
-                                ? selectedParent.data.remuneration
-                                : ""
-                            }}
-                          </p>
-                        </div>
+                      <div class="bg-success my-3 py-2 text-white">
+                        Update Information
                       </div>
-
-                      <div class="bg-success my-3">Update Information</div>
                       <form>
                         <div class="row">
                           <div class="col-lg-6">
-                            <label for="Tutor">Tutor</label>
-                            <input class="apply-input" type="text" />
+                            <Inplace>
+                              <template #display>
+                                <div class="text-start fw-bolder">
+                                  <label for="">Tutor</label>
+                                </div>
+                                {{
+                                  selectedParent
+                                    ? selectedParent.data.tutor
+                                    : "Name"
+                                }}
+                              </template>
+                              <template #content="{ closeCallback }">
+                                <InputText v-model="text" autofocus />
+                                <Button
+                                  icon="pi pi-times"
+                                  text
+                                  severity="danger"
+                                  @click="closeCallback"
+                                />
+                              </template>
+                            </Inplace>
                           </div>
-
                           <div class="col-lg-6">
-                            <label for="Remuneration">Remuneration</label>
-                            <input class="apply-input" type="number" />
+                            <Inplace>
+                              <template #display>
+                                <div class="text-start fw-bolder">
+                                  <label for="">Contact</label>
+                                </div>
+
+                                {{
+                                  selectedParent
+                                    ? selectedParent.data.contact
+                                    : "Contact"
+                                }}
+                              </template>
+                              <template #content="{ closeCallback }">
+                                <InputText v-model="text" autofocus />
+                                <Button
+                                  icon="pi pi-times"
+                                  text
+                                  severity="danger"
+                                  @click="closeCallback"
+                                />
+                              </template>
+                            </Inplace>
                           </div>
-
                           <div class="col-lg-6">
-                            <label for="Contact">Contact</label>
-                            <input class="apply-input" type="number" />
+                            <Inplace>
+                              <template #display>
+                                <div class="text-start fw-bolder">
+                                  <label for="">Pay</label>
+                                </div>
+                                {{
+                                  selectedParent
+                                    ? selectedParent.data.remuneration
+                                    : "Pay"
+                                }}
+                              </template>
+                              <template #content="{ closeCallback }">
+                                <InputText v-model="text" autofocus />
+                                <Button
+                                  icon="pi pi-times"
+                                  text
+                                  severity="danger"
+                                  @click="closeCallback"
+                                />
+                              </template>
+                            </Inplace>
                           </div>
-
                           <div class="col-lg-6">
-                            <label for="momoContact">MoMo Contact</label>
-                            <input class="apply-input" type="number" />
+                            <Inplace>
+                              <template #display>
+                                <div class="text-start fw-bolder">
+                                  <label for="">Momo Number</label>
+                                </div>
+
+                                <div>
+                                  {{
+                                    selectedParent
+                                      ? selectedParent.data.momo_number
+                                      : "Momo No"
+                                  }}
+                                </div>
+                              </template>
+                              <template #content="{ closeCallback }">
+                                <InputText v-model="text" autofocus />
+                                <Button
+                                  icon="pi pi-times"
+                                  text
+                                  severity="danger"
+                                  @click="closeCallback"
+                                />
+                              </template>
+                            </Inplace>
                           </div>
 
                           <div class="text-end my-3">
@@ -1338,14 +1475,9 @@
                       </div>
 
                       <div class="col-lg-12">
-                        <small>
-                          <label for="comment">comment</label>
-                          <textarea
-                            name="comment"
-                            cols="50"
-                            rows="4"
-                          ></textarea>
-                        </small>
+                        <div class="card my-3">
+                          <Editor v-model="value" editorStyle="height: 120px" />
+                        </div>
                       </div>
 
                       <!-- BUTTON -->
@@ -1435,8 +1567,15 @@
                       </div>
                       <div class="col-lg-12">
                         <small>
-                          <label for="Objective(s):">Objective(s):</label>
-                          <textarea class="apply-input" row="10"></textarea>
+                          <div class="card my-3">
+                            <label for="Objective(s):" class="py-2 ps-1"
+                              >Tuition Objective(s):</label
+                            >
+                            <Editor
+                              v-model="value"
+                              editorStyle="height: 120px"
+                            />
+                          </div>
                         </small>
                       </div>
                       <div class="text-end">
@@ -1816,6 +1955,10 @@ export default {
           label: "Export",
           icon: "pi pi-upload",
         },
+      ],
+      messageHeader: [
+        { label: "Dashboard", icon: "pi pi-home" },
+        { label: "Transactions", icon: "pi pi-chart-line" },
       ],
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },

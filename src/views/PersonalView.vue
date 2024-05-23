@@ -700,58 +700,54 @@
               <div id="logsheet" class="px-5 py-3" v-if="logSheet">
                 <div class="row shadow-two">
                   <div class="col-lg-6 d-none d-lg-block"></div>
-                  <div class="col-lg-6 shadow-two bg-white py-3">
+                  <div
+                    class="col-lg-6 shadow-two bg-white py-3 container-fluid"
+                  >
                     <h4 class="my-lg-3">LOG SHEET</h4>
-                    <form action="" method="post">
-                      <div class="div">
-                        <label class="label" for="">Tutor ID:</label>
-                        <input
-                          class="apply-input"
-                          type="text"
-                          name="tutorId"
-                          disabled
-                        />
+                    <form class="row">
+                      <div class="col-lg-6">
+                        <label class="label" for="">Student</label>
+                        <input class="apply-input" type="text" name="date" />
                       </div>
 
-                      <div class="div">
-                        <label class="label" for="">Contact:</label>
-                        <input
-                          class="apply-input"
-                          type="tel"
-                          name="contact"
-                          disabled
-                        />
-                      </div>
-
-                      <div class="div">
-                        <label class="label" for=""
-                          >Log Sheet For (Month):</label
-                        >
+                      <div class="col-lg-6">
+                        <label class="label" for="">Month</label>
                         <input class="apply-input" type="month" name="date" />
                       </div>
 
-                      <div class="div">
-                        <label class="label" for="">Contract Id:</label>
-                        <input
-                          class="apply-input"
-                          type="text"
-                          name="contractId"
-                        />
+                      <div class="col-lg-6">
+                        <label class="label" for="">Expected Sessions</label>
+                        <input class="apply-input" type="number" name="date" />
                       </div>
 
-                      <div class="div">
-                        <label class="label" for="">Upload Log Sheet</label>
-                        <input
-                          class="apply-input"
-                          type="file"
-                          name="logSheet"
-                        />
+                      <div class="col-lg-6">
+                        <label class="label" for="">Total Sessions</label>
+                        <input class="apply-input" type="number" name="date" />
                       </div>
 
-                      <button class="btn btn-success my-lg-4" type="submit">
-                        SUBMIT
-                      </button>
+                      <div class="card">
+                        <!-- <Toast /> -->
+                        <FileUpload
+                          name="demo[]"
+                          url="/api/upload"
+                          @upload="onAdvancedUpload($event)"
+                          :multiple="false"
+                          accept="image/*"
+                          :maxFileSize="1000000"
+                        >
+                          <template #empty>
+                            <span>Drag and drop files to here to upload.</span>
+                          </template>
+                        </FileUpload>
+                      </div>
                     </form>
+                    <button
+                      class="btn btn-success my-lg-4"
+                      type="submit"
+                      @click="onAdvancedUpload"
+                    >
+                      SUBMIT
+                    </button>
                   </div>
                 </div>
               </div>
@@ -795,19 +791,6 @@
 
           <Dictionary></Dictionary>
 
-          <!-- <button @click="fetchNotice">Fetch Notice</button>
-
-        <button @click="getUserInfo">Get User Info</button> -->
-
-          <!-- <p>{{ profile }}</p> -->
-
-          <!-- <p>{{ notices }}</p> -->
-
-          <!-- <div v-for="note in currentNote" :key="note.title">
-          {{ note }}
-          <h2>Title: {{ note.title }}</h2>
-          <p>Message: {{ note.message }}</p>
-        </div> -->
         </div>
       </div>
     </div>
@@ -852,7 +835,9 @@
 import TheMessage from "@/components/TheMessage.vue";
 import ContactUs from "@/components/ContactUs.vue";
 import Dictionary from "@/components/Dictionary.vue";
+import FileUpload from "primevue/fileupload";
 import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import {
   getFirestore,
   collection,
@@ -865,7 +850,7 @@ import {
   where,
   updateDoc,
 } from "firebase/firestore";
-import { ref } from "vue";
+// import { ref } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import emailjs from "@emailjs/browser";
 
@@ -882,6 +867,7 @@ const firebaseConfig = {
 const firebase = initializeApp(firebaseConfig);
 const db = getFirestore(firebase);
 const auth = getAuth(firebase);
+const storage = getStorage();
 
 export default {
   name: "Tutor Profile Page",
@@ -916,6 +902,37 @@ export default {
         })
         .catch((error) => {
           console.error(error);
+        });
+    },
+
+    onAdvancedUpload(event) {
+      // Get the uploaded file
+      const file = event.target.files[0];
+
+      // Initialize Firebase
+      // const storageRef = firebase.storage().ref();
+      const storageRef = ref(storage, ref());
+      const logSheetsRef = storageRef.child("Log Sheets/" + file.name);
+
+      // Upload the file to Firebase storage
+      const uploadTask = logSheetsRef.put(file);
+
+      uploadTask
+        .then((snapshot) => {
+          // Get the download URL of the uploaded file
+          logSheetsRef
+            .getDownloadURL()
+            .then((url) => {
+              // Add the URL to the form for submission to Firestore
+              console.log(url);
+              this.formData.imageUrl = url;
+            })
+            .catch((error) => {
+              console.error("Error getting download URL:", error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error uploading file:", error);
         });
     },
 
