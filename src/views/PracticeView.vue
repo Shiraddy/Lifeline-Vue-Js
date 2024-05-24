@@ -124,6 +124,12 @@
               ></Button>
             </template>
           </Panel>
+
+          <template>
+            <div class="card flex justify-content-center">
+              <DatePicker v-model="date" inline showWeek />
+            </div>
+          </template>
           <Button @click="confirm1($event)" label="Save" outlined></Button>
         </div>
       </div>

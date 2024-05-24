@@ -1,109 +1,87 @@
 <template>
   <!-- BODY -->
   <div class="container-fluid">
+    <Toolbar class="mb-2">
+      <template #start>
+        <Avatar
+          image="/images/logo.png"
+          class="mr-2"
+          size="large"
+          shape="circle"
+        />
+        <a class="navbar-brand text-danger me-3" href="#">LIFELINE</a>
+        <Button
+          icon="pi pi-chevron-left"
+          severity="info"
+          rounded
+          aria-label="User"
+          @click="wideScreenBtn"
+          v-show="!wideScreen"
+        />
+
+        <Button
+          icon="pi pi-chevron-right"
+          severity="info"
+          rounded
+          aria-label="User"
+          @click="wideScreenBtn"
+          v-show="wideScreen"
+        />
+      </template>
+
+      <template #end>
+        <div class="me-2">
+          <h6 class="text-primary">
+            {{ dateDisplay() }}
+            <i class="fa-solid fa-calendar-check ps-1"></i>
+          </h6>
+        </div>
+        <div class="flex">
+          <i class="pi pi-bell pi-icon"></i>
+          <i class="pi pi-envelope pi-icon"></i>
+          <i class="pi pi-cog pi-icon"></i>
+        </div>
+      </template>
+
+      <template #center></template>
+    </Toolbar>
     <div class="row">
       <!-- SIDE BAR -->
-      <div class="col-lg-2 col-md-3 col-sm-12">
-        <nav id="nav" class="admin-side shadow-two">
-          <button
-            class="navbar-toggler d-lg-none d-flex justify-content-end my-2 ms-2"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasResponsive"
-          >
-            <span
-              class="navbar-toggler-icon navbar-dark bg-tertiary d-flex"
-            ></span>
-          </button>
-          <div
-            class="offcanvas-lg offcanvas-start"
-            tabindex="-1"
-            id="offcanvasResponsive"
-            aria-labelledby="offcanvasResponsiveLabel"
-          >
-            <div class="offcanvas-header">
-              <a class="navbar-brand d-lg-none" href="#">LIFELINE</a>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="offcanvas"
-                data-bs-target="#offcanvasResponsive"
-              ></button>
-            </div>
-            <div class="mt-lg-2">
-              <!-- <a class="navbar-brand" href="#">LIFELINE</a> -->
-              <img class="admin-pic" src="/images/Pic.png" alt="" />
+      <div :class="wideScreen ? 'd-none' : 'col-2'" class="bg-success">
+        <div class="mt-lg-2">
+          <!-- <a class="navbar-brand" href="#">LIFELINE</a> -->
+          <img class="admin-pic" src="/images/Pic.png" alt="" />
 
-              <ul class="nav navbar-nav admin-ul">
-                <a class="admin-list" href="#adminDash" @click="dashboardView"
-                  ><i class="bi-columns-gap me-2 text-white"></i> DASHBOARD
-                </a>
+          <ul class="nav navbar-nav admin-ul">
+            <a class="admin-list" href="#adminDash" @click="dashboardView"
+              ><i class="bi-columns-gap me-2 text-white"></i> DASHBOARD
+            </a>
 
-                <a
-                  @click="parentTableView"
-                  class="admin-list"
-                  href="#adminClient"
-                  ><i class="bi-people-fill me-2"></i> PARENTS
-                </a>
+            <a @click="parentTableView" class="admin-list" href="#adminClient"
+              ><i class="bi-people-fill me-2"></i> PARENTS
+            </a>
 
-                <a @click="tutorTableView" class="admin-list" href="#adminTutor"
-                  ><i class="bi-person-square me-2"></i> TUTORS
-                </a>
+            <a @click="tutorTableView" class="admin-list" href="#adminTutor"
+              ><i class="bi-person-square me-2"></i> TUTORS
+            </a>
 
-                <a
-                  class="admin-list"
-                  href="#adminClient"
-                  @click="uploadsSectionBtn"
-                  ><i class="bi-chat-right-text me-2"></i>UPLOADS
-                </a>
+            <a class="admin-list" href="#adminClient" @click="uploadsSectionBtn"
+              ><i class="bi-chat-right-text me-2"></i>UPLOADS
+            </a>
 
-                <a
-                  href="#adminClient"
-                  class="admin-list"
-                  @click="financeTableView"
-                  ><i class="bi-clipboard-data me-2 text-white"></i>
-                  FINANCE
-                  <span class="admin-icon"></span
-                ></a>
-              </ul>
+            <a href="#adminClient" class="admin-list" @click="financeTableView"
+              ><i class="bi-clipboard-data me-2 text-white"></i>
+              FINANCE
+              <span class="admin-icon"></span
+            ></a>
+          </ul>
 
-              <button @click="signOut" class="btn btn-danger">LOG OUT</button>
-            </div>
-          </div>
-        </nav>
+          <button @click="signOut" class="btn btn-danger">LOG OUT</button>
+        </div>
       </div>
 
       <!-- MAIN AREA -->
-      <div class="col-lg-10">
-        <Toolbar class="mx-4 mb-2">
-          <template #start>
-            <a class="navbar-brand text-danger" href="#">LIFELINE</a>
-          </template>
-
-          <template #end>
-            <div class="me-2">
-              <h5 class="text-success">
-                {{ dateDisplay() }}
-                <i class="fa-solid fa-calendar-check ps-1"></i>
-              </h5>
-            </div>
-            <IconField>
-              <InputIcon>
-                <i class="pi pi-search" />
-              </InputIcon>
-              <InputText placeholder="Search" />
-            </IconField>
-            <Avatar
-              image="/images/logo.png"
-              class="mr-2"
-              size="large"
-              shape="circle"
-            />
-          </template>
-
-          <template #center></template>
-        </Toolbar>
-
+      <div :class="wideScreen ? 'col-12' : 'col-10'">
         <section id="adminDash" class="admin-body mb-3">
           <template class="card mx-4">
             <div>
@@ -319,8 +297,28 @@
           <!-- <section>
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-6"></div>
-                <div class="col-lg-6"></div>
+                <div class="col-lg-6">
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Natus unde voluptatum delectus odio, eius ipsum iure, minus
+                    fugit aperiam dolorum molestiae, sint sapiente accusantium
+                    eveniet! Tempora blanditiis, in, ab laudantium aliquid sit,
+                    ipsa voluptates fuga at doloribus fugiat facere quidem! At
+                    placeat consectetur architecto recusandae sapiente animi
+                    optio cumque id.
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <template>
+                    <div class="card">
+                      <Chart
+                        type="bar"
+                        :data="chartData"
+                        :options="chartOptions"
+                      />
+                    </div>
+                  </template>
+                </div>
               </div>
             </div>
           </section> -->
@@ -340,7 +338,7 @@
               showGridlines
               removableSort
               paginator
-              :rows="10"
+              :rows="5"
               dataKey="id"
               :rowsPerPageOptions="[5, 10, 20, 50]"
               :globalFilterFields="[
@@ -948,63 +946,74 @@
           <!-- FINANCE TABLE -->
           <section v-if="financeSection">
             <!-- FINANCE TABLE -->
-            <div class="table-responsive my-5">
-              <div>
-                <a class="navbar-brand me-4 fs-4" href="#">Pay Sheet</a>
-              </div>
 
-              <div class="container-fluid mx-4">
-                <div class="row my-lg-4 my-5 pt-3">
-                  <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="revenue shadow-two bg-white hover">
-                      <h4>Tutor Pay</h4>
-                      <h5>{{ applicantsList().length }}</h5>
-                    </div>
+            <div class="container-fluid">
+              <div class="row my-lg-4 my-5 pt-3">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                  <div class="revenue shadow-two bg-white hover">
+                    <h4>Tutor Pay</h4>
+                    <h5>{{ applicantsList().length }}</h5>
                   </div>
-                  <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="tutor shadow-two bg-white hover">
-                      <h4>Revenue</h4>
-                      <h5>{{ lifelineRevenue }}</h5>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="client shadow-two bg-white hover">
-                      <h4>Deductions</h4>
-                      <h5>{{ clientsList().length }}</h5>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="profit shadow-two bg-white hover">
-                      <h4>Considerations</h4>
-                      <h5>{{ prospectsList().length }}</h5>
-                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                  <div class="tutor shadow-two bg-white hover">
+                    <h4>Revenue</h4>
+                    <h5>{{ lifelineRevenue }}</h5>
                   </div>
                 </div>
 
-                <DataTable
-                  :value="tutors"
-                  tableStyle="min-width: 50rem"
-                  selectionMode="single"
-                  paginator
-                  :rows="10"
-                  dataKey="email"
-                  :rowsPerPageOptions="[5, 10, 20, 50]"
-                  paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
-                  currentPageReportTemplate="{first} to {last} of {totalRecords}"
-                >
-                  <Column field="lastName" header="Last Name"></Column>
-                  <Column field="firstName" header="First Name"></Column>
-                  <Column field="student" header="Student"></Column>
-                  <Column field="student" header="Consideration"></Column>
-                  <Column field="student" header="Deduction"></Column>
-                  <Column field="student" header="Payable"></Column>
-                  <Column field="student" header="Month"></Column>
-                  <Column field="contact" header="Contact"></Column>
-                  <Column field="student" header="Status"></Column>
-                </DataTable>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                  <div class="client shadow-two bg-white hover">
+                    <h4>Deductions</h4>
+                    <h5>{{ clientsList().length }}</h5>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                  <div class="profit shadow-two bg-white hover">
+                    <h4>Considerations</h4>
+                    <h5>{{ prospectsList().length }}</h5>
+                  </div>
+                </div>
               </div>
+
+              <DataTable
+                :value="tutors"
+                tableStyle="min-width: 50rem"
+                selectionMode="single"
+                paginator
+                :rows="5"
+                dataKey="email"
+                :rowsPerPageOptions="[5, 10, 20, 50]"
+                paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
+                currentPageReportTemplate="{first} to {last} of {totalRecords}"
+              >
+                <Column field="lastName" header="Last Name"></Column>
+                <Column field="firstName" header="First Name"></Column>
+                <Column field="student" header="Student"></Column>
+                <Column field="student" header="Consideration">
+                  <Inplace>
+                    <template #display>
+                      <div class="text-start fw-bolder">
+                        <h6>Testing Code</h6>
+                        <div>{{ selectedParent ? "0000" : "000.00" }}</div>
+                      </div>
+                    </template>
+                    <template #content>
+                      <InputText
+                        type="text"
+                        class="apply-input"
+                        v-model.trim="contractUpdate.status"
+                      />
+                    </template>
+                  </Inplace>
+                </Column>
+                <Column field="student" header="Deduction"></Column>
+                <Column field="student" header="Payable"></Column>
+                <Column field="student" header="Month"></Column>
+                <Column field="contact" header="Contact"></Column>
+                <Column field="student" header="Status"></Column>
+              </DataTable>
             </div>
           </section>
 
@@ -1021,7 +1030,7 @@
               showGridlines
               removableSort
               paginator
-              :rows="10"
+              :rows="5"
               dataKey="email"
               :rowsPerPageOptions="[5, 10, 20, 50]"
               :globalFilterFields="['firstName', 'lastName', 'contact']"
@@ -1489,7 +1498,9 @@
 
                             <div>
                               {{
-                                selectedTutor ? selectedTutor.category : "Category"
+                                selectedTutor
+                                  ? selectedTutor.category
+                                  : "Category"
                               }}
                             </div>
                           </template>
@@ -1516,7 +1527,9 @@
 
                             <div>
                               {{
-                                selectedTutor ? selectedTutor.studentStatus : "Type"
+                                selectedTutor
+                                  ? selectedTutor.studentStatus
+                                  : "Type"
                               }}
                             </div>
                           </template>
@@ -1524,17 +1537,14 @@
                             <div class="text-start fw-bolder">
                               <label for="">Type</label>
                             </div>
-                            <select  class="apply-input">
+                            <select class="apply-input">
                               <option value="Graduate">Graduate</option>
                               <option value="Undergraduate">Applicant</option>
                               <option value="pending">pending</option>
-                              
                             </select>
                           </template>
                         </Inplace>
                       </div>
-
-                     
 
                       <div class="col-lg-12">
                         <div class="card my-3">
@@ -1934,6 +1944,8 @@ import ScrollTop from "primevue/scrolltop";
 import ConfirmDialog from "primevue/confirmdialog";
 import { FilterMatchMode, FilterOperator } from "primevue/api";
 
+// import DatePicker from 'primevue/datepicker';
+
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
@@ -1977,7 +1989,10 @@ export default {
 
   data() {
     return {
+      wideScreen: false,
       dashboard: true,
+      chartData: null,
+      chartOptions: null,
       parentTable: false,
       uploadsSection: false,
       tutorTable: false,
@@ -2118,6 +2133,10 @@ export default {
         detail: "Message Content",
         life: 3000,
       });
+    },
+
+    wideScreenBtn() {
+      this.wideScreen = !this.wideScreen;
     },
 
     tutorContractSubmit() {
@@ -2371,6 +2390,70 @@ export default {
         },
       });
     },
+
+    setChartData() {
+      return {
+        labels: ["Q1", "Q2", "Q3", "Q4"],
+        datasets: [
+          {
+            label: "Sales",
+            data: [540, 325, 702, 620],
+            backgroundColor: [
+              "rgba(249, 115, 22, 0.2)",
+              "rgba(6, 182, 212, 0.2)",
+              "rgb(107, 114, 128, 0.2)",
+              "rgba(139, 92, 246, 0.2)",
+            ],
+            borderColor: [
+              "rgb(249, 115, 22)",
+              "rgb(6, 182, 212)",
+              "rgb(107, 114, 128)",
+              "rgb(139, 92, 246)",
+            ],
+            borderWidth: 1,
+          },
+        ],
+      };
+    },
+
+    setChartOptions() {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = documentStyle.getPropertyValue("--text-color");
+      const textColorSecondary = documentStyle.getPropertyValue(
+        "--text-secondary-color"
+      );
+      const surfaceBorder = documentStyle.getPropertyValue("--border-color");
+
+      return {
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+        },
+      };
+    },
+
     confirm2() {
       this.$confirm.require({
         message: "Do you want to delete this record?",
@@ -2408,7 +2491,10 @@ export default {
 
   // beforeCreate() {},
   // beforeMount() {},
-  // mounted() {},
+  mounted() {
+    this.chartData = this.setChartData();
+    this.chartOptions = this.setChartOptions();
+  },
 
   computed: {
     async parentsData() {
@@ -2534,6 +2620,12 @@ export default {
 .todoApp {
   padding: 1rem 1.2rem;
   height: 17rem;
+}
+
+.pi-icon {
+  font-size: 1.2rem;
+  margin: 10px;
+  color: rgb(20, 20, 95);
 }
 
 .message {
