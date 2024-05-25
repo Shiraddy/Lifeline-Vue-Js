@@ -142,6 +142,12 @@
   position: fixed;
   width: 15%;
 }
+.top-bar {
+  position: fixed;
+  width: 82%;
+  z-index: 9;
+  margin-bottom: 5rem;
+}
 
 .dropdown {
   position: relative;
@@ -1164,11 +1170,19 @@ body {
   padding: 8rem 0.8rem;
 }
 
+.admin-logo{
+  width: 3rem;
+}
+
 .admin-ul {
   text-decoration: none;
   list-style-type: none;
   padding: 3rem 0.8rem;
   height: 100%;
+}
+
+.view-height {
+height: 100vh;
 }
 
 .admin-body {
@@ -1226,9 +1240,13 @@ body {
 }
 
 .admin-pic {
-  width: 9vw;
+  width: 8vw;
   border-radius: 100%;
-  padding: 10% 0;
+  padding: 3% 0;
+}
+
+.admin-sideBar {
+  height: 100%;
 }
 
 .fullWidth {

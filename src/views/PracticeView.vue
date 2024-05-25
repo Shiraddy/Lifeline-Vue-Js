@@ -130,7 +130,53 @@
               <DatePicker v-model="date" inline showWeek />
             </div>
           </template>
-          <Button @click="confirm1($event)" label="Save" outlined></Button>
+          <button type="button" class="btn btn-primary" @click="showToastBtn">
+            Show live toast
+          </button>
+
+          <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div
+              class="toast"
+              :class="showToast ? 'd-block' : ''"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
+              <div class="toast-header">
+                <img src="..." class="rounded me-2" alt="..." />
+                <strong class="me-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button
+                  type="button"
+                  class="btn-close"
+                  @click="showToast = false"
+                ></button>
+              </div>
+              <div class="toast-body">
+                Hello, world! This is a toast message.
+              </div>
+            </div>
+          </div>
+          <div
+            class="toast align-items-center"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+          >
+            <div class="d-flex">
+              <div class="toast-body">
+                Hello, world! This is a toast message.
+              </div>
+              <button
+                type="button"
+                class="btn-close me-2 m-auto"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+              ></button>
+            </div>
+          </div>
+
+         
         </div>
       </div>
     </div>
@@ -141,6 +187,7 @@
 import NavBar from "@/components/NavBar.vue";
 import TabMenu from "primevue/tabmenu";
 
+
 export default {
   name: "Practice Area",
   components: {
@@ -148,6 +195,7 @@ export default {
   },
   data() {
     return {
+      showToast: false,
       items: [
         { label: "Dashboard", icon: "pi pi-home" },
         { label: "Transactions", icon: "pi pi-chart-line" },
@@ -208,6 +256,10 @@ export default {
         detail: "Message Content",
         life: 3000,
       });
+    },
+
+    showToastBtn() {
+      this.showToast = true;
     },
 
     confirm1(event) {

@@ -1,55 +1,19 @@
 <template>
   <!-- BODY -->
   <div class="container-fluid">
-    <Toolbar class="mb-2">
-      <template #start>
-        <Avatar
-          image="/images/logo.png"
-          class="mr-2"
-          size="large"
-          shape="circle"
-        />
-        <a class="navbar-brand text-danger me-3" href="#">LIFELINE</a>
-        <Button
-          icon="pi pi-chevron-left"
-          severity="info"
-          rounded
-          aria-label="User"
-          @click="wideScreenBtn"
-          v-show="!wideScreen"
-        />
-
-        <Button
-          icon="pi pi-chevron-right"
-          severity="info"
-          rounded
-          aria-label="User"
-          @click="wideScreenBtn"
-          v-show="wideScreen"
-        />
-      </template>
-
-      <template #end>
-        <div class="me-2">
-          <h6 class="text-primary">
-            {{ dateDisplay() }}
-            <i class="fa-solid fa-calendar-check ps-1"></i>
-          </h6>
-        </div>
-        <div class="flex">
-          <i class="pi pi-bell pi-icon"></i>
-          <i class="pi pi-envelope pi-icon"></i>
-          <i class="pi pi-cog pi-icon"></i>
-        </div>
-      </template>
-
-      <template #center></template>
-    </Toolbar>
-    <div class="row">
+    <div class="row view-height">
       <!-- SIDE BAR -->
       <div :class="wideScreen ? 'd-none' : 'col-2'" class="bg-success">
         <div class="mt-lg-2 side-bar">
-          <!-- <a class="navbar-brand" href="#">LIFELINE</a> -->
+          <!-- <Avatar
+            image="/images/logo.png"
+            class=""
+            size="large"
+            shape="circle"
+          /> -->
+          <a class="navbar-brand text-danger" href="#">
+            <img class="admin-logo" src="/images/logo.png" alt="" /> LIFELINE</a
+          >
           <img class="admin-pic" src="/images/Pic.png" alt="" />
 
           <ul class="nav navbar-nav admin-ul">
@@ -81,13 +45,57 @@
       </div>
 
       <!-- MAIN AREA -->
-      <div :class="wideScreen ? 'col-12' : 'col-10'">
+      <div class="container-fluid" :class="wideScreen ? 'col-12' : 'col-10'">
+        <Toolbar class="mb-2">
+          <template #start>
+            <Button
+              icon="pi pi-chevron-left"
+              severity="info"
+              rounded
+              aria-label="User"
+              @click="wideScreenBtn"
+              v-show="!wideScreen"
+            />
+
+            <Button
+              icon="pi pi-chevron-right"
+              severity="info"
+              rounded
+              aria-label="User"
+              @click="wideScreenBtn"
+              v-show="wideScreen"
+            />
+          </template>
+
+          <template #end>
+            <div class="me-2">
+              <h6 class="text-primary">
+                {{ dateDisplay() }}
+                <i class="fa-solid fa-calendar-check ps-1"></i>
+              </h6>
+            </div>
+            <div class="flex">
+              <i class="pi pi-bell pi-icon"></i>
+              <i class="pi pi-envelope pi-icon"></i>
+              <i class="pi pi-cog pi-icon"></i>
+            </div>
+          </template>
+
+          <template #center>
+            <!-- <div>
+              <TabMenu :model="DashTabMenu" />
+            </div> -->
+            <div class="mt-2">
+              <Menubar :model="DashTabMenu" />
+            </div>
+          </template>
+        </Toolbar>
         <section id="adminDash" class="admin-body mb-3">
-          <template class="card mx-4">
+          <!-- <template class="card mx-4">
             <div>
               <TabMenu :model="DashTabMenu" />
             </div>
-          </template>
+          </template> -->
 
           <section v-if="dashboard" class="container-fluid">
             <!-- STATISTICS -->
@@ -127,8 +135,8 @@
                 <div class="profit shadow-two bg-white hover text-start d-flex">
                   <i class="pi pi-shop px-2"></i>
                   <div class="bold">
-                    <h6>Prospects</h6>
-                    <h3>{{ prospectsList().length }}</h3>
+                    <h6>Request</h6>
+                    <h3>{{ requestsList().length }}</h3>
                   </div>
                 </div>
               </div>
@@ -215,6 +223,33 @@
                 </div>
               </div>
             </div>
+            <!-- GRAPHS -->
+            <section>
+              <div class="container-fluid">
+                <div class="row mx-1 py-4">
+                  <div class="col-lg-6">
+                    <!-- <Panel header="Calendar" toggleable> </Panel> -->
+                    <div class="card flex justify-content-center">
+                      <Chart
+                        type="line"
+                        :data="chartData"
+                        :options="chartOptions"
+                        class="w-full md:w-10rem h-75"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="card">
+                      <Chart
+                        type="bar"
+                        :data="chartData"
+                        :options="chartOptions"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
           </section>
 
           <!-- MESSAGE DIALOG -->
@@ -293,193 +328,837 @@
             </div>
           </template>
 
-          <!-- GRAPHS -->
-          <section>
-            <div class="container-fluid">
-              <div class="row mx-1 py-4">
-                <div class="col-lg-6">
-                  <!-- <Panel header="Calendar" toggleable> </Panel> -->
-                  <div class="card flex justify-content-center">
-                    <Chart
-                      type="line"
-                      :data="chartData"
-                      :options="chartOptions"
-                      class="w-full md:w-10rem h-75"
-                    />
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="card">
-                    <Chart
-                      type="bar"
-                      :data="chartData"
-                      :options="chartOptions"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
           <ScrollTop />
 
           <!-- PARENTS TABLE PRIMEVUE -->
           <div class="card mx-4" v-if="parentTable">
-            <DataTable
-              v-model:filters="filters"
-              v-model:selection="selectedParent"
-              selectionMode="single"
-              :value="parents"
-              stateStorage="session"
-              ref="dt"
-              sortMode="multiple"
-              showGridlines
-              removableSort
-              paginator
-              :rows="5"
-              dataKey="id"
-              :rowsPerPageOptions="[5, 10, 20, 50]"
-              :globalFilterFields="[
-                'data.parent',
-                'data.student',
-                'data.category',
-                'data.status',
-              ]"
-              filterDisplay="menu"
-              :loading="loading"
-              paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
-              currentPageReportTemplate="{first} to {last} of {totalRecords}"
-            >
-              <template #paginatorstart>
-                <Button type="button" icon="pi pi-refresh" text />
-              </template>
-              <template #paginatorend>
-                <Button
-                  type="button"
-                  @click="exportCSV($event)"
-                  icon="pi pi-download"
-                  text
-                />
-              </template>
+            <TabView>
+              <!-- <TabPanel>
+                <template #header>
+                  <i class="pi pi-home me-2"></i>
+                  All
+                </template>
+                <DataTable
+                  v-model:filters="filters"
+                  v-model:selection="selectedParent"
+                  selectionMode="single"
+                  :value="parents"
+                  stateStorage="session"
+                  ref="dt"
+                  sortMode="multiple"
+                  showGridlines
+                  removableSort
+                  paginator
+                  :rows="5"
+                  dataKey="id"
+                  :rowsPerPageOptions="[5, 10, 20, 50]"
+                  :globalFilterFields="[
+                    'data.parent',
+                    'data.student',
+                    'data.category',
+                    'data.status',
+                  ]"
+                  filterDisplay="menu"
+                  :loading="loading"
+                  paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
+                  currentPageReportTemplate="{first} to {last} of {totalRecords}"
+                >
+                  <template #paginatorstart>
+                    <Button type="button" icon="pi pi-refresh" text />
+                  </template>
+                  <template #paginatorend>
+                    <Button
+                      type="button"
+                      @click="exportCSV($event)"
+                      icon="pi pi-download"
+                      text
+                    />
+                  </template>
 
-              <template #header>
-                <div class="row">
-                  <div class="col text-start">
-                    <h2 class="">Parents</h2>
-                  </div>
-                  <div class="col">
-                    <IconField iconPosition="right">
-                      <InputIcon>
-                        <i class="pi pi-search" />
-                      </InputIcon>
+                  <template #header>
+                    <div class="row">
+                      <div class="col text-start">
+                        <h2 class="">Parents</h2>
+                      </div>
+                      <div class="col">
+                        <IconField iconPosition="right">
+                          <InputIcon>
+                            <i class="pi pi-search" />
+                          </InputIcon>
+                          <InputText
+                            v-model="filters['global'].value"
+                            placeholder="Keyword Search"
+                          />
+                        </IconField>
+                      </div>
+                    </div>
+                  </template>
+                  <template #empty> No Parent found. </template>
+                  <template #loading>
+                    Loading clients data. Please wait.
+                  </template>
+                  <Column field="data.parent" header="Client" sortable>
+                    <template #body="{ data }">
+                      {{ data.data.parent }}
+                    </template>
+                    <template #filter="{ filterModel }">
                       <InputText
-                        v-model="filters['global'].value"
-                        placeholder="Keyword Search"
-                      />
-                    </IconField>
-                  </div>
-                </div>
-              </template>
-              <template #empty> No Parent found. </template>
-              <template #loading> Loading clients data. Please wait. </template>
-              <Column field="data.parent" header="Client" sortable>
-                <template #body="{ data }">
-                  {{ data.data.parent }}
-                </template>
-                <template #filter="{ filterModel }">
-                  <InputText
-                    v-model="filterModel.value"
-                    type="text"
-                    class="p-column-filter"
-                    placeholder="Search by name"
-                  />
-                </template>
-              </Column>
-              <Column field="data.student" header="Ward" sortable>
-                <template #body="{ data }">
-                  {{ data.data.student }}
-                </template>
-                <template #filter="{ filterModel }">
-                  <InputText
-                    v-model="filterModel.value"
-                    type="text"
-                    class="p-column-filter"
-                    placeholder="Search by name"
-                  />
-                </template>
-              </Column>
-              <Column
-                field="data.fees"
-                header="Fees"
-                sortable
-                bodyClass="text-center"
-              >
-                <template #body="{ data }">
-                  {{ data.data.fees }}
-                </template>
-                <template #filter="{ filterModel }">
-                  <InputText
-                    v-model="filterModel.value"
-                    type="number"
-                    class="p-column-filter"
-                    placeholder="Search by amount"
-                  />
-                </template>
-              </Column>
-              <Column
-                field="data.weeklySession"
-                header="Session"
-                sortable
-                bodyClass="text-center"
-              ></Column>
-
-              <Column field="data.contact" header="Contact"></Column>
-
-              <Column
-                field="data.status"
-                header="Status"
-                sortable
-                bodyClass="text-center"
-              >
-                <template #body="{ data }">
-                  <Tag
-                    :value="data.data.status"
-                    :severity="getSeverity(data.status)"
-                  />
-                </template>
-                <template #filter="{ filterModel }">
-                  <Dropdown
-                    v-model="filterModel.value"
-                    :options="statuses"
-                    placeholder="Select One"
-                    class="p-column-filter"
-                    showClear
-                  >
-                    <template #option="slotProps">
-                      <Tag
-                        :value="slotProps.option"
-                        :severity="getSeverity(slotProps.option)"
+                        v-model="filterModel.value"
+                        type="text"
+                        class="p-column-filter"
+                        placeholder="Search by name"
                       />
                     </template>
-                  </Dropdown> </template
-              ></Column>
+                  </Column>
+                  <Column field="data.student" header="Ward" sortable>
+                    <template #body="{ data }">
+                      {{ data.data.student }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="text"
+                        class="p-column-filter"
+                        placeholder="Search by name"
+                      />
+                    </template>
+                  </Column>
+                  <Column
+                    field="data.fees"
+                    header="Fees"
+                    sortable
+                    bodyClass="text-center"
+                  >
+                    <template #body="{ data }">
+                      {{ data.data.fees }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="number"
+                        class="p-column-filter"
+                        placeholder="Search by amount"
+                      />
+                    </template>
+                  </Column>
+                  <Column
+                    field="data.weeklySession"
+                    header="Session"
+                    sortable
+                    bodyClass="text-center"
+                  ></Column>
 
-              <Column
-                header="Action"
-                headerStyle="width: 5rem; text-align: center"
-                bodyStyle="text-align: center; overflow: visible"
-              >
-                <template #body="{ data }">
-                  <Button
-                    type="button"
-                    icon="pi pi-expand"
-                    @click="editParent(data)"
-                    style="font-size: 0.7rem"
-                    rounded
-                  />
+                  <Column field="data.contact" header="Contact"></Column>
+
+                  <Column
+                    field="data.status"
+                    header="Status"
+                    sortable
+                    bodyClass="text-center"
+                  >
+                    <template #body="{ data }">
+                      <Tag
+                        :value="data.data.status"
+                        :severity="getSeverity(data.status)"
+                      />
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <Dropdown
+                        v-model="filterModel.value"
+                        :options="statuses"
+                        placeholder="Select One"
+                        class="p-column-filter"
+                        showClear
+                      >
+                        <template #option="slotProps">
+                          <Tag
+                            :value="slotProps.option"
+                            :severity="getSeverity(slotProps.option)"
+                          />
+                        </template>
+                      </Dropdown> </template
+                  ></Column>
+
+                  <Column
+                    header="Action"
+                    headerStyle="width: 5rem; text-align: center"
+                    bodyStyle="text-align: center; overflow: visible"
+                  >
+                    <template #body="{ data }">
+                      <Button
+                        type="button"
+                        icon="pi pi-expand"
+                        @click="editParent(data)"
+                        style="font-size: 0.7rem"
+                        rounded
+                      />
+                    </template>
+                  </Column>
+                </DataTable>
+              </TabPanel> -->
+              <TabPanel>
+                <template #header>
+                  Contracts
+                  <Badge
+                    :value="clientsList().length"
+                    severity="success"
+                  ></Badge>
                 </template>
-              </Column>
-            </DataTable>
+                <DataTable
+                  v-model:filters="filters"
+                  v-model:selection="selectedParent"
+                  selectionMode="single"
+                  :value="clientsList()"
+                  stateStorage="session"
+                  ref="dt"
+                  sortMode="multiple"
+                  showGridlines
+                  removableSort
+                  paginator
+                  :rows="5"
+                  dataKey="id"
+                  :rowsPerPageOptions="[5, 10, 20, 50]"
+                  :globalFilterFields="[
+                    'data.parent',
+                    'data.student',
+                    'data.category',
+                    'data.status',
+                  ]"
+                  filterDisplay="menu"
+                  :loading="loading"
+                  paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
+                  currentPageReportTemplate="{first} to {last} of {totalRecords}"
+                >
+                  <template #paginatorstart>
+                    <Button type="button" icon="pi pi-refresh" text />
+                  </template>
+                  <template #paginatorend>
+                    <Button
+                      type="button"
+                      @click="exportCSV($event)"
+                      icon="pi pi-download"
+                      text
+                    />
+                  </template>
+
+                  <template #header>
+                    <div class="row">
+                      <div class="col text-start">
+                        <h2 class="">Parents</h2>
+                      </div>
+                      <div class="col">
+                        <IconField iconPosition="right">
+                          <InputIcon>
+                            <i class="pi pi-search" />
+                          </InputIcon>
+                          <InputText
+                            v-model="filters['global'].value"
+                            placeholder="Keyword Search"
+                          />
+                        </IconField>
+                      </div>
+                    </div>
+                  </template>
+                  <template #empty> No Parent found. </template>
+                  <template #loading>
+                    Loading clients data. Please wait.
+                  </template>
+                  <Column field="data.parent" header="Client" sortable>
+                    <template #body="{ data }">
+                      {{ data.data.parent }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="text"
+                        class="p-column-filter"
+                        placeholder="Search by name"
+                      />
+                    </template>
+                  </Column>
+                  <Column field="data.student" header="Ward" sortable>
+                    <template #body="{ data }">
+                      {{ data.data.student }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="text"
+                        class="p-column-filter"
+                        placeholder="Search by name"
+                      />
+                    </template>
+                  </Column>
+                  <Column
+                    field="data.fees"
+                    header="Fees"
+                    sortable
+                    bodyClass="text-center"
+                  >
+                    <template #body="{ data }">
+                      {{ data.data.fees }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="number"
+                        class="p-column-filter"
+                        placeholder="Search by amount"
+                      />
+                    </template>
+                  </Column>
+                  <Column
+                    field="data.weeklySession"
+                    header="Session"
+                    sortable
+                    bodyClass="text-center"
+                  ></Column>
+
+                  <Column field="data.contact" header="Contact"></Column>
+
+                  <Column
+                    field="data.status"
+                    header="Status"
+                    sortable
+                    bodyClass="text-center"
+                  >
+                    <template #body="{ data }">
+                      <Tag
+                        :value="data.data.status"
+                        :severity="getSeverity(data.status)"
+                      />
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <Dropdown
+                        v-model="filterModel.value"
+                        :options="statuses"
+                        placeholder="Select One"
+                        class="p-column-filter"
+                        showClear
+                      >
+                        <template #option="slotProps">
+                          <Tag
+                            :value="slotProps.option"
+                            :severity="getSeverity(slotProps.option)"
+                          />
+                        </template>
+                      </Dropdown> </template
+                  ></Column>
+
+                  <Column
+                    header="Action"
+                    headerStyle="width: 5rem; text-align: center"
+                    bodyStyle="text-align: center; overflow: visible"
+                  >
+                    <template #body="{ data }">
+                      <Button
+                        type="button"
+                        icon="pi pi-expand"
+                        @click="editParent(data)"
+                        style="font-size: 0.7rem"
+                        rounded
+                      />
+                    </template>
+                  </Column> </DataTable
+              ></TabPanel>
+              <TabPanel>
+                <template #header>
+                  Request
+                  <Badge
+                    :value="requestsList().length"
+                    severity="success"
+                  ></Badge>
+                </template>
+                <DataTable
+                  v-model:filters="filters"
+                  v-model:selection="selectedParent"
+                  selectionMode="single"
+                  :value="requestsList()"
+                  stateStorage="session"
+                  ref="dt"
+                  sortMode="multiple"
+                  showGridlines
+                  removableSort
+                  paginator
+                  :rows="5"
+                  dataKey="id"
+                  :rowsPerPageOptions="[5, 10, 20, 50]"
+                  :globalFilterFields="[
+                    'data.parent',
+                    'data.student',
+                    'data.category',
+                    'data.status',
+                  ]"
+                  filterDisplay="menu"
+                  :loading="loading"
+                  paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
+                  currentPageReportTemplate="{first} to {last} of {totalRecords}"
+                >
+                  <template #paginatorstart>
+                    <Button type="button" icon="pi pi-refresh" text />
+                  </template>
+                  <template #paginatorend>
+                    <Button
+                      type="button"
+                      @click="exportCSV($event)"
+                      icon="pi pi-download"
+                      text
+                    />
+                  </template>
+
+                  <template #header>
+                    <div class="row">
+                      <div class="col text-start">
+                        <h2 class="">Parents</h2>
+                      </div>
+                      <div class="col">
+                        <IconField iconPosition="right">
+                          <InputIcon>
+                            <i class="pi pi-search" />
+                          </InputIcon>
+                          <InputText
+                            v-model="filters['global'].value"
+                            placeholder="Keyword Search"
+                          />
+                        </IconField>
+                      </div>
+                    </div>
+                  </template>
+                  <template #empty> No Parent found. </template>
+                  <template #loading>
+                    Loading clients data. Please wait.
+                  </template>
+                  <Column field="data.parent" header="Client" sortable>
+                    <template #body="{ data }">
+                      {{ data.data.parent }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="text"
+                        class="p-column-filter"
+                        placeholder="Search by name"
+                      />
+                    </template>
+                  </Column>
+                  <Column field="data.student" header="Ward" sortable>
+                    <template #body="{ data }">
+                      {{ data.data.student }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="text"
+                        class="p-column-filter"
+                        placeholder="Search by name"
+                      />
+                    </template>
+                  </Column>
+                  <Column
+                    field="data.fees"
+                    header="Fees"
+                    sortable
+                    bodyClass="text-center"
+                  >
+                    <template #body="{ data }">
+                      {{ data.data.fees }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="number"
+                        class="p-column-filter"
+                        placeholder="Search by amount"
+                      />
+                    </template>
+                  </Column>
+                  <Column
+                    field="data.weeklySession"
+                    header="Session"
+                    sortable
+                    bodyClass="text-center"
+                  ></Column>
+
+                  <Column field="data.contact" header="Contact"></Column>
+
+                  <Column
+                    field="data.status"
+                    header="Status"
+                    sortable
+                    bodyClass="text-center"
+                  >
+                    <template #body="{ data }">
+                      <Tag
+                        :value="data.data.status"
+                        :severity="getSeverity(data.status)"
+                      />
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <Dropdown
+                        v-model="filterModel.value"
+                        :options="statuses"
+                        placeholder="Select One"
+                        class="p-column-filter"
+                        showClear
+                      >
+                        <template #option="slotProps">
+                          <Tag
+                            :value="slotProps.option"
+                            :severity="getSeverity(slotProps.option)"
+                          />
+                        </template>
+                      </Dropdown> </template
+                  ></Column>
+
+                  <Column
+                    header="Action"
+                    headerStyle="width: 5rem; text-align: center"
+                    bodyStyle="text-align: center; overflow: visible"
+                  >
+                    <template #body="{ data }">
+                      <Button
+                        type="button"
+                        icon="pi pi-expand"
+                        @click="editParent(data)"
+                        style="font-size: 0.7rem"
+                        rounded
+                      />
+                    </template>
+                  </Column> </DataTable
+              ></TabPanel>
+              <TabPanel>
+                <template #header>
+                  Completed
+                  <Badge
+                    :value="completedList().length"
+                    severity="success"
+                  ></Badge>
+                </template>
+                <DataTable
+                  v-model:filters="filters"
+                  v-model:selection="selectedParent"
+                  selectionMode="single"
+                  :value="completedList()"
+                  stateStorage="session"
+                  ref="dt"
+                  sortMode="multiple"
+                  showGridlines
+                  removableSort
+                  paginator
+                  :rows="5"
+                  dataKey="id"
+                  :rowsPerPageOptions="[5, 10, 20, 50]"
+                  :globalFilterFields="[
+                    'data.parent',
+                    'data.student',
+                    'data.category',
+                    'data.status',
+                  ]"
+                  filterDisplay="menu"
+                  :loading="loading"
+                  paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
+                  currentPageReportTemplate="{first} to {last} of {totalRecords}"
+                >
+                  <template #paginatorstart>
+                    <Button type="button" icon="pi pi-refresh" text />
+                  </template>
+                  <template #paginatorend>
+                    <Button
+                      type="button"
+                      @click="exportCSV($event)"
+                      icon="pi pi-download"
+                      text
+                    />
+                  </template>
+
+                  <template #header>
+                    <div class="row">
+                      <div class="col text-start">
+                        <h2 class="">Parents</h2>
+                      </div>
+                      <div class="col">
+                        <IconField iconPosition="right">
+                          <InputIcon>
+                            <i class="pi pi-search" />
+                          </InputIcon>
+                          <InputText
+                            v-model="filters['global'].value"
+                            placeholder="Keyword Search"
+                          />
+                        </IconField>
+                      </div>
+                    </div>
+                  </template>
+                  <template #empty> No Parent found. </template>
+                  <template #loading>
+                    Loading clients data. Please wait.
+                  </template>
+                  <Column field="data.parent" header="Client" sortable>
+                    <template #body="{ data }">
+                      {{ data.data.parent }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="text"
+                        class="p-column-filter"
+                        placeholder="Search by name"
+                      />
+                    </template>
+                  </Column>
+                  <Column field="data.student" header="Ward" sortable>
+                    <template #body="{ data }">
+                      {{ data.data.student }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="text"
+                        class="p-column-filter"
+                        placeholder="Search by name"
+                      />
+                    </template>
+                  </Column>
+                  <Column
+                    field="data.fees"
+                    header="Fees"
+                    sortable
+                    bodyClass="text-center"
+                  >
+                    <template #body="{ data }">
+                      {{ data.data.fees }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="number"
+                        class="p-column-filter"
+                        placeholder="Search by amount"
+                      />
+                    </template>
+                  </Column>
+                  <Column
+                    field="data.weeklySession"
+                    header="Session"
+                    sortable
+                    bodyClass="text-center"
+                  ></Column>
+
+                  <Column field="data.contact" header="Contact"></Column>
+
+                  <Column
+                    field="data.status"
+                    header="Status"
+                    sortable
+                    bodyClass="text-center"
+                  >
+                    <template #body="{ data }">
+                      <Tag
+                        :value="data.data.status"
+                        :severity="getSeverity(data.status)"
+                      />
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <Dropdown
+                        v-model="filterModel.value"
+                        :options="statuses"
+                        placeholder="Select One"
+                        class="p-column-filter"
+                        showClear
+                      >
+                        <template #option="slotProps">
+                          <Tag
+                            :value="slotProps.option"
+                            :severity="getSeverity(slotProps.option)"
+                          />
+                        </template>
+                      </Dropdown> </template
+                  ></Column>
+
+                  <Column
+                    header="Action"
+                    headerStyle="width: 5rem; text-align: center"
+                    bodyStyle="text-align: center; overflow: visible"
+                  >
+                    <template #body="{ data }">
+                      <Button
+                        type="button"
+                        icon="pi pi-expand"
+                        @click="editParent(data)"
+                        style="font-size: 0.7rem"
+                        rounded
+                      />
+                    </template>
+                  </Column> </DataTable
+              ></TabPanel>
+              <TabPanel>
+                <template #header>
+                  Terminated
+                  <Badge
+                    :value="terminatesList().length"
+                    severity="danger"
+                  ></Badge>
+                </template>
+                <DataTable
+                  v-model:filters="filters"
+                  v-model:selection="selectedParent"
+                  selectionMode="single"
+                  :value="terminatesList()"
+                  stateStorage="session"
+                  ref="dt"
+                  sortMode="multiple"
+                  showGridlines
+                  removableSort
+                  paginator
+                  :rows="5"
+                  dataKey="id"
+                  :rowsPerPageOptions="[5, 10, 20, 50]"
+                  :globalFilterFields="[
+                    'data.parent',
+                    'data.student',
+                    'data.category',
+                    'data.status',
+                  ]"
+                  filterDisplay="menu"
+                  :loading="loading"
+                  paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
+                  currentPageReportTemplate="{first} to {last} of {totalRecords}"
+                >
+                  <template #paginatorstart>
+                    <Button type="button" icon="pi pi-refresh" text />
+                  </template>
+                  <template #paginatorend>
+                    <Button
+                      type="button"
+                      @click="exportCSV($event)"
+                      icon="pi pi-download"
+                      text
+                    />
+                  </template>
+
+                  <template #header>
+                    <div class="row">
+                      <div class="col text-start">
+                        <h2 class="">Parents</h2>
+                      </div>
+                      <div class="col">
+                        <IconField iconPosition="right">
+                          <InputIcon>
+                            <i class="pi pi-search" />
+                          </InputIcon>
+                          <InputText
+                            v-model="filters['global'].value"
+                            placeholder="Keyword Search"
+                          />
+                        </IconField>
+                      </div>
+                    </div>
+                  </template>
+                  <template #empty> No Parent found. </template>
+                  <template #loading>
+                    Loading clients data. Please wait.
+                  </template>
+                  <Column field="data.parent" header="Client" sortable>
+                    <template #body="{ data }">
+                      {{ data.data.parent }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="text"
+                        class="p-column-filter"
+                        placeholder="Search by name"
+                      />
+                    </template>
+                  </Column>
+                  <Column field="data.student" header="Ward" sortable>
+                    <template #body="{ data }">
+                      {{ data.data.student }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="text"
+                        class="p-column-filter"
+                        placeholder="Search by name"
+                      />
+                    </template>
+                  </Column>
+                  <Column
+                    field="data.fees"
+                    header="Fees"
+                    sortable
+                    bodyClass="text-center"
+                  >
+                    <template #body="{ data }">
+                      {{ data.data.fees }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <InputText
+                        v-model="filterModel.value"
+                        type="number"
+                        class="p-column-filter"
+                        placeholder="Search by amount"
+                      />
+                    </template>
+                  </Column>
+                  <Column
+                    field="data.weeklySession"
+                    header="Session"
+                    sortable
+                    bodyClass="text-center"
+                  ></Column>
+
+                  <Column field="data.contact" header="Contact"></Column>
+
+                  <Column
+                    field="data.status"
+                    header="Status"
+                    sortable
+                    bodyClass="text-center"
+                  >
+                    <template #body="{ data }">
+                      <Tag
+                        :value="data.data.status"
+                        :severity="getSeverity(data.status)"
+                      />
+                    </template>
+                    <template #filter="{ filterModel }">
+                      <Dropdown
+                        v-model="filterModel.value"
+                        :options="statuses"
+                        placeholder="Select One"
+                        class="p-column-filter"
+                        showClear
+                      >
+                        <template #option="slotProps">
+                          <Tag
+                            :value="slotProps.option"
+                            :severity="getSeverity(slotProps.option)"
+                          />
+                        </template>
+                      </Dropdown> </template
+                  ></Column>
+
+                  <Column
+                    header="Action"
+                    headerStyle="width: 5rem; text-align: center"
+                    bodyStyle="text-align: center; overflow: visible"
+                  >
+                    <template #body="{ data }">
+                      <Button
+                        type="button"
+                        icon="pi pi-expand"
+                        @click="editParent(data)"
+                        style="font-size: 0.7rem"
+                        rounded
+                      />
+                    </template>
+                  </Column> </DataTable
+              ></TabPanel>
+
+             
+            </TabView>
           </div>
 
           <!-- PARENT DIALOG -->
@@ -920,16 +1599,17 @@
           </Dialog>
 
           <!-- Toast to show update -->
-          <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+          <div class="toast-container position-static">
             <div
-              id="toastContainer"
-              class="toast hide"
+              class="toast"
               role="alert"
               aria-live="assertive"
               aria-atomic="true"
             >
               <div class="toast-header">
-                <strong class="me-auto">Update Status</strong>
+                <img src="..." class="rounded me-2" alt="..." />
+                <strong class="me-auto">Message</strong>
+                <small class="text-body-secondary">Status</small>
                 <button
                   type="button"
                   class="btn-close"
@@ -937,7 +1617,29 @@
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="toast-body" id="toastMessage"></div>
+              <div class="toast-body">See? Just like this.</div>
+            </div>
+
+            <div
+              class="toast"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
+              <div class="toast-header">
+                <img src="..." class="rounded me-2" alt="..." />
+                <strong class="me-auto">Updated</strong>
+                <small class="text-body-secondary">Status</small>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="toast"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="toast-body">
+                Heads up, toasts will stack automatically
+              </div>
             </div>
           </div>
 
@@ -970,7 +1672,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                   <div class="profit shadow-two bg-white hover">
                     <h4>Considerations</h4>
-                    <h5>{{ prospectsList().length }}</h5>
+                    <h5>{{ requestsList().length }}</h5>
                   </div>
                 </div>
               </div>
@@ -1051,6 +1753,12 @@
 
               <template #header>
                 <div class="row">
+                  <TabView>
+                    <TabPanel header="Tutors"></TabPanel>
+                    <TabPanel header="Applicants"></TabPanel>
+                    <TabPanel header="Disqualified"></TabPanel>
+                    <TabPanel header="Pending"></TabPanel>
+                  </TabView>
                   <div class="col text-start d-flex">
                     <h2 class="">Tutors</h2>
                     <div class="mt-1 mx-2"></div>
@@ -2124,15 +2832,6 @@ export default {
         });
     },
 
-    showSuccess() {
-      this.$toast.add({
-        severity: "success",
-        summary: "Success Message",
-        detail: "Message Content",
-        life: 3000,
-      });
-    },
-
     wideScreenBtn() {
       this.wideScreen = !this.wideScreen;
     },
@@ -2326,19 +3025,15 @@ export default {
       const clients = this.parents.filter(
         (parent) => parent.data.category === "client"
       );
-      const sortedClients = clients.sort((a, b) =>
-        a.data.parent.localeCompare(b.data.parent)
-      );
-      // console.log("Clients List:", clients);
       return clients;
     },
 
     tutorsList() {
       const tutors = this.tutors.filter((tutor) => tutor.category === "tutor");
-      const sortedTutors = tutors.sort((a, b) =>
-        a.lastName.localeCompare(b.lastName)
-      );
-      return sortedTutors;
+      // const sortedTutors = tutors.sort((a, b) =>
+      //   a.lastName.localeCompare(b.lastName)
+      // );
+      return tutors;
     },
 
     applicantsList() {
@@ -2352,14 +3047,25 @@ export default {
       return sortedApplicants;
     },
 
-    prospectsList() {
+    requestsList() {
       const filteredList = this.parents.filter(
-        (parent) => parent.data.category === "request"
+        (parent) => parent.data.status === "request"
       );
-      const sortedProspects = filteredList.sort((a, b) =>
-        a.data.parent.localeCompare(b.data.parent)
+      return filteredList;
+    },
+
+    completedList() {
+      const filteredList = this.parents.filter(
+        (parent) => parent.data.status === "completed"
       );
-      return sortedProspects;
+      return filteredList;
+    },
+
+    terminatesList() {
+      const filteredList = this.parents.filter(
+        (parent) => parent.data.status === "terminated"
+      );
+      return filteredList;
     },
 
     confirm1() {
