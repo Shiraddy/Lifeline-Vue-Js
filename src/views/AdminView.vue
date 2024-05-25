@@ -48,7 +48,7 @@
     <div class="row">
       <!-- SIDE BAR -->
       <div :class="wideScreen ? 'd-none' : 'col-2'" class="bg-success">
-        <div class="mt-lg-2">
+        <div class="mt-lg-2 side-bar">
           <!-- <a class="navbar-brand" href="#">LIFELINE</a> -->
           <img class="admin-pic" src="/images/Pic.png" alt="" />
 
@@ -294,34 +294,32 @@
           </template>
 
           <!-- GRAPHS -->
-          <!-- <section>
+          <section>
             <div class="container-fluid">
-              <div class="row">
+              <div class="row mx-1 py-4">
                 <div class="col-lg-6">
-                  <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Natus unde voluptatum delectus odio, eius ipsum iure, minus
-                    fugit aperiam dolorum molestiae, sint sapiente accusantium
-                    eveniet! Tempora blanditiis, in, ab laudantium aliquid sit,
-                    ipsa voluptates fuga at doloribus fugiat facere quidem! At
-                    placeat consectetur architecto recusandae sapiente animi
-                    optio cumque id.
-                  </p>
+                  <!-- <Panel header="Calendar" toggleable> </Panel> -->
+                  <div class="card flex justify-content-center">
+                    <Chart
+                      type="line"
+                      :data="chartData"
+                      :options="chartOptions"
+                      class="w-full md:w-10rem h-75"
+                    />
+                  </div>
                 </div>
                 <div class="col-lg-6">
-                  <template>
-                    <div class="card">
-                      <Chart
-                        type="bar"
-                        :data="chartData"
-                        :options="chartOptions"
-                      />
-                    </div>
-                  </template>
+                  <div class="card">
+                    <Chart
+                      type="bar"
+                      :data="chartData"
+                      :options="chartOptions"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </section> -->
+          </section>
 
           <ScrollTop />
 
