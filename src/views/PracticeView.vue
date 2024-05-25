@@ -125,11 +125,6 @@
             </template>
           </Panel>
 
-          <template>
-            <div class="card flex justify-content-center">
-              <DatePicker v-model="date" inline showWeek />
-            </div>
-          </template>
           <button type="button" class="btn btn-primary" @click="showToastBtn">
             Show live toast
           </button>
@@ -167,16 +162,9 @@
               <div class="toast-body">
                 Hello, world! This is a toast message.
               </div>
-              <button
-                type="button"
-                class="btn-close me-2 m-auto"
-                data-bs-dismiss="toast"
-                aria-label="Close"
-              ></button>
+              <button type="button" class="btn-close me-2 m-auto"></button>
             </div>
           </div>
-
-         
         </div>
       </div>
     </div>
@@ -185,8 +173,6 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-import TabMenu from "primevue/tabmenu";
-
 
 export default {
   name: "Practice Area",
@@ -195,6 +181,7 @@ export default {
   },
   data() {
     return {
+      date: null,
       showToast: false,
       items: [
         { label: "Dashboard", icon: "pi pi-home" },
