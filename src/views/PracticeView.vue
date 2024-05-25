@@ -8,62 +8,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-2">
-          <div class="card flex justify-content-center">
-            <Menu :model="Nav" class="w-full md:w-15rem">
-              <template #start>
-                <span>
-                  <span class="font-medium text-xl font-semibold"
-                    >PRIME<span class="text-primary">APP</span></span
-                  >
-                </span>
-              </template>
-              <template #submenuheader="{ item }">
-                <span class="text-primary font-bold">{{ item.label }}</span>
-              </template>
-              <template #item="{ item, props }">
-                <a
-                  v-ripple
-                  class="flex align-items-center"
-                  v-bind="props.action"
-                >
-                  <span :class="item.icon" />
-                  <span class="ml-2">{{ item.label }}</span>
-                  <Badge
-                    v-if="item.badge"
-                    class="ml-auto"
-                    :value="item.badge"
-                  />
-                  <span
-                    v-if="item.shortcut"
-                    class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1"
-                    >{{ item.shortcut }}</span
-                  >
-                </a>
-              </template>
-              <template #end>
-                <button
-                  v-ripple
-                  class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround"
-                >
-                  <Avatar
-                    image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-                    class="mr-2"
-                    shape="circle"
-                  />
-
-                  <template>
-                    <Card style="width: 25rem; overflow: hidden">
-                      <template #header> </template>
-                      <template #title>Advanced Card</template>
-                      <template #subtitle>Card subtitle</template>
-                      <template #content> </template>
-                      <template #footer> </template>
-                    </Card>
-                  </template>
-                </button>
-              </template>
-            </Menu>
-          </div>
+          
         </div>
         <div class="col-lg-10">
           <template class="card mx-3">
@@ -138,7 +83,7 @@
               aria-atomic="true"
             >
               <div class="toast-header">
-                <img src="..." class="rounded me-2" alt="..." />
+                <img src="" class="rounded me-2" alt="" />
                 <strong class="me-auto">Bootstrap</strong>
                 <small>11 mins ago</small>
                 <button
@@ -150,19 +95,6 @@
               <div class="toast-body">
                 Hello, world! This is a toast message.
               </div>
-            </div>
-          </div>
-          <div
-            class="toast align-items-center"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-          >
-            <div class="d-flex">
-              <div class="toast-body">
-                Hello, world! This is a toast message.
-              </div>
-              <button type="button" class="btn-close me-2 m-auto"></button>
             </div>
           </div>
         </div>

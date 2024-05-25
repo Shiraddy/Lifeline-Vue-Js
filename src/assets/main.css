@@ -783,7 +783,7 @@
 .fieldset {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-    url(images/teaching.jpg);
+    url(images/tutor1.jpg);
   background-position: cover;
   background-repeat: no-repeat;
   padding: 10px 15px;
@@ -1170,7 +1170,7 @@ body {
   padding: 8rem 0.8rem;
 }
 
-.admin-logo{
+.admin-logo {
   width: 3rem;
 }
 
@@ -1182,7 +1182,7 @@ body {
 }
 
 .view-height {
-height: 100vh;
+  height: 100vh;
 }
 
 .admin-body {
@@ -1630,7 +1630,7 @@ height: 100vh;
         rgba(0, 0, 0, 0.686),
         rgba(0, 0, 0, 0.541)
       ),
-      url(/images/teaching.jpg);
+      url(/images/tutor1.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

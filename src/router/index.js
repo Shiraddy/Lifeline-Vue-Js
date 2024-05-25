@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import CodeView from "../views/CodeView.vue";
-import FaqView from "../views/FaqView.vue";
-import PracticeView from "../views/PracticeView.vue";
+import HomeView from "@/views/HomeView.vue";
+import CodeView from "@/views/CodeView.vue";
+import FaqView from "@/views/FaqView.vue";
+import PracticeView from "@/views/PracticeView.vue";
 import TuitionView from "@/views/TuitionView.vue";
 import CounsellingView from "@/views/CounsellingView.vue";
 import ConsultancyView from "@/views/ConsultancyView.vue";

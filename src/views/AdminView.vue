@@ -1607,7 +1607,7 @@
               aria-atomic="true"
             >
               <div class="toast-header">
-                <img src="..." class="rounded me-2" alt="..." />
+                <img src="" class="rounded me-2" alt="" />
                 <strong class="me-auto">Message</strong>
                 <small class="text-body-secondary">Status</small>
                 <button
@@ -1627,7 +1627,7 @@
               aria-atomic="true"
             >
               <div class="toast-header">
-                <img src="..." class="rounded me-2" alt="..." />
+                <img src="" class="rounded me-2" alt="" />
                 <strong class="me-auto">Updated</strong>
                 <small class="text-body-secondary">Status</small>
                 <button
