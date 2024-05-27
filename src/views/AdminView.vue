@@ -289,6 +289,11 @@
                     </div>
                   </div>
                 </div>
+                <template class="card flex justify-content-center">
+                  <div>
+                    <DatePicker v-model="date" inline showWeek />
+                  </div>
+                </template>
               </div>
             </section>
           </section>
@@ -2821,7 +2826,7 @@ export default {
               label: "Admin Summary",
               icon: "pi pi-dashboard",
               //  route: '/theming/unstyled'
-                //  url: 'https://vuejs.org/'
+              //  url: 'https://vuejs.org/'
               command: () => {
                 this.dashboardView();
               },

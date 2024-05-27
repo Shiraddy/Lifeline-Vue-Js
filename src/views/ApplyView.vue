@@ -186,36 +186,39 @@
 
   <div class="container-minute services-apply mt-lg-5 mt-5" v-if="form">
     <section class="">
-      <h4 class="fw-bolder pt-3">TUTOR APPLICATION</h4>
+      <h4 class="formHead">TUTOR APPLICATION</h4>
       <div class="form-apply">
         <form @submit.prevent="submitTutorForm()">
           <!-- LOGIN DETAILS -->
           <fieldset v-if="login">
             <section class="pt-sm-5">
-              <div class="text-start">
-                <p class="mb-0 py-0">Dear Applicant,</p>
-                <p class="mt-0 py-0" role="alert">
-                  Please review our
-                  <RouterLink class="link" to="/faq"
-                    >Frequently Asked Questions (FAQ)</RouterLink
-                  >
-                  and
-                  <RouterLink class="link" to="/code"
-                    >Tutor Code of Conduct</RouterLink
-                  >
-                  before continuing. <br />
-                  <strong>NB:</strong> Your application may be rejected for
-                  non-compliance or failure to provide adequate information.
-                </p>
-              </div>
+              <template class="card">
+                <div class="text-start">
+                  <Message>
+                    <p class="m-0">
+                      Dear Applicant, <br />
+                      Please review our
+                      <RouterLink class="link" to="/faq"
+                        >Frequently Asked Questions (FAQ)</RouterLink
+                      >
+                      and
+                      <RouterLink class="link" to="/code"
+                        >Tutor Code of Conduct</RouterLink
+                      >
+                      before continuing.
+                    </p>
+                  </Message>
+                </div>
+              </template>
+
               <legend class="legend me-auto">Create Login Details</legend>
 
-              <div class="row my-lg-2 my-sm-3">
+              <div class="row my-lg-1 my-sm-3">
                 <label for="email" class="label">Email</label>
                 <div class="col-lg-12">
                   <input
                     required
-                    class="apply-input"
+                    class="apply-input shadow-one"
                     type="email"
                     v-model="tutorApplication.email"
                     @keyup="emailValidity()"
@@ -232,7 +235,7 @@
                   <label class="label" for="password">Password</label>
                   <input
                     required
-                    class="apply-input"
+                    class="apply-input shadow-one"
                     type="password"
                     v-model="tutorApplication.password"
                     name="password"
@@ -249,7 +252,7 @@
                   >
                   <input
                     required
-                    class="apply-input"
+                    class="apply-input shadow-one"
                     type="password"
                     name="password-confirm"
                     v-model="tutorApplication.passwordConfirm"
@@ -1769,6 +1772,12 @@ export default {
 
 .link:clicked {
   color: brown;
+}
+
+.formHead {
+  font-size: 1.8rem;
+  padding: 10px 0;
+  font-weight: bolder;
 }
 </style>
 
