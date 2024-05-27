@@ -11,18 +11,20 @@
           <div id="banner" class="banner">
             <NavBar></NavBar>
             <!-- HERO PAGE TEXT -->
-            <div class="content row">
+            <div class="row">
               <div class="col-lg-6 col-md-5 col-sm-12"></div>
-              <div class="col-lg-6 col-md-12 col-sm-12 text-start ps-lg-4">
-                <h1 class="hero-header fs-1">
+              <div
+                class="col-lg-6 text-white my-5 service-hero-text text-white text-start"
+              >
+                <h1 class="hero-header fs-1 mt-lg-5 mt-5 mb-0">
                   DO YOU NEED A <br />
                   <span class="hero-home shadow-one text-info"
                     >HOME TUTOR?</span
                   >
                 </h1>
                 <p class="hero-text lh-base my-1">
-                  Welcome to Lifeline. Here we provide you a professional home
-                  tutor to help your ward excel. <br />
+                  We provide your ward a professional home tutor to help your
+                  ward become better. <br />
                   <RouterLink
                     class="btn shadow-two px-lg-4 search-button me-3 my-2"
                     to="/form"
@@ -53,8 +55,8 @@
                   </span>
                 </h1>
                 <p class="hero-text fs-5 mt-0">
-                  Here at Lifeline, We connect you to a professional counsellor
-                  to assist you with your challenge.
+                  Speak to a professional counsellor to assist you with your
+                  challenge.
                   <br />
                   <RouterLink
                     class="btn btn-primary btn-lg shadow-two my-3"
@@ -77,12 +79,13 @@
                 class="col-lg-6 text-white my-5 service-hero-text text-start"
               >
                 <h1 class="hero-header mt-lg-5 mt-5 mb-0">
-                  DO YOU WANT TO GROW YOUR
-                  <span class="text-success shadow-two">SCHOOL?</span>
+                  WANT YOUR
+                  <span class="text-success shadow-two">SCHOOL</span>
+                  TO GROW?
                 </h1>
                 <p class="hero-text fs-5 mt-0">
-                  Here at Lifeline, We help schools build a unique brand, become
-                  effective, and deliver value to parents.
+                  We help schools become effective, efficient and
+                  achieve their goals. 
                   <br />
                   <RouterLink
                     class="btn btn-success btn-lg shadow-two my-3"

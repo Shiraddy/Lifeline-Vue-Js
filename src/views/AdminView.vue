@@ -3,20 +3,11 @@
   <div class="container-fluid">
     <div class="row view-height">
       <!-- SIDE BAR -->
-      <div :class="wideScreen ? 'd-none' : 'col-2'" class="bg-success">
+      <div :class="wideScreen ? 'd-none' : 'col-2'" class="shadow-two">
         <div class="mt-lg-2 side-bar">
-          <!-- <Avatar
-            image="/images/logo.png"
-            class=""
-            size="large"
-            shape="circle"
-          /> -->
-          <a class="navbar-brand text-danger" href="#">
-            <img class="admin-logo" src="/images/logo.png" alt="" /> LIFELINE</a
-          >
-          <img class="admin-pic" src="/images/Pic.png" alt="" />
+          <!-- <img class="admin-pic" src="/images/Pic.png" alt="" /> -->
 
-          <ul class="nav navbar-nav admin-ul">
+          <!-- <ul class="nav navbar-nav admin-ul">
             <a class="admin-list" href="#adminDash" @click="dashboardView"
               ><i class="bi-columns-gap me-2 text-white"></i> DASHBOARD
             </a>
@@ -38,9 +29,53 @@
               FINANCE
               <span class="admin-icon"></span
             ></a>
-          </ul>
+            <button @click="signOut" class="btn btn-danger">LOG OUT</button>
+          </ul> -->
+          <template class="card flex justify-content-center">
+            <div class="text-left">
+              <Menu :model="links" class="w-full d-none d-lg-block text-start">
+                <template #start>
+                  <span class="inline-flex align-items-center gap-1 py-2">
+                    <a class="navbar-brand text-danger" href="#">
+                      <img class="admin-logo" src="/images/logo.png" alt="" />
+                      LIFELINE</a
+                    >
+                  </span>
+                </template>
 
-          <button @click="signOut" class="btn btn-danger">LOG OUT</button>
+                <template #submenuitem="{ item }">
+                  <span class="text-primary font-bold">{{ item.label }}</span>
+                </template>
+
+                <template #item="{ item, props }">
+                  <a
+                    v-ripple
+                    class="flex align-items-center"
+                    v-bind="props.action"
+                  >
+                    <span :class="item.icon" />
+                    <span class="ml-2">{{ item.label }}</span>
+                    <Badge
+                      v-if="item.badge"
+                      class="ml-auto"
+                      :value="item.badge"
+                    />
+                    <span
+                      v-if="item.shortcut"
+                      class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1"
+                      >{{ item.shortcut }}</span
+                    >
+                  </a>
+                </template>
+
+                <template #end>
+                  <div class="text-secondary">
+                    <small>Lifeline Edu. Solutions</small>
+                  </div>
+                </template>
+              </Menu>
+            </div>
+          </template>
         </div>
       </div>
 
@@ -79,6 +114,12 @@
               <i class="pi pi-envelope pi-icon"></i>
               <i class="pi pi-cog pi-icon"></i>
             </div>
+            <Avatar
+              image="/images/Pic.png"
+              class="mr-2"
+              size="large"
+              shape="circle"
+            />
           </template>
 
           <template #center>
@@ -86,7 +127,7 @@
               <TabMenu :model="DashTabMenu" />
             </div> -->
             <div class="mt-2">
-              <Menubar :model="DashTabMenu" />
+              <Menubar :model="AdminNavBar" />
             </div>
           </template>
         </Toolbar>
@@ -1156,9 +1197,12 @@
                     </template>
                   </Column> </DataTable
               ></TabPanel>
-
-             
             </TabView>
+          </div>
+
+          <!-- PROSPECTS LIST -->
+          <div class="card mx-4">
+            <DataTable> </DataTable>
           </div>
 
           <!-- PARENT DIALOG -->
@@ -2649,6 +2693,7 @@ import Dialog from "primevue/dialog";
 import ScrollTop from "primevue/scrolltop";
 import ConfirmDialog from "primevue/confirmdialog";
 import { FilterMatchMode, FilterOperator } from "primevue/api";
+import Menu from "primevue/menu";
 
 // import DatePicker from 'primevue/datepicker';
 
@@ -2722,13 +2767,169 @@ export default {
       todoList: [],
       todoItem: "",
       done: false,
-      parentUpdateFeedback: "",
+      toastMessages: {
+        message: "",
+        tutorPay: "",
+        parentPay: "",
+      },
       DashTabMenu: [
         { label: "Dashboard", icon: "pi pi-home" },
         { label: "Graphs", icon: "pi pi-chart-line" },
         { label: "Transactions", icon: "pi pi-list" },
-        { label: "Calender", icon: "pi pi-inbox" },
       ],
+      AdminNavBar: [
+        {
+          label: "Home",
+          icon: "pi pi-home",
+          command: () => {
+            this.$router.push("/admin");
+          },
+        },
+        {
+          label: "Features",
+          icon: "pi pi-star",
+          command: () => {},
+        },
+
+        {
+          label: "Projects",
+          icon: "pi pi-search",
+          items: [
+            {
+              label: "Vue Js",
+              icon: "pi pi-palette",
+              url: "https://vuejs.org/",
+            },
+
+            { separator: true },
+
+            {
+              label: "Ultima",
+              icon: "pi pi-palette",
+            },
+          ],
+        },
+      ],
+
+      links: [
+        {
+          separator: true,
+        },
+        {
+          items: [
+            {
+              label: "Admin Summary",
+              icon: "pi pi-dashboard",
+              //  route: '/theming/unstyled'
+                //  url: 'https://vuejs.org/'
+              command: () => {
+                this.dashboardView();
+              },
+            },
+          ],
+        },
+        {
+          label: "Tuition",
+          items: [
+            {
+              label: "Tutors",
+              icon: "pi pi-user me-2",
+              command: () => {
+                this.tutorTableView();
+              },
+            },
+            {
+              label: "Parents",
+              icon: "pi pi-address-book me-2",
+              command: () => {
+                this.parentTableView();
+              },
+            },
+            {
+              label: "Finance",
+              icon: "pi pi-dollar me-2",
+              command: () => {
+                this.financeTableView();
+              },
+            },
+          ],
+        },
+        {
+          separator: true,
+        },
+        {
+          label: "Counselling",
+          items: [
+            {
+              label: "Clients",
+              icon: "pi pi-address-book me-2",
+            },
+
+            {
+              label: "Finance",
+              icon: "pi pi-dollar me-2",
+              badge: 2,
+            },
+          ],
+        },
+        {
+          separator: true,
+        },
+        {
+          label: "Consultancy",
+          items: [
+            {
+              label: "Clients",
+              icon: "pi pi-ethereum me-2",
+            },
+            {
+              label: "Finance",
+              icon: "pi pi-dollar me-2",
+            },
+          ],
+        },
+
+        {
+          separator: true,
+        },
+
+        {
+          label: "Logout",
+          icon: "pi pi-sign-out me-2",
+          command: () => {
+            this.signOut();
+          },
+        },
+      ],
+
+      sideNav: [
+        // {
+        //   label: "Home",
+        //   icon: "pi pi-home",
+        //   command: () => {
+        //     this.$router.push("/admin");
+        //   },
+        // },
+        // {
+        //   label: "Features",
+        //   icon: "pi pi-star",
+        //   command: () => {},
+        // },
+        {
+          label: "Documents",
+          items: [
+            {
+              label: "New",
+              icon: "pi pi-plus",
+            },
+            {
+              label: "Search",
+              icon: "pi pi-search",
+            },
+          ],
+        },
+      ],
+
       items: [
         {
           label: "Refresh",
@@ -3319,6 +3520,15 @@ export default {
   background: #1d1c1c;
   border: 3px solid white;
   color: white;
+}
+
+a {
+  text-decoration: none;
+  color: #414361;
+}
+
+a:hover {
+  border-right: 2px solid #0284c7;
 }
 
 .todoApp {
