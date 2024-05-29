@@ -131,6 +131,14 @@
             </div>
           </template>
         </Toolbar>
+        <Toolbar class="mb-4">
+          <template #start>
+           
+          </template>
+          <template #end>
+           
+          </template>
+        </Toolbar>
         <section id="adminDash" class="admin-body mb-3">
           <!-- <template class="card mx-4">
             <div>
@@ -289,11 +297,27 @@
                     </div>
                   </div>
                 </div>
-                <template class="card flex justify-content-center">
-                  <div>
-                    <DatePicker v-model="date" inline showWeek />
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="card flex justify-content-center">
+                      <Calendar v-model="date" inline showWeek />
+                    </div>
                   </div>
-                </template>
+                  <div class="col-lg-6">
+                    <div
+                      class="card flex justify-content-center"
+                      style="height: 315px"
+                    >
+                      <Chart
+                        type="pie"
+                        :data="chartData"
+                        :options="chartOptions"
+                        class="w-full md:w-10rem h-75"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
           </section>

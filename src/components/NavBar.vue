@@ -1,5 +1,42 @@
 <template>
   <section class="container-fluid">
+    <!-- <div class="card flex justify-content-center">
+      <Sidebar v-model:visible="visible">
+        <template #container="{ closeCallback }">
+          <div class="flex flex-column h-full">
+            <div
+              class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0"
+            >
+              <span class="inline-flex align-items-center gap-2">
+                <Avatar
+                  image="/images/logo.png"
+                  class="mr-2"
+                  size="large"
+                  shape="circle"
+                />
+                <span class="font-semibold text-2xl text-danger">Lifeline</span>
+              </span>
+              <span>
+                <Button
+                  type="button"
+                  @click="closeCallback"
+                  icon="pi pi-times"
+                  rounded
+                  outlined
+                  class="h-2rem w-2rem"
+                ></Button>
+              </span>
+            </div>
+            <div class="overflow-y-auto">
+              <ul class="list-none p-3 m-0">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </template>
+      </Sidebar>
+      <Button icon="pi pi-bars" @click="visible = true" />
+    </div> -->
     <nav class="navbar navbar-expand-lg navbar-dark">
       <RouterLink class="navbar-brand text-danger" to="/"
         ><img
@@ -120,6 +157,11 @@
 <script>
 export default {
   name: "NavBar",
+  data() {
+    return {
+      visible: false,
+    };
+  },
 };
 </script>
 

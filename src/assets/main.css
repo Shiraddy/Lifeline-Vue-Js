@@ -7,11 +7,11 @@
   width: 100%;
   height: 100vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.686), rgba(0, 0, 0, 0.541)),
-    url(/images/tutor3.jpg);
+    url(/images/tutor7.jpg);
   object-fit: cover;
   background-size: cover;
   overflow: hidden;
-  background-position: center center;
+  background-position: right center;
   background-repeat: no-repeat;
 }
 
@@ -491,47 +491,7 @@
 
 /**************TESTIMONIAL***************/
 
-.tes-text {
-  color: white;
-}
 
-.test-text {
-  font-family: "Kanit", sans-serif;
-  font-size: 1.1rem;
-}
-
-.caro-item-about {
-  height: 45vh;
-}
-
-.carousel-caption {
-  background-color: rgba(0, 0, 0, 0.8);
-  width: 55%;
-  height: 50%;
-  font-size: 1.1rem;
-  font-family: "Kanit" Verdana, Geneva, Tahoma, sans-serif;
-  border-radius: 15px;
-  padding: 7px 10px;
-  position: absolute;
-  top: 35%;
-  left: 23.33%;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.carousel-inner {
-  max-width: 100%;
-  height: auto;
-}
-
-.caro-pic {
-  max-width: 100%;
-  height: 80%;
-}
 
 /* .caro-icon {
   background-color: #fff;

@@ -17,12 +17,43 @@ import Testimonial from "@/components/Testimonial.vue";
   <Carousel></Carousel>
 
   <!-----------SERVICES SECTION------------->
+  <!-- <div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        
+      </div>
+      <div class="carousel-item">
+        
+      </div>
+      <div class="carousel-item">
+        
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExample"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExample"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div> -->
   <section>
     <div class="container-sm py-2 services">
       <h2 class="py-3 choose-title">OUR SERVICES</h2>
       <hr />
       <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-4">
+        <div class="col-sm-12 col-md-4 col-lg-4">
           <div class="card shadow-two hover myCard">
             <img class="service-image" src="/images/student1.png" alt="" />
             <RouterLink class="btn btn-danger btn-service" to="/tuition"
@@ -35,7 +66,7 @@ import Testimonial from "@/components/Testimonial.vue";
           </div>
         </div>
 
-        <div class="col-sm-12 col-md-12 col-lg-4">
+        <div class="col-sm-12 col-md-4 col-lg-4">
           <div class="card shadow-two hover myCard">
             <img
               class="service-image"
@@ -53,7 +84,7 @@ import Testimonial from "@/components/Testimonial.vue";
           </div>
         </div>
 
-        <div class="col-sm-12 col-md-12 col-lg-4">
+        <div class="col-sm-12 col-md-4 col-lg-4">
           <div class="card shadow-two hover myCard">
             <img class="service-image" src="/images/skill1.png" alt="images" />
             <RouterLink class="btn btn-danger btn-service" to="/consultancy"

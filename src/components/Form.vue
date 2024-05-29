@@ -30,17 +30,18 @@
           data-section="1"
           id="parentInfo"
         >
-          <div class="text-start pt-3">
-            <p>Dear Parent,</p>
-            <p>
-              Thank you for choosing us. We have tutored hundreds of students in
-              Tamale and beyond. It is your turn now. Please review our
-              <RouterLink class="link" to="/faq"
-                >Frequently Asked Questions</RouterLink
-              >
-              for any information.
+          <Message severity="secondary" :life="1000">
+            <template #messageicon>
+              <Avatar image="/images/logo.png" shape="circle" />
+            </template>
+            <p class="text-start mt-3 mx-3">
+              Dear Parent, <br />
+              Kindly review our Frequently Asked Questions
+              <RouterLink class="link" to="/faq">(FAQ)</RouterLink>
+              if you require additional information.
             </p>
-          </div>
+          </Message>
+
           <h5 class="legend me-auto">Parent/Guardian Details</h5>
 
           <div class="row">
@@ -100,7 +101,7 @@
             </div>
 
             <div class="col-lg-6">
-              <label class="label" for="email">Email Address(optional)</label>
+              <label class="label" for="email">Email(optional)</label>
               <input
                 class="apply-input"
                 type="email"
@@ -133,9 +134,7 @@
             </div>
 
             <div class="col-lg-6">
-              <label class="label" for="number"
-                >Other Contact( optional )</label
-              >
+              <label class="label" for="number">Other Contact (optional)</label>
               <input
                 id="parentOtherNumber"
                 class="apply-input"
@@ -164,9 +163,7 @@
           <div class="row my-2">
             <div class="col-lg-6">
               <label class="label" for="Student"
-                >Name of Student<span class="text-danger pt-1 mx-1">
-                  *
-                </span></label
+                >Name<span class="text-danger pt-1 mx-1"> * </span></label
               >
               <input
                 name="student"
@@ -174,7 +171,7 @@
                 v-model.trim="requestForm.student"
                 type="text"
                 @change="validation2()"
-                placeholder="Enter Full Name"
+                placeholder="Student's Name"
               />
               <small class="text-danger d-block" v-if="error.student">
                 This is a required field
@@ -219,9 +216,7 @@
               </small> -->
             </div>
             <div class="col-lg-6">
-              <label class="label" for="schoolName"
-                >Current School Name(if in school)</label
-              >
+              <label class="label" for="schoolName">School(if any)</label>
               <input
                 class="apply-input"
                 type="text"
@@ -234,7 +229,7 @@
 
           <div class="row my-2">
             <div class="col-lg-6 col-sm-12">
-              <label class="label" for="level">Level of Student</label>
+              <label class="label" for="level">Level</label>
               <select class="apply-input" v-model="requestForm.level" required>
                 <option value="" disabled>Select Level</option>
                 <option value="preSchool">PRE-SCHOOL</option>
@@ -260,117 +255,45 @@
             </div>
           </div>
 
-          <!-- <div class="row my-2">
-            <div class="col-lg-6">
-              <label class="label" for="emergencyContact"
-                >Emergency Contact Person</label
-              >
-              <input
-                class="apply-input"
-                type="text"
-                required
-                name="emergencyContactName"
-                v-model.trim="requestForm.emergencyContactName"
-                id="emergencyContactName"
-                placeholder="Enter name of person"
-              />
-              <div class="error-message">This is a required field</div>
-            </div>
-
-            <div class="col-lg-6 col-sm-12">
-              <label class="label" for="emergencyContact"
-                >Emergency Contact Person's Number</label
-              >
-              <input
-                class="apply-input"
-                type="number"
-                required
-                name="emergencyContactNumber"
-                v-model.trim="requestForm.emergencyContactNumber"
-                id="emergencyContactNumber"
-                placeholder="Enter the phone number of your contact person"
-              />
-              <div class="error-message">This is a required field</div>
-            </div>
-          </div> -->
-
           <!-- ACADEMIC CHALLENGES -->
           <div id="option" class="confirm mt-4 mx-lg-1 mx-3">
             <!-- SUBJECT SELECT -->
-            <p class="label ps-lg-3 pt-lg-2">Academic Challenge(s)</p>
             <div class="mb-lg-3 border">
               <div class="row text-start">
-                <div class="col-lg-6 col-6">
-                  <div class="">
-                    <input
-                      name="challenge"
-                      class="m-2"
-                      type="checkbox"
-                      v-model="requestForm.challenge"
-                      value="Reading"
-                    />
-                    <label class="form-check-label" for="inlineCheckbox1"
-                      >Reading</label
-                    >
-                  </div>
-                  <div class="">
-                    <input
-                      name="challenge"
-                      class="m-2"
-                      type="checkbox"
-                      v-model="requestForm.challenge"
-                      value="Writing"
-                    />
-                    <label class="form-check-label" for="inlineCheckbox2"
-                      >Writing</label
-                    >
-                  </div>
-                  <div class="">
-                    <input
-                      name="challenge"
-                      class="m-2"
-                      v-model="requestForm.challenge"
-                      type="checkbox"
-                      id="inlineCheckbox3"
-                      value="Mathematics"
-                    />
-                    <label class="form-check-label" for="inlineCheckbox3"
-                      >Mathematics</label
-                    >
-                  </div>
-                </div>
-                <div class="col-lg-6 col-6">
-                  <div class="">
-                    <input
-                      name="challenge"
-                      v-model="requestForm.challenge"
-                      class="m-2"
-                      type="checkbox"
-                      value="Phonics"
-                    />
-                    <label class="" for="">Phonics</label>
-                  </div>
-                  <div class="">
-                    <input
-                      name="challenge"
-                      class="m-2"
-                      type="checkbox"
-                      id="inlineCheckbox5"
-                      value="Spelling"
-                      v-model="requestForm.challenge"
-                    />
-                    <label class="" for="">Spelling</label>
-                  </div>
-                  <div class="">
-                    <input
-                      name="challenge"
-                      class="m-2"
-                      type="checkbox"
-                      value="Speaking"
-                      v-model="requestForm.challenge"
-                    />
-                    <label class="" for="">Speaking</label>
-                  </div>
+                <div class="col-12">
+                  <label for="" class="label">Academic Challenge(s)</label>
+                  <MultiSelect
+                    v-model="requestForm.challenge"
+                    :options="challenges"
+                    filter
+                    optionLabel="name"
+                    placeholder="Select Challenges"
+                    display="chip"
+                    class="apply-input"
+                  >
+                    <template #option="slotProps">
+                      <div class="flex align-items-center">
+                        <div>{{ slotProps.option.name }}</div>
+                      </div>
+                    </template>
+                    <template #footer>
+                      <div class="py-2 px-3">
+                        <b>{{
+                          requestForm.challenge
+                            ? requestForm.challenge.length
+                            : 0
+                        }}</b>
+                        item{{
+                          (requestForm.challenge
+                            ? requestForm.challenge.length
+                            : 0) > 1
+                            ? "s"
+                            : ""
+                        }}
+                        selected.
+                      </div>
+                    </template>
+                  </MultiSelect>
                 </div>
               </div>
 
@@ -619,12 +542,6 @@
                     <label for="Dagbani">Dagbani</label>
                   </div>
                 </div>
-                <small
-                  class="text-danger d-block my-3"
-                  v-if="error.preferredSubjects"
-                >
-                  This is a required field
-                </small>
               </div>
               <textarea
                 name="otherTuitionSubjects"
@@ -691,78 +608,108 @@
 
         <fieldset v-if="confirm" class="form-field" data-section="4">
           <div class="container-sm">
-            <!-- <div class="text-start my-4">
-            <p>Dear <span id="parentNameDisplay"></span>,</p>
-            <p>
-              We're grateful that you're considering our tuition service for
-              your child. Prior to sending in your request, please ensure that
-              the details are accurate.
-            </p>
-
-            <p>
-              Regards, <br />
-              Lifeline.
-            </p>
-          </div> -->
-
-            <div class="border px-2">
-              <h5 class="my-2 d-flex justify-content-center">
-                Confirm Details
+            <div class="px-2">
+              <h5 class="my-3 d-flex justify-content-center fw-bolder">
+                FORM PREVIEW
               </h5>
               <!-- Student Information -->
               <div class="row">
-                <h6 class="label my-4">Student Information</h6>
-
-                <div class="col-lg-6">
-                  <div class="label">Name of Student</div>
-                  <p class="confirm">{{ requestForm.student }}</p>
+                <div class="col-lg-6 text-start my-3">
+                  <Inplace :closable="true">
+                    <template #display>
+                      {{ requestForm.student || "Name of Student" }}
+                    </template>
+                    <template #content>
+                      <InputText v-model="requestForm.student" autofocus />
+                    </template>
+                  </Inplace>
                 </div>
 
-                <div class="col-lg-6">
-                  <div class="label">Age of Student</div>
-                  <p class="confirm">{{ requestForm.DoB }}</p>
+                <div class="col-lg-6 text-start my-3">
+                  <Inplace :closable="true">
+                    <template #display>
+                      {{ requestForm.DoB || "Date of Birth" }}
+                    </template>
+                    <template #content>
+                      <InputText v-model="requestForm.DoB" autofocus />
+                    </template>
+                  </Inplace>
                 </div>
 
-                <div class="col-lg-6">
-                  <div class="label">Level</div>
-                  <p class="confirm">{{ requestForm.level }}</p>
+                <div class="col-lg-6 text-start my-3">
+                  <Inplace :closable="true">
+                    <template #display>
+                      {{ requestForm.level || "Level" }}
+                    </template>
+                    <template #content>
+                      <InputText v-model="requestForm.level" autofocus />
+                    </template>
+                  </Inplace>
                 </div>
 
-                <div class="col-lg-6">
-                  <div class="label">Class of Student</div>
-                  <p class="confirm">{{ requestForm.class }}</p>
+                <div class="col-lg-6 text-start my-3">
+                  <Inplace :closable="true">
+                    <template #display>
+                      {{ requestForm.class || "class" }}
+                    </template>
+                    <template #content>
+                      <InputText v-model="requestForm.class" autofocus />
+                    </template>
+                  </Inplace>
                 </div>
 
-                <div class="col-lg-6">
-                  <div class="label">Contact</div>
-                  <p class="confirm">{{ requestForm.contact }}</p>
+                <div class="col-lg-6 text-start my-3">
+                  <Inplace :closable="true">
+                    <template #display>
+                      {{ requestForm.contact || "contact" }}
+                    </template>
+                    <template #content>
+                      <InputText v-model="requestForm.contact" autofocus />
+                    </template>
+                  </Inplace>
                 </div>
 
-                <!-- <div class="col-lg-6">
-              <div class="label">Email</div>
-              <p class="confirm">{{ requestForm.email }}</p>
-            </div> -->
-
-                <div class="col-lg-6">
-                  <div class="label">Mode of Tuition</div>
-                  <p class="confirm">{{ requestForm.modeOfTeaching }}</p>
+                <div class="col-lg-6 text-start my-3">
+                  <Inplace :closable="true">
+                    <template #display>
+                      {{ requestForm.modeOfTeaching || "Mode of Tuition" }}
+                    </template>
+                    <template #content>
+                      <InputText
+                        v-model="requestForm.modeOfTeaching"
+                        autofocus
+                      />
+                    </template>
+                  </Inplace>
                 </div>
 
-                <div class="col-lg-6">
-                  <div class="label">Lessons Per Week</div>
-                  <p class="confirm">{{ requestForm.weeklySession }} lessons</p>
+                <div class="col-lg-6 text-start my-3">
+                  <Inplace :closable="true">
+                    <template #display>
+                      {{ requestForm.weeklySession || "Weekly Sessions" }}
+                    </template>
+                    <template #content>
+                      <InputText
+                        v-model="requestForm.weeklySession"
+                        autofocus
+                      />
+                    </template>
+                  </Inplace>
                 </div>
 
-                <div class="col-lg-6">
-                  <div class="label">Lesson Duration</div>
-                  <p class="confirm">
-                    {{ requestForm.periodLength }} hour(s) per period
-                  </p>
+                <div class="col-lg-6 text-start my-3">
+                  <Inplace :closable="true">
+                    <template #display>
+                      {{ requestForm.periodLength || "Lesson Duration" }}
+                    </template>
+                    <template #content>
+                      <InputText v-model="requestForm.periodLength" autofocus />
+                    </template>
+                  </Inplace>
                 </div>
 
                 <div class="col-lg-12 confirm textarea text-start">
                   <div class="label">Challenges</div>
-                  <!-- <h4>{{ requestForm.challenge }}</h4> -->
                   <small
                     v-for="challenge in requestForm.challenge"
                     :key="challenge"
@@ -774,8 +721,6 @@
 
                 <div class="col-lg-12 text-start my-4 confirm textarea">
                   <div class="label pb-2">Preferred Subjects</div>
-                  <!-- <p class="confirm">{{ requestForm.preferredSubjects }}</p> -->
-
                   <small
                     v-for="subject in requestForm.preferredSubjects"
                     :key="subject"
@@ -790,7 +735,7 @@
                   <p>{{ requestForm.otherChallenges }}</p>
                 </div>
 
-                <div class="col-lg-12 mt-3 textarea confirm">
+                <div class="col-lg-12 mt-3 textarea card">
                   <h5>TUITION FEE PER MONTH</h5>
                   <h3>Ghc {{ calculatedFee }}. 00</h3>
                 </div>
@@ -809,9 +754,6 @@
             <label for="">I confirm the accuracy of this Information</label>
           </div>
 
-          <!-- <h1>{{ requestForm.agreement }}</h1> -->
-
-          <!-- EDIT AND SUBMIT BUTTONS -->
           <div class="py-5 py-sm-5 d-lg-flex justify-content-end" id="sendBtn">
             <button
               type="button"
@@ -823,6 +765,12 @@
 
             <button class="btn btn-success me-lg-4" type="submit">
               Submit
+              <span id="loading-spinner" v-if="wheel">
+                <div
+                  class="spinner-border spinner-border-sm text-white"
+                  role="status"
+                ></div>
+              </span>
             </button>
           </div>
         </fieldset>
@@ -869,6 +817,17 @@ export default {
       studentInfo: false,
       preference: false,
       confirm: false,
+      wheel: true,
+      selectedChallenge: null,
+      challenges: [
+        { name: "Reading", code: "Rd" },
+        { name: "Writing", code: "Wg" },
+        { name: "Spelling", code: "Sg" },
+        { name: "Blending", code: "Bg" },
+        { name: "Arithmetics", code: "As" },
+        { name: "Speaking", code: "Sg" },
+        { name: "Fluency", code: "Fy" },
+      ],
       error: {
         parentName: false,
         address: false,
@@ -936,8 +895,17 @@ export default {
   },
 
   methods: {
-    formSubmit(e) {
-      console.log("Form Data", this.requestForm);
+    async formSubmit() {
+      this.wheel = true;
+      const form = this.requestForm;
+      try {
+        // const formRef = doc(db, "Request For Tutor");
+        const formRef = await addDoc(collection(db, "Request For Tutor"), form);
+        console.log("Tutor Request", form);
+      } catch (error) {
+        console.error("Tutor Request Error", error.code);
+        this.wheel = false;
+      }
     },
 
     validation() {

@@ -192,24 +192,20 @@
           <!-- LOGIN DETAILS -->
           <fieldset v-if="login">
             <section class="pt-sm-5">
-              <template class="card">
-                <div class="text-start">
-                  <Message>
-                    <p class="m-0">
-                      Dear Applicant, <br />
-                      Please review our
-                      <RouterLink class="link" to="/faq"
-                        >Frequently Asked Questions (FAQ)</RouterLink
-                      >
-                      and
-                      <RouterLink class="link" to="/code"
-                        >Tutor Code of Conduct</RouterLink
-                      >
-                      before continuing.
-                    </p>
-                  </Message>
-                </div>
-              </template>
+              <Message>
+                <p class="m-0 text-start">
+                  Dear Applicant, <br />
+                  Please review our
+                  <RouterLink class="link" to="/faq"
+                    >Frequently Asked Questions (FAQ)</RouterLink
+                  >
+                  and
+                  <RouterLink class="link" to="/code"
+                    >Tutor Code of Conduct</RouterLink
+                  >
+                  before continuing.
+                </p>
+              </Message>
 
               <legend class="legend me-auto">Create Login Details</legend>
 
@@ -1187,28 +1183,33 @@
               </div>
               <br />
 
+              <div v-if="submitError">
+                <small class="bg-danger text-white p-3">
+                  {{ submitErrorMessage }}
+                </small>
+              </div>
+
               <div class="my-3 d-flex justify-content-end">
                 <!-- <button class="round" :class="location && 'round4'">4/4</button> -->
                 <div>
                   <button
-                    class="btn btn-danger px-2 prev-section mx-4"
+                    class="btn btn-danger px-2 prev-section mx-4 px-3"
                     type="button"
                     @click="toExpertise()"
                   >
-                    Back
+                    <i class="pi pi-arrow-circle-left"></i> Back
                   </button>
 
                   <button
-                    class="btn btn-success"
+                    class="btn btn-success px-3"
                     type="submit"
                     id="applySubmit"
                   >
                     Send
                     <div
-                      id="applyLoad"
-                      class="spinner-border spinner-border-sm d-none"
-                      :class="tutorApplication.agreement ? 'Yes' : 'No'"
+                      class="spinner-border spinner-border-sm"
                       role="status"
+                      v-if="wheel"
                     >
                       <span class="visually-hidden">Loading...</span>
                     </div>
@@ -1226,13 +1227,9 @@
           </fieldset>
         </form>
       </div>
-
-      <!-- <pre>{{ tutorApplication }}</pre> -->
     </section>
     <!-- <TheMessage></TheMessage> -->
   </div>
-  <!-- <ContactUs></ContactUs> -->
-  <!-- <Footer></Footer> -->
 
   <!-- Use v-show to hide or show after applying -->
   <div v-if="success">
@@ -1278,7 +1275,6 @@ import Footer from "@/components/Footer.vue";
 import TutorList from "@/components/TutorList.vue";
 import About from "@/components/About.vue";
 import emailjs from "@emailjs/browser";
-import FloatLabel from "primevue/floatlabel";
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
@@ -1326,6 +1322,7 @@ export default {
       expertise: false,
       location: false,
       join: true,
+      wheel: false,
       applying: false,
       form: false,
       success: false,
@@ -1335,6 +1332,8 @@ export default {
       activeTab: true,
       disableBtn: true,
       seeMore: false,
+      submitError: false,
+      submitErrorMessage: "",
       emailErrorMessage: "",
       emailErrorMessageShow: true,
       passwordErrorMessage: "",
@@ -1477,17 +1476,50 @@ export default {
         !error.accessibleLocations &&
         !error.motivation
       ) {
+        this.wheel = true;
         try {
           const email = this.tutorApplication.email;
           const application = this.tutorApplication;
           const tutorRef = doc(db, "Tutor Applications", email);
-          await setDoc(tutorRef, application);
+
+          // Set a timeout of 10 seconds for the application submission
+          const submissionPromise = setDoc(tutorRef, application, {
+            merge: true,
+          });
+          const timeoutPromise = new Promise((resolve, reject) => {
+            setTimeout(() => reject(new Error("Timeout error")), 10000); // 10 seconds
+          });
+
+          await Promise.race([submissionPromise, timeoutPromise]);
+
           this.applying = false;
           this.form = false;
           this.success = true;
           // console.log("Tutor Application", application);
         } catch (error) {
           console.error("Application Unsuccessful", error);
+
+          let errorMessage;
+          switch (error.code) {
+            case "permission-denied":
+              errorMessage =
+                "You do not have permission to submit the application. Please contact support.";
+              break;
+            case "unavailable":
+              errorMessage = "Service is unavailable. Please try again later.";
+              break;
+            case "invalid-argument":
+              errorMessage =
+                "Invalid input data. Please check your information and try again.";
+              break;
+            default:
+              errorMessage =
+                "Registration unsuccessful. Please try again later.";
+          }
+
+          this.submitErrorMessage = errorMessage;
+          this.submitError = true;
+          this.wheel = false;
         }
       }
     },
