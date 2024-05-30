@@ -1,8 +1,9 @@
 <template>
-  <div class="container-fluid client-banner">
+  <!-- <div class="container-fluid banner">
     <NavBar></NavBar>
-  </div>
-  <div class="container-sm services py-4 px-4">
+  </div> -->
+  <Hero></Hero>
+  <div class="container-sm services py-4 px-4 up-container">
     <h3>CODE PRACTICE</h3>
 
     <div class="container-fluid">
@@ -140,11 +141,13 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import Menu from "primevue/menu";
+import Hero from "@/components/Hero.vue";
 
 export default {
   name: "Practice Area",
   components: {
     NavBar,
+    Hero,
   },
   data() {
     return (
@@ -275,5 +278,9 @@ export default {
   background-image: radial-gradient(var(--primary-300), var(--primary-600));
   border-radius: 50% !important;
   color: var(--primary-color-text);
+}
+
+.up-container {
+  z-index: 20;
 }
 </style>

@@ -1,88 +1,116 @@
 <template>
   <section class="">
-    <div id="carouselExampleCaptions" class="carousel slide">
-      <div class="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
-      </div>
-      <div class="carousel-inner">
+    <div id="testimonialCarousel" class="carousel slide">
+      <div class="carousel-inner banner">
         <div class="carousel-item active">
-          <img src="/images/tutor1.jpg" class="d-block w-100" alt="..." />
-          <div class="carousel-caption">
-            <h5>First slide label</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
-              autem ut quis dolorem perspiciatis consequatur eos reprehenderit
-              totam et. Sint nisi blanditiis nobis. Libero corrupti tempore sit
-              numquam nisi distinctio!
-            </p>
+          <div class="card">
+            <Panel>
+              <template #header>
+                <div class="flex align-items-center gap-2">
+                  <Avatar image="/images/Pic.png" size="large" shape="circle" />
+                </div>
+              </template>
+              <template #footer>
+                <div
+                  class="flex flex-wrap align-items-center justify-content-between gap-3"
+                >
+                  <div class="flex align-items-center gap-2">
+                    <Button icon="pi pi-user" rounded text></Button>
+                  </div>
+                  <!-- <span class="p-text-secondary">Updated 2 hours ago</span> -->
+                  <span class="p-text-secondary">Mr. Sule</span>
+                </div>
+              </template>
+              <template #icons>
+                <Menu ref="menu" id="config_menu" :model="items" popup />
+              </template>
+              <p class="m-0">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+              </p>
+            </Panel>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="/images/tutor2.jpg" class="d-block w-100" alt="..." />
-          <div class="carousel-caption">
-            <h5>Second slide label</h5>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus
-              sapiente quo eos, tenetur, et minus corporis commodi nulla
-              laboriosam quae unde pariatur beatae modi enim repellat!
-              Laudantium est eum repellat autem saepe, aspernatur ducimus
-              impedit corporis quo ut voluptatem rerum dicta voluptatibus,
-              debitis deleniti magnam? Enim id corporis veniam aliquam?
-            </p>
+          <div class="card">
+            <Panel>
+              <template #header>
+                <div class="flex align-items-center gap-2">
+                  <Avatar image="/images/Pic.png" size="large" shape="circle" />
+                </div>
+              </template>
+              <template #footer>
+                <div
+                  class="flex flex-wrap align-items-center justify-content-between gap-3"
+                >
+                  <div class="flex align-items-center gap-2">
+                    <Button icon="pi pi-user" rounded text></Button>
+                  </div>
+                  <!-- <span class="p-text-secondary">Updated 2 hours ago</span> -->
+                  <span class="p-text-secondary">Madam Beatrice</span>
+                </div>
+              </template>
+              <template #icons>
+                <Menu ref="menu" id="config_menu" :model="items" popup />
+              </template>
+              <p class="m-0">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+              </p>
+            </Panel>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="/images/tutor3.jpg" class="d-block w-100" alt="..." />
-          <div class="carousel-caption">
-            <h5>Third slide label</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eaque
-              quae odio ratione labore. Vitae itaque voluptatibus optio!
-              Doloribus aliquid architecto dignissimos. Blanditiis voluptatum
-              quae debitis odit vero harum nostrum, cum neque voluptatem nisi
-              ipsam dolorum optio voluptatibus cumque ab eum! Fugiat distinctio
-              cumque recusandae harum delectus, inventore incidunt libero!
-            </p>
+          <div class="card">
+            <Panel>
+              <template #header>
+                <div class="flex align-items-center gap-2">
+                  <Avatar image="/images/Pic.png" size="large" shape="circle" />
+                </div>
+              </template>
+              <template #footer>
+                <div
+                  class="flex flex-wrap align-items-center justify-content-between gap-3"
+                >
+                  <div class="flex align-items-center gap-2">
+                    <Button icon="pi pi-user" rounded text></Button>
+                  </div>
+                  <!-- <span class="p-text-secondary">Updated 2 hours ago</span> -->
+                  <span class="p-text-secondary">Alhaji Ahmed Adam</span>
+                </div>
+              </template>
+              <template #icons>
+                <Menu ref="menu" id="config_menu" :model="items" popup />
+              </template>
+              <p class="m-0">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+              </p>
+            </Panel>
           </div>
         </div>
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleCaptions"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleCaptions"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+      <div class="carousel-controls">
+        <i
+          type="button"
+          data-bs-target="#testimonialCarousel"
+          data-bs-slide="prev"
+          class="bi-caret-left-square text-danger fs-1 me-3"
+        ></i>
+
+        <i
+          type="button"
+          data-bs-target="#testimonialCarousel"
+          data-bs-slide="next"
+          class="bi-caret-right-square text-danger fs-1"
+        ></i>
+      </div>
     </div>
   </section>
 </template>
@@ -90,49 +118,66 @@
 <script>
 export default {
   name: "Testimonial Component",
+  data() {
+    return {
+      items: [
+        {
+          label: "Refresh",
+          icon: "pi pi-refresh",
+        },
+        {
+          label: "Search",
+          icon: "pi pi-search",
+        },
+        {
+          separator: true,
+        },
+        {
+          label: "Delete",
+          icon: "pi pi-times",
+        },
+      ],
+    };
+  },
 };
 </script>
 
 <style scoped>
-.tes-text {
-  color: white;
+.carousel-inner.banner {
+  position: relative;
+  height: 500px; /* Adjust the height as needed */
 }
 
-.test-text {
-  font-family: "Kanit", sans-serif;
-  font-size: 1.1rem;
+.carousel-item {
+  height: 100%;
 }
 
-.caro-item-about {
-  height: 45vh;
-}
-
-.carousel-caption {
-  background-color: rgba(0, 0, 0, 0.8);
-  width: 55%;
-  height: 35%;
-  font-size: 1.1rem;
-  font-family: "Kanit" Verdana, Geneva, Tahoma, sans-serif;
-  border-radius: 15px;
-  padding: 7px 10px;
+.card {
   position: absolute;
-  bottom: 8%;
-  left: 23.33%;
+  top: 50%;
+  left: 46%;
+  transform: translate(-50%, -50%);
+  width: 80%; /* Adjust the width as needed */
+  max-width: 800px; /* Set a maximum width for the card */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Adjust the background color and opacity */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.center {
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.carousel-inner {
-  max-width: 100%;
-  height: auto;
-}
-
-.caro-pic {
-  max-width: 100%;
-  height: 80%;
+  justify-content: space-between;
+  padding: 0 20px;
 }
 </style>

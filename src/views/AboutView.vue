@@ -9,14 +9,8 @@
 
     <section class="py-lg-5 py-3 bg-success text-start">
       <h4 class="text-white fs-1 fw-bolder text-center">What We Represent</h4>
-      <p class="text-white px-lg-5 px-3 lh-lg">
-        We represent solutions, "Think Solutions; think Lifeline" isn't just a
-        motto—it's our ethos. Our collaborative efforts with a diverse range of
-        educational professionals ensures that our services are top-notch and
-        tailored to your specific requirements.
-      </p>
 
-      <p class="text-white px-lg-5 px-3 lh-lg">
+      <p class="text-white px-lg-5 px-3 about-desc">
         At Lifeline, we specialize in providing tailored solutions to the myriad
         educational challenges encountered by schools, parents, and students.
         Our motto, "Think Solutions; think Lifeline," encapsulates our
@@ -133,4 +127,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.about-desc {
+  line-height: 2;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+</style>

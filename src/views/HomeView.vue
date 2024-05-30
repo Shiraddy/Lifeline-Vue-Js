@@ -10,11 +10,13 @@ import ParentFaq from "@/components/ParentFaq.vue";
 import Form from "@/components/Form.vue";
 import Carousel from "@/components/Carousel.vue";
 import Testimonial from "@/components/Testimonial.vue";
+import Hero from "@/components/Hero.vue";
 </script>
 
 <template>
   <!-- HERO PAGE AND NAV-BAR -->
   <Carousel></Carousel>
+  <!-- <Hero></Hero> -->
 
   <!-----------SERVICES SECTION------------->
   <!-- <div id="carouselExample" class="carousel slide">

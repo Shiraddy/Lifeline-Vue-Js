@@ -55,7 +55,7 @@
             <!-- <h2 class="text-center mb-4 choose-title">What We Do...</h2> -->
             <!-- Add your services content here -->
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-4 col-lg-4">
                 <div class="card myCard">
                   <div class="card-body">
                     <!-- <i class="fa-solid fa-book-open option-icon"></i> -->
@@ -73,7 +73,7 @@
                 </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-4 col-lg-4">
                 <div class="card myCard">
                   <div class="card-body">
                     <!-- <i class="fa-solid fa-lightbulb option-icon"></i> -->
@@ -91,7 +91,7 @@
                 </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-4 col-lg-4">
                 <div class="card myCard">
                   <div class="card-body">
                     <!-- <i class="fa-solid fa-star option-icon"></i> -->

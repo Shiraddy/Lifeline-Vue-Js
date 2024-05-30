@@ -1,7 +1,7 @@
 <template>
   <!-- CONTACT-SECTION -->
-  <div class="container-fluid">
-    <div id="contact" class="contact container-fluid bg-danger py-5">
+  <section class="container-fluid">
+    <div id="contact" class="contact bg-danger py-5">
       <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-6 pt-lg-3">
           <h2 class="footer-title pt-lg-5 pt-2 hero-header">GET IN TOUCH</h2>
@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

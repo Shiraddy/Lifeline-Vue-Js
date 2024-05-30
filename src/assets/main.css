@@ -2,6 +2,8 @@
   box-sizing: border-box;
 }
 
+/* Vue-code Over-ride */
+
 /************BANNER************/
 .banner {
   width: 100%;
@@ -491,8 +493,6 @@
 
 /**************TESTIMONIAL***************/
 
-
-
 /* .caro-icon {
   background-color: #fff;
   border-radius: 50%;
@@ -716,9 +716,6 @@
 }
 
 /* Tutor fields */
-.error-message {
-  display: none;
-}
 
 .tutorContact {
   background-color: #0d6efd;
@@ -1355,6 +1352,10 @@ body {
   margin: 0.4%;
 }
 
+.caro-item-about {
+  height: 280px;
+}
+
 .quote {
   border-top: 10px #9dabf3 solid;
   background-color: #fff;
@@ -1737,7 +1738,7 @@ body {
   }
 
   .caro-item-about {
-    height: 47dvh;
+    height: 300px;
     padding: 5% 2%;
   }
 

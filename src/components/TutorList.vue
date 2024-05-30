@@ -1,7 +1,7 @@
 <template>
   <!------------TUTORS SECTION------------->
-  <section id="tutors" class="shadow-one my-3">
-    <div class="container-sm py-2">
+  <section  class="shadow-one my-3">
+    <div class="container-fluid py-2 my-5">
       <div class="row">
         <h3 class="choose-title mt-4">OUR AMAZING TUTORS</h3>
         <p class="text-dark-emphasis">Meet some of our Lifeline tutors</p>

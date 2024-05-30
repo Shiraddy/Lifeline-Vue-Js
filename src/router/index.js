@@ -12,6 +12,7 @@ import LifelineView from "@/views/LifelineView.vue";
 import GalleryView from "@/views/GalleryView.vue";
 import FormView from "@/views/FormView.vue";
 import BlogView from "@/views/BlogView.vue";
+import PageNotFound from "@/views/PageNotFound.vue";
 import AdminView from "@/views/AdminView.vue";
 import PersonalView from "../views/PersonalView.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -28,7 +29,7 @@ const router = createRouter({
     {
       path: "/about",
       name: "about",
-      component: () => import("../views/AboutView.vue"),
+      component: () => import("@/views/AboutView.vue"),
     },
 
     {
@@ -105,7 +106,7 @@ const router = createRouter({
 
     {
       path: "/admin",
-      component: () => import("../views/AdminView.vue"),
+      component: () => import("@/views/AdminView.vue"),
 
       meta: {
         requiresAuth: true,
@@ -114,10 +115,15 @@ const router = createRouter({
 
     {
       path: "/personal",
-      component: () => import("../views/PersonalView.vue"),
+      component: () => import("@/views/PersonalView.vue"),
       meta: {
         requiresAuth: true,
       },
+    },
+
+    {
+      path: "/__pages",
+      component: () => import("@/views/PageNotFound.vue"),
     },
   ],
 });

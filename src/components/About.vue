@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="row px-lg-3 px-2 my-3" id="aboutUs">
+    <div class="row px-lg-3 px-2 my-3">
       <div class="col-lg-6 col-12 shadow-two d-none d-lg-block">
         <div class="text-body-secondary story">
           <hr />
@@ -20,7 +20,7 @@
           data-bs-ride="true"
         >
           <div class="carousel-inner">
-            <div class="px-lg-3 lh-lg text-start">
+            <div class="px-lg-3 about-desc text-start">
               <div
                 class="carousel-item active caro-item-about"
                 data-bs-interval="10000"
@@ -107,4 +107,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.about-desc {
+  line-height: 2;
+}
+</style>

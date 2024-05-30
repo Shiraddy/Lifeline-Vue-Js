@@ -1,73 +1,66 @@
 <template>
-  <div class="d-flex justify-content-center my-3" id="message">
-    <div class="row banner h-50 my-3 shadow-one">
-      <div class="col-lg-6 d-none d-lg-block"></div>
+  <div class="container-fluid my-5">
+    <div class="row my-3 shadow-one">
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="card fs-beauty"></div>
+      </div>
       <div class="col-lg-6 bg-white shadow-two">
         <h4 class="my-lg-4 my-3">CONTACT US</h4>
         <form @submit.prevent="contactForm" class="">
-          <div class="my-4">
-            <label for="type" class="label">SELECT SUBJECT:</label>
-            <select
-              name="subject"
-              id=""
-              class="shadow-one apply-input"
+          <div class="my-1">
+            <label for="type" class="label">Topic:</label>
+            <input
+              type="text"
+              class="apply-input"
               v-model="contactUs.type"
-            >
-              <option value="">
-                SELECT TYPE<span><i class="fa fa-arrow-down"></i></span>
-              </option>
-              <option value="enquiry">ENQUIRY</option>
-              <option value="counselling">COUNSELLING</option>
-              <option value="consultancy">CONSULTANCY</option>
-              <option value="other">OTHER</option>
-              <option value="help">HELP</option>
-            </select>
+              placeholder="Type your topic"
+            />
           </div>
 
-          <div class="my-4">
-            <label for="name" class="label">NAME</label>
+          <div class="my-1">
+            <label for="name" class="label">Name</label>
             <input
               type="text"
               name="name"
               v-model.trim="contactUs.sender"
               required
               placeholder="Please Enter Your Full Name"
-              class="shadow-one apply-input"
+              class="apply-input"
             />
           </div>
 
-          <div class="my-4">
-            <label for="email" class="label">EMAIL</label>
+          <div class="my-1">
+            <label for="email" class="label">Email</label>
             <input
               type="email"
               name="email"
               v-model.trim="contactUs.email"
               required
               placeholder="Please Enter Your Email"
-              class="shadow-one apply-input"
+              class="apply-input"
             />
           </div>
 
-          <div class="my-4">
-            <label for="contact" class="label">CONTACT</label>
+          <div class="my-1">
+            <label for="contact" class="label">Contact</label>
             <input
               type="tel"
               required
               v-model.trim="contactUs.contact"
               name="contact"
               placeholder="Enter your phone number"
-              class="shadow-one apply-input"
+              class="apply-input"
             />
           </div>
 
           <div class="">
-            <label for="message" class="label">MESSAGE</label>
+            <label for="message" class="label">Message</label>
             <textarea
               class="shadow-one apply-input mb-0"
               name="message"
               v-model.trim="contactUs.message"
               required
-              placeholder="Enter Message"
+              placeholder="Space for your message"
             ></textarea>
             <div class="d-lg-flex justify-content-between mt-0">
               <small class="">
@@ -81,7 +74,7 @@
           </div>
           <!-- <input type="text" name="news" placeholder="News" /> -->
 
-          <div class="py-3">
+          <div class="py-2">
             <button class="btn btn-success shadow-two" type="submit">
               SEND MESSAGE
               <span id="loading-spinner" v-if="wheel">
@@ -193,4 +186,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+/* .banner {
+  height: 10rem;
+} */
+</style>
