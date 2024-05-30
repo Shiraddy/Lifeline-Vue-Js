@@ -132,12 +132,8 @@
           </template>
         </Toolbar>
         <Toolbar class="mb-4">
-          <template #start>
-           
-          </template>
-          <template #end>
-           
-          </template>
+          <template #start> </template>
+          <template #end> </template>
         </Toolbar>
         <section id="adminDash" class="admin-body mb-3">
           <!-- <template class="card mx-4">
@@ -3569,6 +3565,11 @@ a:hover {
   font-size: 1.2rem;
   margin: 10px;
   color: rgb(20, 20, 95);
+}
+
+.p-toolbar {
+  /* backdrop-filter: blur(3px); */
+  background-color: transparent;
 }
 
 .message {

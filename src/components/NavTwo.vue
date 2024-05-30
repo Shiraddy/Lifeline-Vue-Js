@@ -109,6 +109,7 @@ export default {
 .p-toolbar {
   background-color: #ece2e1; /* Replace with your desired color */
   backdrop-filter: blur(3px);
+   /* background-color: transparent; */
 }
 
 /* :deep(.toolbar) {
